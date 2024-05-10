@@ -1,6 +1,5 @@
 package com.rentcar.back;
 
-// 장현아
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
