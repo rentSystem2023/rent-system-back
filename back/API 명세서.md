@@ -67,8 +67,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-
-<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>Auth 모듈</h2>
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>회원</h2>
 
 ***
 
@@ -653,7 +652,1544 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>게시물 모듈</h2>
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> 마이페이지 </h2>
+
+***
+
+#### - 내 정보 보기
+
+##### 설명
+
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 로그인한 정보에 대한 내용을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/information**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/rentCar/user/information" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| name | String | 사용자의 이름 | O |
+| userId | String | 사용자의 아이디 | O |
+| userPassword | String | 사용자의 비밀번호 | O |
+| telnumber | String | 사용자의 전화번호 | O |
+| email | String | 사용자의 이메일 | O |
+| joinDate | Date | 사용자의 가입날짜 | O |
+| accessToken | String | 사용자의 아이디 | O |
+| expires | int | 사용자의 비밀번호 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "accessToken": "${ACCESS_TOKEN}",
+  "expires": 3600
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (로그인 정보 불일치)**
+```bash
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SF",
+  "message": "Sign in Failed."
+}
+```
+
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+
+#### - 내 정보 수정
+
+##### 설명
+
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 이름, 아이디, 비밀번호, 전화번호, 이메일을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **PUT**  
+- URL : **/user/information/{userId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userId | String | 수정할 userId | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userPassword | String | 사용자의 비밀번호 | O |
+| telnumber | String | 사용자의 전화번호 | O |
+| email | String | 사용자의 이메일 | O |
+| accessToken | String | 사용자의 아이디 | O |
+| expires | int | 사용자의 비밀번호 | O |
+
+###### Example
+
+```bash
+curl -v -X PUT "http://localhost:4000/api/rentCar/user/information/{userId}" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "userPassword={userPassword}" \
+ -d "telnumber={telnumber}
+ -d "email={email}
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userPassword | String | 사용자의 비밀번호 | O |
+| telnumber | String | 사용자의 전화번호 | O |
+| email | String | 사용자의 이메일 | O |
+| accessToken | String | 사용자의 아이디 | O |
+| expires | int | 사용자의 비밀번호 | O |
+
+###### Example
+
+
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "accessToken": "${ACCESS_TOKEN}",
+  "expires": 3600
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (로그인 정보 불일치)**
+```bash
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SF",
+  "message": "Sign in Failed."
+}
+```
+
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+
+#### - 탈퇴하기
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 입력받고 요청을 보내면 해당하는 사용자 정보가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **DELETE**  
+- URL : **/user/information/{userId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|ㄴ
+| userId | String | 사용자의 아이디 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/rentCar/user/information/${userId}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "receptionNumber": 1,
+      "status": false,
+      "title": "테스트1",
+      "writerId": "j******",
+      "writeDatetime": "24.05.02",
+      "viewCount": 0
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 예약 내역 보기
+
+##### 설명
+
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/reservation**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/rentCar/user/reservation" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carImage | String | 차량 사진 | O |
+| name | String | 사용자의 이름 | O |
+| userPassword | String | 사용자의 비밀번호 | O |
+| accessToken | String | 사용자의 아이디 | O |
+| expires | int | 사용자의 비밀번호 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "accessToken": "${ACCESS_TOKEN}",
+  "expires": 3600
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (로그인 정보 불일치)**
+```bash
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SF",
+  "message": "Sign in Failed."
+}
+```
+
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 예약 상세 내역 보기
+
+##### 설명
+
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/reservation/{companyCode}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/rentCar/user/reservation/{companyCode}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carImage | String | 차량 사진 | O |
+| carOil | Double | 연비 | O |
+| insuranceType | String | 보험 종류 | O |
+| grade | String | 차량 등급 | O |
+| carNumber | String | 차량 번호 | O |
+| reservation_period | String | 예약 기간 | O |
+| rentCompanyName | String | 렌트 업체 이름 | O |
+| companyTelnumber | String | 렌트 업체 전화번호 | O |
+| address | String | 렌트 업체 주소 | O |
+| name | String | 사용자(예약자)의 이름 | O |
+| accessToken | String | 사용자의 아이디 | O |
+| expires | int | 사용자의 비밀번호 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "accessToken": "${ACCESS_TOKEN}",
+  "expires": 3600
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (로그인 정보 불일치)**
+```bash
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SF",
+  "message": "Sign in Failed."
+}
+```
+
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 예약 취소하기
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 예약번호 입력받고 수정에 성공하면 성공처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/user/reservation/{companyCode}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| companyCode | String | 수정할 예약 번호 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reservationState | String | 예약 상태 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/user/user/reservation/{companyCode}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+***
+
+#### - 해당 사용자의 Q&A 전체 게시물 리스트 불러오기 
+
+##### 설명
+
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 아이디를 입력받고 요청을 보내면 작성일 기준 내림차순으로 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**
+- URL : **/user/list/{writerId}**
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| writerId | String | 작성자의 아이디 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/rentCar/user/list/${writerId}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
+
+**BoardListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| receptionNumber | int | 접수 번호 | O |
+| status | boolean | 상태 | O |
+| title | String | 제목 | O |
+| writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
+| writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
+| viewCount | int | 조회수 | O |
+| imageUrl | String | 이미지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "receptionNumber": 1,
+      "status": false,
+      "title": "테스트1",
+      "writerId": "j******",
+      "writeDatetime": "24.05.02",
+      "viewCount": 0,
+      "imageUrl": "umage.jpg"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 해당 사용자의 Q&A 검색 게시물 리스트 불러오기  
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/list/{writerId}/search**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| writerId | String | 작성자의 아이디 | O |
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| word | String | 검색어 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentcar/user/list/{writerId}/search?word=${searchWord}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
+
+**BoardListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| receptionNumber | int | 접수 번호 | O |
+| status | boolean | 상태 | O |
+| title | String | 제목 | O |
+| writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
+| writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
+| viewCount | int | 조회수 | O |
+| imageUrl | String | 이미지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "receptionNumber": 1,
+      "status": false,
+      "title": "테스트1",
+      "writerId": "j******",
+      "writeDatetime": "24.05.02",
+      "viewCount": 0,
+      "imageUrl": "image.jpg"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>예약</h2>
+
+***
+
+
+#### - 차량 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 검색 카테고리(위치(주소), 예약기간)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| address | String | 위치(주소) | O |
+| reservationPeriod | String | 예약기간 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| CarList | CarListItem[] | 차량 검색 결과 | O |
+
+**CarListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 차량 모델명 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 검색어(차량명)를 입력받고 요청을 보내면 검색어에 해당하는 차량의 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carNameWord | String | 차량명 검색어 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| CarList | CarListItem[] | 차량 검색 결과 | O |
+
+**CarListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 가격순, 추천순 정렬 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 정렬 요청을 보내면 해당하는 정렬 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch?word=${carNameWord}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 필터 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 필터 요청을 보내면 해당하는 필터 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+
+#### - 보험별 가격 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 (가격이 낮은순?) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch/priceSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| insurance_type | String | 차량 보험 | O |
+
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| priceList | priceListItem[] | 업체별 가격 검색 결과 | O |
+
+**PriceListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carImageUrl | String | 차량이미지 | O |
+| carName | String | 차량명 | O |
+| fuelType | String | 연료 | O |
+| insurance_type | String | 보험이름 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+| carRentCompany | String | 업체명 | O |
+| reservationCount | int | 예약수 | O |
+| carYear | String | 연식 | O |
+
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carImageUrl": "carimage",
+      "carName": "아반떼",
+      "fuelType": "가솔린",
+      "insurance_type": "일반자차"
+      "carRentCompany": "장수하자 현대렌터카 제주공항 1호점",
+      "reservationCount": 0,
+      "carYear": "2024",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 보험별 가격 상세 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch/priceSerch/detailSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carRentCompany | String | 업체명 | O |
+| reservationCount | int | 예약수 | O |
+| carYear | String | 연식 | O |
+| insuranceType | String | 차량 보험 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch/detailSerch 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| priceDetailList | priceDetailListItem[] | 가격 상세 검색 결과 | O |
+
+**PriceListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carImageUrl | String | 차량이미지 | O |
+| carName | String | 차량명 | O |
+| carYear | String | 연식 | O |
+| reservationPeriod | String | 대여날짜 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+| brand | String | 차량 브랜드명 | O |
+| grade | String | 차량 등급 | O |
+| carOil | String | 연비 | O |
+| fuelType | String | 연료 | O |
+| insuranceType | String | 보험 | O |
+| capacity | String | 차량 수용인원수 | O |
+| rentCompany | String | 업체 이름 | O |
+| address | String | 업체 주소 | O |
+| companyTelnumber | String | 업체 전화번호 | O |
+| companyRule | String | 업체 영업방침 | O |
+
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carImageUrl": "carimage",
+      "carName": "아반떼",
+      "carYear": "2024",
+      "reservationPeriod": "2024-07-05 ~ 2024-07-06",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100,
+      "brand": "현대",
+      "carOil": 15.3,
+      "fuelType": "가솔린",
+      "insuranceType": "일반 자차 보험",
+      "capacity": 5,
+      "rentCompany": "장수하자 현대렌터카 제주공항 1호점",
+      "address": "제주특별자치도 제주시 용문로 8",
+      "company_telnumber": "064-727-5680",
+      "companyRule": ""
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>게시물</h2>
 
 ***
 
@@ -3249,865 +4785,6 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### 마이페이지
-
-***
-
-#### - 내 정보 보기
-
-##### 설명
-
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 로그인한 정보에 대한 내용을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/information**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/information" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| name | String | 사용자의 이름 | O |
-| userId | String | 사용자의 아이디 | O |
-| userPassword | String | 사용자의 비밀번호 | O |
-| telnumber | String | 사용자의 전화번호 | O |
-| email | String | 사용자의 이메일 | O |
-| joinDate | Date | 사용자의 가입날짜 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
-**응답 : 실패 (토큰 생성 실패)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "TF",
-  "message": "Token creation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-
-#### - 내 정보 수정
-
-##### 설명
-
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 이름, 아이디, 비밀번호, 전화번호, 이메일을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
-
-- method : **PUT**  
-- URL : **/user/information/{userId}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| userId | String | 수정할 userId | O |
-
-###### Request Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| userPassword | String | 사용자의 비밀번호 | O |
-| telnumber | String | 사용자의 전화번호 | O |
-| email | String | 사용자의 이메일 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
-
-###### Example
-
-```bash
-curl -v -X PUT "http://localhost:4000/api/rentCar/user/information/{userId}" \
- -H "Authorization: Bearer {JWT}" \
- -d "userPassword={userPassword}" \
- -d "telnumber={telnumber}
- -d "email={email}
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| userPassword | String | 사용자의 비밀번호 | O |
-| telnumber | String | 사용자의 전화번호 | O |
-| email | String | 사용자의 이메일 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
-
-###### Example
-
-
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Varidation Failed."
-}
-```
-
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
-**응답 : 실패 (토큰 생성 실패)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "TF",
-  "message": "Token creation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-
-#### - 탈퇴하기
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 입력받고 요청을 보내면 해당하는 사용자 정보가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **DELETE**  
-- URL : **/user/information/{userId}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|ㄴ
-| userId | String | 사용자의 아이디 | O |
-
-###### Example
-
-```bash
-curl -v -X POST "http://localhost:4000/api/rentCar/user/information/${userId}" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "receptionNumber": 1,
-      "status": false,
-      "title": "테스트1",
-      "writerId": "j******",
-      "writeDatetime": "24.05.02",
-      "viewCount": 0
-    }, ...
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 예약 내역 보기
-
-##### 설명
-
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/reservation**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/reservation" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carImage | String | 차량 사진 | O |
-| name | String | 사용자의 이름 | O |
-| userPassword | String | 사용자의 비밀번호 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Varidation Failed."
-}
-```
-
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
-**응답 : 실패 (토큰 생성 실패)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "TF",
-  "message": "Token creation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 예약 상세 내역 보기
-
-##### 설명
-
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/reservation/{companyCode}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/reservation/{companyCode}" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carImage | String | 차량 사진 | O |
-| carOil | Double | 연비 | O |
-| insuranceType | String | 보험 종류 | O |
-| grade | String | 차량 등급 | O |
-| carNumber | String | 차량 번호 | O |
-| reservation_period | String | 예약 기간 | O |
-| rentCompanyName | String | 렌트 업체 이름 | O |
-| companyTelnumber | String | 렌트 업체 전화번호 | O |
-| address | String | 렌트 업체 주소 | O |
-| name | String | 사용자(예약자)의 이름 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Varidation Failed."
-}
-```
-
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
-**응답 : 실패 (토큰 생성 실패)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "TF",
-  "message": "Token creation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 예약 취소하기
-
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 예약번호 입력받고 수정에 성공하면 성공처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
-
-- method : **POST**  
-- URL : **/user/reservation/{companyCode}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| companyCode | String | 수정할 예약 번호 | O |
-
-###### Request Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| reservationState | String | 예약 상태 | O |
-
-###### Example
-
-```bash
-curl -v -X POST "http://localhost:4000/user/user/reservation/{companyCode}" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 게시물)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NB",
-  "message": "No Exist Board."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-***
-
-#### - 해당 사용자의 Q&A 전체 게시물 리스트 불러오기 
-
-##### 설명
-
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 아이디를 입력받고 요청을 보내면 작성일 기준 내림차순으로 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**
-- URL : **/user/list/{writerId}**
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| writerId | String | 작성자의 아이디 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/list/${writerId}" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
-
-**BoardListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
-| status | boolean | 상태 | O |
-| title | String | 제목 | O |
-| writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
-| writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
-| viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "receptionNumber": 1,
-      "status": false,
-      "title": "테스트1",
-      "writerId": "j******",
-      "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "umage.jpg"
-    }, ...
-  ]
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 해당 사용자의 Q&A 검색 게시물 리스트 불러오기  
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/list/{writerId}/search**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| writerId | String | 작성자의 아이디 | O |
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| word | String | 검색어 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user/list/{writerId}/search?word=${searchWord}" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
-
-**BoardListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
-| status | boolean | 상태 | O |
-| title | String | 제목 | O |
-| writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
-| writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
-| viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "receptionNumber": 1,
-      "status": false,
-      "title": "테스트1",
-      "writerId": "j******",
-      "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "image.jpg"
-    }, ...
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
 ####
 
 #####  회원 목록 리스트 불러오기
@@ -4512,7 +5189,7 @@ Content-Type: application/json;charset=UTF-8
 ####
 
 
-#####  예약 목록 리스트 삭제하기
+####  예약 목록 리스트 삭제하기
 
 ##### 설명
 
@@ -4711,682 +5388,3 @@ Content-Type: application/json;charset=UTF-8
   "message": "Database Error."
 }
 ```
-
-***
-
-
-#### - 차량 검색 결과 불러오기
-  
-##### 설명
-
-클라이언트로부터 검색 카테고리(위치(주소), 예약기간)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/carSerch**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| address | String | 위치(주소) | O |
-| reservationPeriod | String | 예약기간 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| CarList | CarListItem[] | 차량 검색 결과 | O |
-
-**CarListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "carName": "아반떼",
-      "carImageUrl": "avante_image",
-      "normalPrice": 25100,
-      "luxuryPrice": 45100,
-      "superPrice": 75100
-    }
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 차량)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NC",
-  "message": "No Exist Car."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 차량 모델명 검색 결과 불러오기
-  
-##### 설명
-
-클라이언트로부터 검색어(차량명)를 입력받고 요청을 보내면 검색어에 해당하는 차량의 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/carSerch**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carNameWord | String | 차량명 검색어 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| CarList | CarListItem[] | 차량 검색 결과 | O |
-
-**CarListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "carName": "아반떼",
-      "carImageUrl": "avante_image",
-      "normalPrice": 25100,
-      "luxuryPrice": 45100,
-      "superPrice": 75100
-    }
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 차량)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NC",
-  "message": "No Exist Car."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 가격순, 추천순 정렬 결과 불러오기
-  
-##### 설명
-
-클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 정렬 요청을 보내면 해당하는 정렬 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/carSerch**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch?word=${carNameWord}" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "carName": "아반떼",
-      "carImageUrl": "avante_image",
-      "normalPrice": 25100,
-      "luxuryPrice": 45100,
-      "superPrice": 75100
-    }
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 차량)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NC",
-  "message": "No Exist Car."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 필터 검색 결과 불러오기
-  
-##### 설명
-
-클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 필터 요청을 보내면 해당하는 필터 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/carSerch**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "carName": "아반떼",
-      "carImageUrl": "avante_image",
-      "normalPrice": 25100,
-      "luxuryPrice": 45100,
-      "superPrice": 75100
-    }
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 차량)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NC",
-  "message": "No Exist Car."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-
-#### - 보험별 가격 검색 결과 불러오기
-  
-##### 설명
-
-클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 (가격이 낮은순?) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/carSerch/priceSerch**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| insurance_type | String | 차량 보험 | O |
-
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch" 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| priceList | priceListItem[] | 업체별 가격 검색 결과 | O |
-
-**PriceListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carImageUrl | String | 차량이미지 | O |
-| carName | String | 차량명 | O |
-| fuelType | String | 연료 | O |
-| insurance_type | String | 보험이름 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-| carRentCompany | String | 업체명 | O |
-| reservationCount | int | 예약수 | O |
-| carYear | String | 연식 | O |
-
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "carImageUrl": "carimage",
-      "carName": "아반떼",
-      "fuelType": "가솔린",
-      "insurance_type": "일반자차"
-      "carRentCompany": "장수하자 현대렌터카 제주공항 1호점",
-      "reservationCount": 0,
-      "carYear": "2024",
-      "normalPrice": 25100,
-      "luxuryPrice": 45100,
-      "superPrice": 75100
-    }
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 차량)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NC",
-  "message": "No Exist Car."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-#### - 보험별 가격 상세 검색 결과 불러오기
-  
-##### 설명
-
-클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **GET**  
-- URL : **/user/carSerch/priceSerch/detailSerch**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
-###### Query Param
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carName | String | 차량명 | O |
-| carRentCompany | String | 업체명 | O |
-| reservationCount | int | 예약수 | O |
-| carYear | String | 연식 | O |
-| insuranceType | String | 차량 보험 | O |
-
-###### Example
-
-```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch/detailSerch 
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| priceDetailList | priceDetailListItem[] | 가격 상세 검색 결과 | O |
-
-**PriceListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| carImageUrl | String | 차량이미지 | O |
-| carName | String | 차량명 | O |
-| carYear | String | 연식 | O |
-| reservationPeriod | String | 대여날짜 | O |
-| normalPrice | int | 일반 자차 보험 가격 | O |
-| luxuryPrice | int | 고급 자차 보험 가격 | O |
-| superPrice | int | 슈퍼 자차 보험 가격 | O |
-| brand | String | 차량 브랜드명 | O |
-| grade | String | 차량 등급 | O |
-| carOil | String | 연비 | O |
-| fuelType | String | 연료 | O |
-| insuranceType | String | 보험 | O |
-| capacity | String | 차량 수용인원수 | O |
-| rentCompany | String | 업체 이름 | O |
-| address | String | 업체 주소 | O |
-| companyTelnumber | String | 업체 전화번호 | O |
-| companyRule | String | 업체 영업방침 | O |
-
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "boardList": [
-    {
-      "carImageUrl": "carimage",
-      "carName": "아반떼",
-      "carYear": "2024",
-      "reservationPeriod": "2024-07-05 ~ 2024-07-06",
-      "normalPrice": 25100,
-      "luxuryPrice": 45100,
-      "superPrice": 75100,
-      "brand": "현대",
-      "carOil": 15.3,
-      "fuelType": "가솔린",
-      "insuranceType": "일반 자차 보험",
-      "capacity": 5,
-      "rentCompany": "장수하자 현대렌터카 제주공항 1호점",
-      "address": "제주특별자치도 제주시 용문로 8",
-      "company_telnumber": "064-727-5680",
-      "companyRule": ""
-    }
-  ]
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 차량)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NC",
-  "message": "No Exist Car."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
