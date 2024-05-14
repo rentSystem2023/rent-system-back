@@ -4837,7 +4837,7 @@ curl -v -X GET "http://localhost:4000/api/rentCar/admin/user/list" \
 | userCode | int | 유저 고유 번호 | O |
 | userId | String | 유저 아이디  | O |
 | userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
-| userTelnumnber | String | 유저 전화번호 (010  *) | O |
+| userTelnumnber | String | 유저 전화번호 (010-****-0000) | O |
 | userEmail | String | 사용자 이메일| O |
 | joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
 
@@ -4856,7 +4856,7 @@ Content-Type: application/json;charset=UTF-8
       "userCode": 1234,
       "userId" : asdqwdq,
       "userName": "테스트1",
-      "userTelnumnber": "010-7709-0000",
+      "userTelnumnber": "010-****-0000",
       "userEmail": "email@email.com",
       "joinDate": "24.05.02"
     }, ...
@@ -5158,7 +5158,7 @@ Content-Type: application/json;charset=UTF-8
       "carCode": "테스트1",
       "reservationDate": "24.05.02",
       "reservationState": "예약 완료",
-      "reservation_period": "24.05.02 ~ 24.05.02"
+      "reservation_period": "24.05.02 ,24.05.02"
     }, ...
   ]
 }
@@ -5261,7 +5261,7 @@ Content-Type: application/json;charset=UTF-8
       "carCode": "테스트1",
       "reservationDate": "24.05.02",
       "reservationState": "예약 완료",
-      "reservation_period": "24.05.02 ~ 24.05.02"
+      "reservation_period": "24.05.02, 24.05.02"
     }, ...
   ]
 }
@@ -5388,3 +5388,4 @@ Content-Type: application/json;charset=UTF-8
   "message": "Database Error."
 }
 ```
+
