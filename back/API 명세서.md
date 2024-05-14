@@ -4714,4 +4714,679 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-####
+
+#### - 차량 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 검색 카테고리(위치(주소), 예약기간)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| address | String | 위치(주소) | O |
+| reservationPeriod | String | 예약기간 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| CarList | CarListItem[] | 차량 검색 결과 | O |
+
+**CarListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 차량 모델명 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 검색어(차량명)를 입력받고 요청을 보내면 검색어에 해당하는 차량의 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carNameWord | String | 차량명 검색어 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| CarList | CarListItem[] | 차량 검색 결과 | O |
+
+**CarListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 가격순, 추천순 정렬 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 정렬 요청을 보내면 해당하는 정렬 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch?word=${carNameWord}" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 필터 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 필터 요청을 보내면 해당하는 필터 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carName": "아반떼",
+      "carImageUrl": "avante_image",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+
+#### - 보험별 가격 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 (가격이 낮은순?) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch/priceSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carImageUrl | String | 차량이미지 | O |
+| insurance_type | String | 차량 보험 | O |
+
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| priceList | priceListItem[] | 업체별 가격 검색 결과 | O |
+
+**PriceListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carImageUrl | String | 차량이미지 | O |
+| carName | String | 차량명 | O |
+| fuelType | String | 연료 | O |
+| insurance_type | String | 보험이름 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+| carRentCompany | String | 업체명 | O |
+| reservationCount | int | 예약수 | O |
+| carYear | String | 연식 | O |
+
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carImageUrl": "carimage",
+      "carName": "아반떼",
+      "fuelType": "가솔린",
+      "insurance_type": "일반자차"
+      "carRentCompany": "장수하자 현대렌터카 제주공항 1호점",
+      "reservationCount": 0,
+      "carYear": "2024",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 보험별 가격 상세 검색 결과 불러오기
+  
+##### 설명
+
+클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/user/carSerch/priceSerch/detailSerch**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carName | String | 차량명 | O |
+| carRentCompany | String | 업체명 | O |
+| reservationCount | int | 예약수 | O |
+| carYear | String | 연식 | O |
+| insuranceType | String | 차량 보험 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch/detailSerch 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| priceDetailList | priceDetailListItem[] | 가격 상세 검색 결과 | O |
+
+**PriceListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| carImageUrl | String | 차량이미지 | O |
+| carName | String | 차량명 | O |
+| carYear | String | 연식 | O |
+| reservationPeriod | String | 대여날짜 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
+| brand | String | 차량 브랜드명 | O |
+| grade | String | 차량 등급 | O |
+| carOil | String | 연비 | O |
+| fuelType | String | 연료 | O |
+| insuranceType | String | 보험 | O |
+| capacity | String | 차량 수용인원수 | O |
+| rentCompany | String | 업체 이름 | O |
+| address | String | 업체 주소 | O |
+| companyTelnumber | String | 업체 전화번호 | O |
+| companyRule | String | 업체 영업방침 | O |
+
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "boardList": [
+    {
+      "carImageUrl": "carimage",
+      "carName": "아반떼",
+      "carYear": "2024",
+      "reservationPeriod": "2024-07-05 ~ 2024-07-06",
+      "normalPrice": 25100,
+      "luxuryPrice": 45100,
+      "superPrice": 75100,
+      "brand": "현대",
+      "carOil": 15.3,
+      "fuelType": "가솔린",
+      "insuranceType": "일반 자차 보험",
+      "capacity": 5,
+      "rentCompany": "장수하자 현대렌터카 제주공항 1호점",
+      "address": "제주특별자치도 제주시 용문로 8",
+      "company_telnumber": "064-727-5680",
+      "companyRule": ""
+    }
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Car."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
