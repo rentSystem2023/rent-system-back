@@ -6,7 +6,7 @@
 ***
 
 #### - 인기 차량 리스트 불러오기  
-  
+   
 ##### 설명
 
 클라이언트로부터 요청을 보내면 차량의 사진, 이름을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
@@ -36,6 +36,9 @@ curl -v -X GET "http://localhost:4000/api/rentcar"
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
+| popularCarList | popularCarList[] | 인기차량 리스트 |O |
+
+**popularCarList**
 | car_image_url | String | 차량 이미지 | O |
 | car_name | String | 차량 이름 | O |
 
@@ -48,7 +51,7 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
+  "popularCarList": [
     {
       "car_image_url": "image.jpg",
       "car_name": "아반떼"
@@ -677,7 +680,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/information" \
+curl -v -X GET "http://localhost:4000/api/rentCar/user/information" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -693,14 +696,12 @@ curl -v -X GET "http://localhost:4000/rentCar/user/information" \
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| name | String | 사용자의 이름 | O |
+| userName | String | 사용자의 이름 | O |
 | userId | String | 사용자의 아이디 | O |
 | userPassword | String | 사용자의 비밀번호 | O |
 | telnumber | String | 사용자의 전화번호 | O |
-| email | String | 사용자의 이메일 | O |
+| userEmail | String | 사용자의 이메일 | O |
 | joinDate | Date | 사용자의 가입날짜 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
 
 ###### Example
 
@@ -711,8 +712,12 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
+  "userName": "장현아",
+  "userId": "admin",
+  "userPassword": "qewr1234",
+  "telnumber": "010-1234-5678",
+  "userEmail": "email@email.com",
+  "joinDate": "2024.05.14"
 }
 ```
 
@@ -766,8 +771,8 @@ Content-Type: application/json;charset=UTF-8
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 이름, 아이디, 비밀번호, 전화번호, 이메일을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PUT**  
-- URL : **/user/information/{userId}**  
+- method : **PATCH**  
+- URL : **/user/information/{userId}**
 
 ##### Request
 
@@ -787,20 +792,22 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
+| userId | String | 사용자의 아이디 | O |
 | userPassword | String | 사용자의 비밀번호 | O |
+| userName | String | 사용자의 이름 | O |
 | telnumber | String | 사용자의 전화번호 | O |
-| email | String | 사용자의 이메일 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
+| userEmail | String | 사용자의 이메일 | O |
 
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:4000/api/rentCar/user/information/{userId}" \
+curl -v -X PATCH "http://localhost:4000/api/rentCar/user/information/{userId}" \
  -H "Authorization: Bearer {JWT}" \
+ -d "userId={userId}" \
  -d "userPassword={userPassword}" \
- -d "telnumber={telnumber}
- -d "email={email}
+ -d "userName={userName}" \
+ -d "telnumber={telnumber}" \
+ -d "userEmail={userEmail}" \ 
 ```
 
 ##### Response
@@ -832,8 +839,11 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
+  "userName": "장현아",
+  "userId": "admin",
+  "userPassword": "qewr1234",
+  "telnumber": "010-1234-5678",
+  "userEmail": "email@email.com"
 }
 ```
 
@@ -900,7 +910,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Query Param
 
 | name | type | description | required |
-|---|:---:|:---:|:---:|ㄴ
+|---|:---:|:---:|:---:|
 | userId | String | 사용자의 아이디 | O |
 
 ###### Example
@@ -934,16 +944,6 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
-    {
-      "receptionNumber": 1,
-      "status": false,
-      "title": "테스트1",
-      "writerId": "j******",
-      "writeDatetime": "24.05.02",
-      "viewCount": 0
-    }, ...
-  ]
 }
 ```
 
@@ -1016,11 +1016,12 @@ curl -v -X GET "http://localhost:4000/rentCar/user/reservation" \
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| carImage | String | 차량 사진 | O |
-| name | String | 사용자의 이름 | O |
-| userPassword | String | 사용자의 비밀번호 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
+| carImageUrl | String | 차량 사진 | O |
+| userName | String | 예약자명 | O |
+| reservationDate | String | 예약날짜 | O |
+| reservationCode | String | 예약번호 | O |
+| rentCompany | String | 영업점 | O |
+ 
 
 ###### Example
 
@@ -1031,8 +1032,11 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
+  "carImageUrl": "image.jpg",
+  "userName": "userName",
+  "reservationDate": 2024.05.14,
+  "reservationCode": "ASDFFG23445",
+  "rentCompany": "민머리 철수 렌트카"
 }
 ```
 
@@ -1099,7 +1103,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/reservation/{companyCode}" \
+curl -v -X GET "http://localhost:4000/api/rentCar/user/reservation/{companyCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1115,18 +1119,16 @@ curl -v -X GET "http://localhost:4000/rentCar/user/reservation/{companyCode}" \
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| carImage | String | 차량 사진 | O |
+| carImageUrl | String | 차량 사진 | O |
 | carOil | Double | 연비 | O |
 | insuranceType | String | 보험 종류 | O |
 | grade | String | 차량 등급 | O |
 | carNumber | String | 차량 번호 | O |
-| reservation_period | String | 예약 기간 | O |
-| rentCompanyName | String | 렌트 업체 이름 | O |
+| reservationPeriod | String | 예약 기간 | O |
+| rentCompany | String | 렌트 업체 이름 | O |
 | companyTelnumber | String | 렌트 업체 전화번호 | O |
 | address | String | 렌트 업체 주소 | O |
-| name | String | 사용자(예약자)의 이름 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
+| userName | String | 사용자(예약자)의 이름 | O |
 
 ###### Example
 
@@ -1137,8 +1139,16 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
+  "carImageUrl": "image.jpg",
+  "carOil": "가솔린",
+  "insuranceType": "일반자차",
+  "grade": "소형",
+  "carNumber": "123하1234",
+  "reservationPeriod": "2024.05.14, 2024.05.15",
+  "rentCompany": "민머리 철수 렌트카",
+  "companyTelnumber": "064-727-5680",
+  "address": "제주특별자치도 제주시 용문로 8",
+  "userName": "장현아",
 }
 ```
 
@@ -1216,7 +1226,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/user/user/reservation/{companyCode}" \
+curl -v -X POST "http://localhost:4000/api/rentcar/user/reservation/{companyCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1289,8 +1299,6 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-***
-
 #### - 해당 사용자의 Q&A 전체 게시물 리스트 불러오기 
 
 ##### 설명
@@ -1318,7 +1326,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/rentCar/user/list/${writerId}" \
+curl -v -X GET "http://localhost:4000/api/rentCar/user/list/${writerId}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1336,9 +1344,9 @@ curl -v -X GET "http://localhost:4000/rentCar/user/list/${writerId}" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
+| boardList | boardListItem[] | Q&A 게시물 리스트 | O |
 
-**BoardListItem**
+**boardListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | receptionNumber | int | 접수 번호 | O |
@@ -1366,7 +1374,7 @@ Content-Type: application/json;charset=UTF-8
       "writerId": "j******",
       "writeDatetime": "24.05.02",
       "viewCount": 0,
-      "imageUrl": "umage.jpg"
+      "imageUrl": "image.jpg"
     }, ...
   ]
 }
@@ -1519,10 +1527,10 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 검색 카테고리(위치(주소), 예약기간)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 검색 카테고리(위치(주소), 예약기간)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/carSerch**  
+- URL : **/carsearch**  
 
 ##### Request
 
@@ -1541,7 +1549,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+curl -v -X GET "http://localhost:4000/api/rentcar/carsearch" 
 ```
 
 ##### Response
@@ -1581,7 +1589,7 @@ Content-Type: application/json;charset=UTF-8
   "boardList": [
     {
       "carName": "아반떼",
-      "carImageUrl": "avante_image",
+      "carImageUrl": "avante_image.jpg",
       "normalPrice": 25100,
       "luxuryPrice": 45100,
       "superPrice": 75100
@@ -1626,10 +1634,10 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 검색어(차량명)를 입력받고 요청을 보내면 검색어에 해당하는 차량의 보험별 가격 검색 결과를(데이터베이스 순서대로 ??) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 검색어(차량명)를 입력받고 요청을 보내면 검색어에 해당하는 차량의 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/carSerch**  
+- URL : **/carsearch**  
 
 ##### Request
 
@@ -1647,7 +1655,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+curl -v -X GET "http://localhost:4000/api/rentcar/carsearch" 
 ```
 
 ##### Response
@@ -1687,7 +1695,7 @@ Content-Type: application/json;charset=UTF-8
   "boardList": [
     {
       "carName": "아반떼",
-      "carImageUrl": "avante_image",
+      "carImageUrl": "avante_image.jpg",
       "normalPrice": 25100,
       "luxuryPrice": 45100,
       "superPrice": 75100
@@ -1735,7 +1743,7 @@ Content-Type: application/json;charset=UTF-8
 클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 정렬 요청을 보내면 해당하는 정렬 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/carSerch**  
+- URL : **/carsearch**  
 
 ##### Request
 
@@ -1757,7 +1765,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch?word=${carNameWord}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/carsearch?word=${carNameWord}" 
 ```
 
 ##### Response
@@ -1791,7 +1799,7 @@ Content-Type: application/json;charset=UTF-8
   "boardList": [
     {
       "carName": "아반떼",
-      "carImageUrl": "avante_image",
+      "carImageUrl": "avante_image.jpg",
       "normalPrice": 25100,
       "luxuryPrice": 45100,
       "superPrice": 75100
@@ -1839,7 +1847,7 @@ Content-Type: application/json;charset=UTF-8
 클라이언트로부터 차량명, 이미지, 보험별 가격을 입력받고 필터 요청을 보내면 해당하는 필터 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/carSerch**  
+- URL : **/carsearch**  
 
 ##### Request
 
@@ -1861,7 +1869,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch" 
+curl -v -X GET "http://localhost:4000/api/rentcar/carsearch" 
 ```
 
 ##### Response
@@ -1895,7 +1903,7 @@ Content-Type: application/json;charset=UTF-8
   "boardList": [
     {
       "carName": "아반떼",
-      "carImageUrl": "avante_image",
+      "carImageUrl": "avante_image.jpg",
       "normalPrice": 25100,
       "luxuryPrice": 45100,
       "superPrice": 75100
@@ -1936,15 +1944,14 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-
 #### - 보험별 가격 검색 결과 불러오기
-  
+
 ##### 설명
 
-클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 (가격이 낮은순?) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 업체명을 내림차순으로 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/carSerch/priceSerch**  
+- URL : **/carsearch/pricesearch**  
 
 ##### Request
 
@@ -1965,7 +1972,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch" 
+curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}" 
 ```
 
 ##### Response
@@ -1990,7 +1997,7 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch"
 | carImageUrl | String | 차량이미지 | O |
 | carName | String | 차량명 | O |
 | fuelType | String | 연료 | O |
-| insurance_type | String | 보험이름 | O |
+| insuranceType | String | 보험이름 | O |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -2010,10 +2017,10 @@ Content-Type: application/json;charset=UTF-8
   "message": "Success.",
   "boardList": [
     {
-      "carImageUrl": "carimage",
+      "carImageUrl": "carimage.jpg",
       "carName": "아반떼",
       "fuelType": "가솔린",
-      "insurance_type": "일반자차"
+      "insuranceType": "일반자차"
       "carRentCompany": "장수하자 현대렌터카 제주공항 1호점",
       "reservationCount": 0,
       "carYear": "2024",
@@ -2064,7 +2071,7 @@ Content-Type: application/json;charset=UTF-8
 클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/carSerch/priceSerch/detailSerch**  
+- URL : **/carsearch/pricesearch/detailSerch**  
 
 ##### Request
 
@@ -2086,7 +2093,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/carSerch/priceSerch/detailSerch 
+curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}/${detailSerch}" 
 ```
 
 ##### Response
@@ -2138,10 +2145,10 @@ Content-Type: application/json;charset=UTF-8
   "message": "Success.",
   "boardList": [
     {
-      "carImageUrl": "carimage",
+      "carImageUrl": "carimage.jpg",
       "carName": "아반떼",
       "carYear": "2024",
-      "reservationPeriod": "2024-07-05 ~ 2024-07-06",
+      "reservationPeriod": "2024.07.05, 2024.07.06",
       "normalPrice": 25100,
       "luxuryPrice": 45100,
       "superPrice": 75100,
@@ -2152,7 +2159,7 @@ Content-Type: application/json;charset=UTF-8
       "capacity": 5,
       "rentCompany": "장수하자 현대렌터카 제주공항 1호점",
       "address": "제주특별자치도 제주시 용문로 8",
-      "company_telnumber": "064-727-5680",
+      "companyTelnumber": "064-727-5680",
       "companyRule": ""
     }
   ]
@@ -3128,7 +3135,7 @@ Content-Type: application/json;charset=UTF-8
 
 <h1 style='background-color: rgba(55, 55, 55, 0.4); text-align: center'> 관리자 API 명세서 </h1>
 
-<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>업체 관리 모듈</h2>
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>업체관리</h2>
 
 ***
 
@@ -3373,6 +3380,11 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/regist" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
+| rentCompany | String | 업체명 | O |
+| address | String | 주소 | O |
+| owner | String | 담당자 | O |
+| companyTelnumber | String | 연락처 | O |
+| companyRule | String | 영업방침 | O |
 
 ###### Example
 
@@ -3383,6 +3395,11 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
+  "rentCompany": "민머리 철수.",
+  "address": "제주시",
+  "owner": "김민철",
+  "companyTelnumber": "064-123-1345",
+  "companyRule": "룰"
 }
 ```
 
@@ -3487,6 +3504,13 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/${companyCode}"
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| rentCompany | String | 업체명 | O |
+| address | String | 주소 | O |
+| owner | String | 담당자 | O |
+| companyTelnumber | String | 연락처 | O |
+| companyRule | String | 영업방침 | O |
 
 ###### Example
 
@@ -3497,6 +3521,11 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
+  "rentCompany": "민머리 철수.",
+  "address": "제주시",
+  "owner": "김민철",
+  "companyTelnumber": "064-123-1345",
+  "companyRule": "룰"
 }
 ```
 
@@ -3578,7 +3607,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/${companyCode}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/company/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
  -d "rentCompany={rentCompany}" \
  -d "address={address}
@@ -3654,7 +3683,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> 게시물 관리 모듈 </h2>
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> 게시물 관리 </h2>
 
 ***
 
@@ -4074,7 +4103,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4785,7 +4814,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-####
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> 회원관리 </h2>
 
 #####  회원 목록 리스트 불러오기
 
@@ -4808,7 +4837,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/admin/user/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4836,9 +4865,9 @@ curl -v -X GET "http://localhost:4000/api/rentCar/admin/user/list" \
 | userSequence | int | 순번 | O |
 | userCode | int | 유저 고유 번호 | O |
 | userId | String | 유저 아이디  | O |
-| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| userName | String | 유저 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
 | userTelnumnber | String | 유저 전화번호 (010  *) | O |
-| userEmail | String | 사용자 이메일| O |
+| userEmail | String | 사용자 이메일</br>(이메일 네글자를 제외한 나머지 문자는 *, @ 이후로는 보임)| O |
 | joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
 
 ###### Example
@@ -4855,9 +4884,9 @@ Content-Type: application/json;charset=UTF-8
       "userSequence": 1,
       "userCode": 1234,
       "userId" : asdqwdq,
-      "userName": "테스트1",
-      "userTelnumnber": "010-7709-0000",
-      "userEmail": "email@email.com",
+      "userName": "김**",
+      "userTelnumnber": "010-****-0000",
+      "userEmail": "e453***@email.com",
       "joinDate": "24.05.02"
     }, ...
   ]
@@ -4886,8 +4915,6 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-####
-
 #####  회원 목록 리스트 삭제하기
 
 ##### 설명
@@ -4915,7 +4942,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/${usersequnce}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/user/list/${usersequnce}" \
 
  -H "Authorization: Bearer {JWT}"
 ```
@@ -4935,9 +4962,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/${usersequnce}
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
 
-
 ###### Example
-
 
 **응답 성공**
 ```bash
@@ -5028,7 +5053,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/search?word${s
 | userId | String | 유저 아이디  | O |
 | userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
 | userTelnumnber | String | 유저 전화번호 (010-****-0000 형태) | O |
-| userEmail | String | 사용자 이메일| O |
+| userEmail | String | 사용자 이메일</br>(이메일 네글자를 제외한 나머지 문자는 *, @ 이후로는 보임)| O |
 | joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
 
 ###### Example
@@ -5045,9 +5070,9 @@ Content-Type: application/json;charset=UTF-8
       "userSequence": 1,
       "userCode": 1234,
       "userId" : asdqwdq,
-      "userName": "테스트1",
-      "userTelnumnber": "010-7709-0000",
-      "userEmail": "email@email.com",
+      "userName": "김**",
+      "userTelnumnber": "010-****-0000",
+      "userEmail": "e453***@email.com",
       "joinDate": "24.05.02"
     }, ...
   ]
@@ -5083,6 +5108,7 @@ Content-Type: application/json;charset=UTF-8
   "message": "Database Error."
 }
 ```
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> 예약관리 </h2>
 
 ***
 
@@ -5133,12 +5159,12 @@ curl -v -X GET "http://localhost:4000/api/rentCar/admin/reservation/list" \
 |---|:---:|:---:|:---:|
 | reservationCode | String | 예약 번호 | O |
 | userId | String | 사용자 아이디 | O |
-| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
-| company_code | Int | 업체 번호 | O |
-| carCode | String | 차량 번호 | O |
+| userName | String | 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| companyCode | Int | 업체 번호 | O |
+| carNumber | String | 차량 번호 | O |
 | reservationDate | String |예약 날짜| O |
 | reservationState | String | 예약 상태 | O |
-| reservation_period | String | 예약 기간</br>(yy.mm.dd 형태) | O |
+| reservationPeriod | String | 예약 기간</br>(yy.mm.dd 형태) | O |
 
 ###### Example
 
@@ -5152,13 +5178,13 @@ Content-Type: application/json;charset=UTF-8
   "userList": [
     {
       "reservationCode": ABCD-1234,
-      "userId": asdqwdq,
-      "userName": 홍길동,
-      "company_code": 1234,
-      "carCode": "테스트1",
+      "userId": "asdqwdq",
+      "userName": "홍**",
+      "companyCode": 1234,
+      "carNumber": "123하1234",
       "reservationDate": "24.05.02",
       "reservationState": "예약 완료",
-      "reservation_period": "24.05.02 ~ 24.05.02"
+      "reservationPeriod": "24.05.02, 24.05.02"
     }, ...
   ]
 }
@@ -5186,10 +5212,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-####
-
-
-####  예약 목록 리스트 삭제하기
+#####  예약 목록 리스트 삭제하기
 
 ##### 설명
 
@@ -5210,7 +5233,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/reservation/list/search?word${searchWord}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/reservation/${reservationCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -5229,19 +5252,6 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/reservation/list/search?
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| reservationList | reservationListItem[] | 회원 목록 리스트 | O |
-
-**reservationListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| reservationCode | String | 예약 번호 | O |
-| userId | String | 사용자 아이디 | O |
-| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
-| company_code | Int | 업체 번호 | O |
-| carCode | String | 차량 번호 | O |
-| reservationDate | String | 예약 날짜</br>(yy.mm.dd 형태)| O |
-| reservationState | String | 예약 상태 | O |
-| reservation_period | String | 예약 기간</br>(yy.mm.dd 형태) | O |
 
 ###### Example
 
@@ -5252,120 +5262,6 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "userList": [
-    {
-      "reservationCode": ABCD-1234,
-      "userId": asdqwdq,
-      "userName": 홍길동,
-      "company_code": 1234,
-      "carCode": "테스트1",
-      "reservationDate": "24.05.02",
-      "reservationState": "예약 완료",
-      "reservation_period": "24.05.02 ~ 24.05.02"
-    }, ...
-  ]
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
-
-#####  예약 목록 리스트 삭제하기
-
-##### 설명
-
-클라이언트는 Request Header의 Authorization 필드에 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 목록을 검색하여 반환합니다.
-검색어를 포함하여 검색을 할 수 있으며, 검색 조건에 맞는 예약 목록을 반환합니다.
-만약 검색에 실패하면 실패처리를 합니다. 인가 실패나 데이터베이스 오류가 발생할 수 있습니다.
-
-- method : **DELETE**  
-- URL : **/reservation/{reservationCode}**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Example
-
-```bash
-url -v -X DELETE "http://localhost:4000/api/rentCar/admin/reservation/{reservationCode}" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-
-| name | description | required |
-|---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| reservationList | reservationListItem[] | 회원 목록 리스트 | O |
-
-**reservationListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| reservationCode | String | 예약 번호 | O |
-| userId | String | 사용자 아이디 | O |
-| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
-| company_code | Int | 업체 번호 | O |
-| carCode | String | 차량 번호 | O |
-| reservationDate | String | 예약 날짜</br>(yy.mm.dd 형태)| O |
-| reservationState | String | 예약 상태 | O |
-| reservation_period | String | 예약 기간</br>(yy.mm.dd 형태) | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success.",
-  "userList": [
-    {
-      "reservationCode": ABCD-1234,
-      "userId": asdqwdq,
-      "userName": 홍길동,
-      "company_code": 1234,
-      "carCode": "테스트1",
-      "reservationDate": "24.05.02",
-      "reservationState": "예약 완료",
-      "reservation_period": "24.05.02, 24.05.02"
-    }, ...
-  ]
 }
 ```
 
