@@ -4107,3 +4107,611 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 ***
+
+####
+
+#####  회원 목록 리스트 불러오기
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 회원목록 리스트를 반환합니다. 
+만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/admin/user/list**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/admin/user/list" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| userList | userListItem[] | 회원 목록 리스트 | O |
+
+**userListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+
+| userSequence | int | 순번 | O |
+| userCode | int | 유저 고유 번호 | O |
+| userId | String | 유저 아이디  | O |
+| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| userTelnumnber | String | 유저 전화번호 (010  *) | O |
+| userEmail | String | 사용자 이메일| O |
+| joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userList": [
+    {
+      "userSequence": 1,
+      "userCode": 1234,
+      "userId" : asdqwdq,
+      "userName": "테스트1",
+      "userTelnumnber": "010-7709-0000",
+      "userEmail": "email@email.com",
+      "joinDate": "24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+####
+
+#####  회원 목록 리스트 삭제하기
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 회원 목록의 순번을 입력받고
+ 요청을 보내면 해당하는 회원 목록 리스트가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 
+ 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **DELETE**  
+- URL : **/admin/user/list/{userSequnce}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Path Variable
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| usersequnce | int | 순번 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/${usersequnce}" \
+
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+
+###### Example
+
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### -  회원 목록 검색 게시물 리스트 불러오기  
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 
+요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 회원목록 리스트를 반환합니다. 
+만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/admin/user/list/{searchWord}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Query Param
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| searchWord | String | 검색어 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/search?word${searchWord}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| userList | userListItem[] | 회원 목록 리스트 | O |
+
+**userListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+
+| userSequence | int | 순번 | O |
+| userCode | int | 유저 고유 번호 | O |
+| userId | String | 유저 아이디  | O |
+| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| userTelnumnber | String | 유저 전화번호 (010-****-0000 형태) | O |
+| userEmail | String | 사용자 이메일| O |
+| joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userList": [
+    {
+      "userSequence": 1,
+      "userCode": 1234,
+      "userId" : asdqwdq,
+      "userName": "테스트1",
+      "userTelnumnber": "010-7709-0000",
+      "userEmail": "email@email.com",
+      "joinDate": "24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#####  예약 목록 리스트 불러오기
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 
+만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **reservation/list**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentCar/admin/reservation/list" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| reservationList | reservationListItem[] | 회원 목록 리스트 | O |
+
+**reservationListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reservationCode | String | 예약 번호 | O |
+| userId | String | 사용자 아이디 | O |
+| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| company_code | Int | 업체 번호 | O |
+| carCode | String | 차량 번호 | O |
+| reservationDate | String |예약 날짜| O |
+| reservationState | String | 예약 상태 | O |
+| reservation_period | String | 예약 기간</br>(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userList": [
+    {
+      "reservationCode": ABCD-1234,
+      "userId": asdqwdq,
+      "userName": 홍길동,
+      "company_code": 1234,
+      "carCode": "테스트1",
+      "reservationDate": "24.05.02",
+      "reservationState": "예약 완료",
+      "reservation_period": "24.05.02 ~ 24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+####
+
+
+#####  예약 목록 리스트 삭제하기
+
+##### 설명
+
+클라이언트는 Request Header의 Authorization 필드에 Bearer 토큰을 포함하여 예약 목록의 순번을 입력하고 요청을 보내면 해당하는 예약 목록이 삭제됩니다.
+ 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패나 데이터베이스 오류가 발생할 수 있습니다.
+
+- method : **DELETE**  
+- URL : **/reservation/{reservationCode}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/reservation/list/search?word${searchWord}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| reservationList | reservationListItem[] | 회원 목록 리스트 | O |
+
+**reservationListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reservationCode | String | 예약 번호 | O |
+| userId | String | 사용자 아이디 | O |
+| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| company_code | Int | 업체 번호 | O |
+| carCode | String | 차량 번호 | O |
+| reservationDate | String | 예약 날짜</br>(yy.mm.dd 형태)| O |
+| reservationState | String | 예약 상태 | O |
+| reservation_period | String | 예약 기간</br>(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userList": [
+    {
+      "reservationCode": ABCD-1234,
+      "userId": asdqwdq,
+      "userName": 홍길동,
+      "company_code": 1234,
+      "carCode": "테스트1",
+      "reservationDate": "24.05.02",
+      "reservationState": "예약 완료",
+      "reservation_period": "24.05.02 ~ 24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+
+#####  예약 목록 리스트 삭제하기
+
+##### 설명
+
+클라이언트는 Request Header의 Authorization 필드에 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 목록을 검색하여 반환합니다.
+검색어를 포함하여 검색을 할 수 있으며, 검색 조건에 맞는 예약 목록을 반환합니다.
+만약 검색에 실패하면 실패처리를 합니다. 인가 실패나 데이터베이스 오류가 발생할 수 있습니다.
+
+- method : **DELETE**  
+- URL : **/reservation/{reservationCode}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+url -v -X DELETE "http://localhost:4000/api/rentCar/admin/reservation/{reservationCode}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+
+| name | description | required |
+|---|:---:|:---:|
+| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| reservationList | reservationListItem[] | 회원 목록 리스트 | O |
+
+**reservationListItem**
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| reservationCode | String | 예약 번호 | O |
+| userId | String | 사용자 아이디 | O |
+| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| company_code | Int | 업체 번호 | O |
+| carCode | String | 차량 번호 | O |
+| reservationDate | String | 예약 날짜</br>(yy.mm.dd 형태)| O |
+| reservationState | String | 예약 상태 | O |
+| reservation_period | String | 예약 기간</br>(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userList": [
+    {
+      "reservationCode": ABCD-1234,
+      "userId": asdqwdq,
+      "userName": 홍길동,
+      "company_code": 1234,
+      "carCode": "테스트1",
+      "reservationDate": "24.05.02",
+      "reservationState": "예약 완료",
+      "reservation_period": "24.05.02, 24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+####
