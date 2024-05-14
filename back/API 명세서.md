@@ -95,7 +95,7 @@ Content-Type: application/json;charset=UTF-8
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | userId | String | 사용자의 아이디 | O |
-| userPassword | String | 사용자의 비밀번호 | O |
+| userPassword | String | 사용자의 비밀번호 | O |000000000000000000000000000000
 
 ###### Example
 
