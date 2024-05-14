@@ -47,7 +47,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -55,7 +55,7 @@ Content-Type: application/json;charset=UTF-8
     {
       "carImageUrl": "image.jpg",
       "carName": "아반떼"
-    },
+    }, ...
   ]
 }
 ```
@@ -63,7 +63,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -85,17 +85,12 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Request
 
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
 ###### Request Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | userId | String | 사용자의 아이디 | O |
-| userPassword | String | 사용자의 비밀번호 | O |000000000000000000000000000000
+| userPassword | String | 사용자의 비밀번호 | O |
 
 ###### Example
 
@@ -111,35 +106,33 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/sign-in" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| code | String | 사용자의 아이디 | O |
-| message | String | 사용자의 비밀번호 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| accessToken | String | 사용자 토큰값 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "accessToken": "${ACCESS_TOKEN}",
-  "expires": 3600
+  "accessToken": "${ACCESS_TOKEN}"
 }
 ```
 
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
@@ -149,7 +142,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (로그인 정보 불일치)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SF",
   "message": "Sign in Failed."
@@ -159,7 +152,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (토큰 생성 실패)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "TF",
   "message": "Token creation Failed."
@@ -169,7 +162,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -189,16 +182,11 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Request
 
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-
 ###### Request Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| userId | String | 중복확인 할 사용자의 아이디 | O |
+| userId | String | 중복 확인 할 사용자의 아이디 | O |
 
 ###### Example
 
@@ -213,21 +201,21 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/id-check" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| code | String | 사용자의 아이디 | O |
-| message | String | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -237,7 +225,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
@@ -247,7 +235,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (중복된 아이디)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DI",
   "message": "Duplicatied Id."
@@ -257,7 +245,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -301,21 +289,21 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/email-auth" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| code | String | 사용자의 아이디 | O |
-| message | String | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -325,7 +313,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
@@ -335,7 +323,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (중복된 이메일)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DE",
   "message": "Duplicatied Email."
@@ -345,7 +333,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (이메일 전송 실패)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "MF",
   "message": "Mail send Failed."
@@ -355,7 +343,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -374,11 +362,6 @@ Content-Type: application/json;charset=UTF-8
 - URL : **/rentcar/user/email-auth-check**  
 
 ##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
 
 ###### Request Body
 
@@ -401,21 +384,21 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/email-auth-check" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| code | String | 사용자의 아이디 | O |
-| message | String | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -425,7 +408,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
@@ -435,7 +418,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (이메일 인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -445,7 +428,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -464,11 +447,6 @@ Content-Type: application/json;charset=UTF-8
 - URL : **/rentcar/user/sign-up**  
 
 ##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
 
 ###### Request Body
 
@@ -497,21 +475,21 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/sign-up" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| code | String | 사용자의 아이디 | O |
-| message | String | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -521,7 +499,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
@@ -531,7 +509,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (중복된 아이디)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DI",
   "message": "Duplicatied Id."
@@ -541,7 +519,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (중복된 이메일)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DE",
   "message": "Duplicatied Email."
@@ -551,7 +529,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (이메일 인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -561,7 +539,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -600,14 +578,14 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/userinfo" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| code | String | 사용자의 아이디 | O |
-| message | String | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
 | userId | String | 사용자의 아이디 | O |
 | userRole | String | 사용자의 권한 | O |
 
@@ -616,7 +594,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/userinfo" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -628,7 +606,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -638,7 +616,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -648,7 +626,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -690,10 +668,22 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/information" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+##### Path Variable
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userId | String | 사용자 아이디 | O |
 
 ###### Response Body
 
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| myInfoListItem | myInfoListItem[] | 내 정보 리스트 | O |
+
+**myInfoListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | userName | String | 사용자의 이름 | O |
@@ -702,49 +692,55 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/information" \
 | telnumber | String | 사용자의 전화번호 | O |
 | userEmail | String | 사용자의 이메일 | O |
 | joinDate | Date | 사용자의 가입날짜 | O |
+| userRole | String | 사용자의 권한 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "userName": "장현아",
-  "userId": "admin",
-  "userPassword": "qewr1234",
-  "telnumber": "010-1234-5678",
-  "userEmail": "email@email.com",
-  "joinDate": "2024.05.14"
+  "myInfoListItem": [
+    {
+      "userName": "장현아",
+      "userId": "admin",
+      "userPassword": "qewr1234",
+      "telnumber": "010-1234-5678",
+      "userEmail": "email@email.com",
+      "joinDate": "2024.05.14",
+      "userRole": "${userRole}"
+    }
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
 }
 ```
 
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
 **응답 : 실패 (토큰 생성 실패)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "TF",
   "message": "Token creation Failed."
@@ -754,7 +750,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -792,20 +788,17 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| userId | String | 사용자의 아이디 | O |
 | userPassword | String | 사용자의 비밀번호 | O |
-| userName | String | 사용자의 이름 | O |
 | telnumber | String | 사용자의 전화번호 | O |
 | userEmail | String | 사용자의 이메일 | O |
+
 
 ###### Example
 
 ```bash
 curl -v -X PATCH "http://localhost:4000/api/rentCar/user/information/{userId}" \
  -H "Authorization: Bearer {JWT}" \
- -d "userId={userId}" \
  -d "userPassword={userPassword}" \
- -d "userName={userName}" \
  -d "telnumber={telnumber}" \
  -d "userEmail={userEmail}" \ 
 ```
@@ -816,61 +809,51 @@ curl -v -X PATCH "http://localhost:4000/api/rentCar/user/information/{userId}" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| userPassword | String | 사용자의 비밀번호 | O |
-| telnumber | String | 사용자의 전화번호 | O |
-| email | String | 사용자의 이메일 | O |
-| accessToken | String | 사용자의 아이디 | O |
-| expires | int | 사용자의 비밀번호 | O |
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
 
 ###### Example
-
-
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
-  "message": "Success.",
-  "userName": "장현아",
-  "userId": "admin",
-  "userPassword": "qewr1234",
-  "telnumber": "010-1234-5678",
-  "userEmail": "email@email.com"
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
 }
 ```
 
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
 **응답 : 실패 (토큰 생성 실패)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "TF",
   "message": "Token creation Failed."
@@ -880,7 +863,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -889,9 +872,8 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-
 #### - 탈퇴하기
-  
+
 ##### 설명
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 입력받고 요청을 보내면 해당하는 사용자 정보가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
@@ -907,7 +889,7 @@ Content-Type: application/json;charset=UTF-8
 |---|:---:|:---:|
 | Authorization | 인증에 사용될 Bearer 토큰 | O |
 
-###### Query Param
+###### Path Variable
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
@@ -916,7 +898,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentCar/user/information/${userId}" \
+curl -v -X DELETE "http://localhost:4000/api/rentCar/user/information/${userId}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -926,7 +908,7 @@ curl -v -X POST "http://localhost:4000/api/rentCar/user/information/${userId}" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -940,7 +922,7 @@ curl -v -X POST "http://localhost:4000/api/rentCar/user/information/${userId}" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -950,7 +932,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -960,17 +942,27 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
 }
 ```
 
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1010,60 +1002,68 @@ curl -v -X GET "http://localhost:4000/rentCar/user/reservation" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| myResListItem | myResListItem[] | 예약 내역 리스트 | O |
+
+**myResListItem**
 | carImageUrl | String | 차량 사진 | O |
 | userName | String | 예약자명 | O |
 | reservationDate | String | 예약날짜 | O |
 | reservationCode | String | 예약번호 | O |
 | rentCompany | String | 영업점 | O |
- 
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "carImageUrl": "image.jpg",
-  "userName": "userName",
-  "reservationDate": 2024.05.14,
-  "reservationCode": "ASDFFG23445",
-  "rentCompany": "민머리 철수 렌트카"
+  "myResListItem": [
+    {
+      "carImageUrl": "image.jpg",
+      "userName": "userName",
+      "reservationDate": 2024.05.14,
+      "reservationCode": "ASDFFG23445",
+      "rentCompany": "민머리 철수 렌트카"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
 }
 ```
 
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
 **응답 : 실패 (토큰 생성 실패)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "TF",
   "message": "Token creation Failed."
@@ -1073,7 +1073,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1086,11 +1086,10 @@ Content-Type: application/json;charset=UTF-8
 
 ##### 설명
 
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 예약 상세 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/user/reservation/{companyCode}**  
+- URL : **/user/reservation/{reservationCode}**  
 
 ##### Request
 
@@ -1103,7 +1102,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentCar/user/reservation/{companyCode}" \
+curl -v -X GET "http://localhost:4000/api/rentCar/user/reservation/${reservationCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1113,12 +1112,17 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/reservation/{companyCode}
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| myResDetailListItem | myResDetailListItem[] | 예약 상세 내역 리스트 | O |
+
+**myResDetailListItem**
 | carImageUrl | String | 차량 사진 | O |
 | carOil | Double | 연비 | O |
 | insuranceType | String | 보험 종류 | O |
@@ -1135,47 +1139,51 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/reservation/{companyCode}
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "carImageUrl": "image.jpg",
-  "carOil": "가솔린",
-  "insuranceType": "일반자차",
-  "grade": "소형",
-  "carNumber": "123하1234",
-  "reservationPeriod": "2024.05.14, 2024.05.15",
-  "rentCompany": "민머리 철수 렌트카",
-  "companyTelnumber": "064-727-5680",
-  "address": "제주특별자치도 제주시 용문로 8",
-  "userName": "장현아",
+  "myResDetailListItem": [
+    {
+      "carImageUrl": "image.jpg",
+      "carOil": "가솔린",
+      "insuranceType": "일반자차",
+      "grade": "소형",
+      "carNumber": "123하1234",
+      "reservationPeriod": "2024.05.14, 2024.05.15",
+      "rentCompany": "민머리 철수 렌트카",
+      "companyTelnumber": "064-727-5680",
+      "address": "제주특별자치도 제주시 용문로 8",
+      "userName": "장현아"
+    }
+  ]
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Varidation Failed."
 }
 ```
 
-**응답 : 실패 (로그인 정보 불일치)**
-```bash
-HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "SF",
-  "message": "Sign in Failed."
-}
-```
-
 **응답 : 실패 (토큰 생성 실패)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "TF",
   "message": "Token creation Failed."
@@ -1185,7 +1193,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1198,10 +1206,10 @@ Content-Type: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 예약번호 입력받고 수정에 성공하면 성공처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 예약번호 입력받고 예약 상태 수정에 성공하면 성공처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **POST**  
-- URL : **/user/reservation/{companyCode}**  
+- method : **PATCH**  
+- URL : **/user/reservation/{reservationCode}**  
 
 ##### Request
 
@@ -1215,18 +1223,12 @@ Content-Type: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| companyCode | String | 수정할 예약 번호 | O |
-
-###### Request Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| reservationState | String | 예약 상태 | O |
+| reservationCode | String | 수정할 예약 번호 | O |
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/user/reservation/{companyCode}" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/user/reservation/${reservationCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1236,7 +1238,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/reservation/{companyCode
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1250,7 +1252,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/reservation/{companyCode
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -1260,27 +1262,17 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
 }
 ```
 
-**응답 : 실패 (존재하지 않는 게시물)**
-```bash
-HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "NB",
-  "message": "No Exist Board."
-}
-```
-
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -1290,7 +1282,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1299,7 +1291,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 해당 사용자의 Q&A 전체 게시물 리스트 불러오기 
+#### - 마이페이지에서 해당 사용자의 Q&A 전체 게시물 리스트 불러오기 
 
 ##### 설명
 
@@ -1336,7 +1328,7 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/list/${writerId}" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1362,7 +1354,7 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/list/${writerId}" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -1383,17 +1375,37 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1402,7 +1414,7 @@ Content-Type: application/json;charset=UTF-8
 
 ***
 
-#### - 해당 사용자의 Q&A 검색 게시물 리스트 불러오기  
+#### - 마이페이지에서 해당 사용자의 Q&A 검색 게시물 리스트 불러오기  
   
 ##### 설명
 
@@ -1434,7 +1446,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user/list/{writerId}/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/user/list/${writerId}/search?word=${searchWord}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1444,7 +1456,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/list/{writerId}/search?wo
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1470,7 +1482,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/list/{writerId}/search?wo
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -1491,7 +1503,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -1501,17 +1513,27 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
 }
 ```
 
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1521,7 +1543,6 @@ Content-Type: application/json;charset=UTF-8
 <h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'>예약</h2>
 
 ***
-
 
 #### - 차량 검색 결과 불러오기
   
@@ -1539,7 +1560,7 @@ Content-Type: application/json;charset=UTF-8
 | name | description | required |
 |---|:---:|:---:|
 
-###### Query Param
+###### Path Variable
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
@@ -1549,7 +1570,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/carsearch" 
+curl -v -X GET "http://localhost:4000/api/rentcar" 
 ```
 
 ##### Response
@@ -1558,7 +1579,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1582,7 +1603,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -1601,7 +1622,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -1611,7 +1632,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 차량)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NC",
   "message": "No Exist Car."
@@ -1621,7 +1642,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1631,7 +1652,7 @@ Content-Type: application/json;charset=UTF-8
 ***
 
 #### - 차량 모델명 검색 결과 불러오기
-  
+
 ##### 설명
 
 클라이언트로부터 검색어(차량명)를 입력받고 요청을 보내면 검색어에 해당하는 차량의 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
@@ -1664,7 +1685,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1688,7 +1709,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -1707,7 +1728,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -1717,7 +1738,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 차량)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NC",
   "message": "No Exist Car."
@@ -1727,7 +1748,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1774,7 +1795,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch?word=${carNameWord}"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1792,7 +1813,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch?word=${carNameWord}"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -1811,7 +1832,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -1821,7 +1842,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 차량)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NC",
   "message": "No Exist Car."
@@ -1831,7 +1852,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1878,7 +1899,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -1896,7 +1917,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -1915,7 +1936,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -1925,7 +1946,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 차량)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NC",
   "message": "No Exist Car."
@@ -1935,7 +1956,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -1981,7 +2002,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2011,7 +2032,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2035,7 +2056,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2045,7 +2066,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 차량)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NC",
   "message": "No Exist Car."
@@ -2055,7 +2076,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2071,7 +2092,7 @@ Content-Type: application/json;charset=UTF-8
 클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/carsearch/pricesearch/detailSerch**  
+- URL : **/carsearch/pricesearch/detailsearch**  
 
 ##### Request
 
@@ -2102,7 +2123,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}/${det
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2139,7 +2160,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}/${det
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2169,7 +2190,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2179,7 +2200,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 차량)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NC",
   "message": "No Exist Car."
@@ -2189,7 +2210,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2204,24 +2225,17 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 공지사항 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+공지사항 페이지에서 작성일 기준 내림차순으로 공지사항 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/rentcar/user/notice/list**  
 
 ##### Request
 
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
 ###### Example
 
 ```bash
 curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
- -H "Authorization: Bearer {JWT}"
 ```
 
 ##### Response
@@ -2230,7 +2244,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2248,14 +2262,13 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 | contents | String | 내용 | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
 
 ###### Example
 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2265,27 +2278,16 @@ Content-Type: application/json;charset=UTF-8
       "title": "공지사항",
       "contents": "공지사항 내용",
       "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "image.jpg"
+      "viewCount": 0
     }, ...
   ]
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
 }
 ```
 
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2296,18 +2298,12 @@ Content-Type: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 공지사항 등록 번호를 입력받고 요청을 보내면 해당하는 공지항 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+공지사항 페이지에서 공지사항 등록 번호를 입력받고 요청을 보내면 해당하는 공지사항 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/admin/notice/{registNumber}**  
+- URL : **/rentcar/user/notice/{registNumber}**  
 
 ##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
 
 ###### Path Variable
 
@@ -2318,8 +2314,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" \
- -H "Authorization: Bearer {JWT}"
+curl -v -X GET "http://localhost:4000/api/rentcar/user/notice/${registNumber}" 
 ```
 
 ##### Response
@@ -2328,7 +2323,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" 
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2336,6 +2331,8 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" 
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
+
+
 | registNumber | int | 공지사항 등록 번호 | O |
 | title | String | 제목 | O |
 | contents | String | 내용 | O |
@@ -2348,7 +2345,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2365,7 +2362,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2375,7 +2372,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2425,7 +2422,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/board" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2439,7 +2436,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/board" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2449,7 +2446,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2459,7 +2456,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2469,7 +2466,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -2479,7 +2476,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2518,7 +2515,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2543,7 +2540,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/list" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2563,7 +2560,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2573,7 +2570,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2618,7 +2615,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/list/search?word=${
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2643,7 +2640,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/list/search?word=${
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2663,7 +2660,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2673,7 +2670,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2683,7 +2680,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2728,7 +2725,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/${receptionNumber}"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2751,7 +2748,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/${receptionNumber}"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -2770,7 +2767,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2780,7 +2777,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -2790,7 +2787,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2800,7 +2797,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2845,7 +2842,7 @@ curl -v -X PATCH "http://localhost:4000/api/rentcar/user/board/{receptionNumber}
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2859,7 +2856,7 @@ curl -v -X PATCH "http://localhost:4000/api/rentcar/user/board/{receptionNumber}
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -2869,7 +2866,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2879,7 +2876,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -2889,7 +2886,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2899,7 +2896,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -2934,7 +2931,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/user/board/${receptionNumber}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/user/board/${receptionNumber}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -2944,7 +2941,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/board/${receptionNumber}
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -2958,7 +2955,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/user/board/${receptionNumber}
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -2968,7 +2965,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -2978,7 +2975,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -2988,7 +2985,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -2998,7 +2995,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 { 
   "code": "DBE",
   "message": "Database Error."
@@ -3052,7 +3049,7 @@ curl -v -X PUT "http://localhost:4000/api/rentcar/user/board/${receptionNumber}"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3066,7 +3063,7 @@ curl -v -X PUT "http://localhost:4000/api/rentcar/user/board/${receptionNumber}"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3076,7 +3073,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -3086,7 +3083,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3096,7 +3093,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -3106,7 +3103,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (답변 완료된 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "WC",
   "message": "Written Comment."
@@ -3116,7 +3113,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (권한 없음)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3126,7 +3123,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3169,7 +3166,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/company/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3194,7 +3191,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/company/list" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3214,7 +3211,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3224,7 +3221,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3263,7 +3260,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/company/list/search?word
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3288,7 +3285,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/company/list/search?word
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3308,7 +3305,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3318,7 +3315,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3372,7 +3369,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/regist" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3391,7 +3388,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/regist" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3406,7 +3403,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -3416,7 +3413,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3426,7 +3423,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -3436,7 +3433,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3496,7 +3493,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/${companyCode}"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3517,7 +3514,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/${companyCode}"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3532,7 +3529,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -3542,7 +3539,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3552,7 +3549,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -3562,7 +3559,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (권한 없음)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3572,7 +3569,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3622,7 +3619,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/company/${companyCode
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3636,7 +3633,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/company/${companyCode
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -3646,7 +3643,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -3656,7 +3653,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -3666,7 +3663,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3676,7 +3673,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3717,7 +3714,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3742,7 +3739,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3762,7 +3759,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3772,7 +3769,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3815,7 +3812,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" 
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3835,7 +3832,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" 
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3852,7 +3849,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3862,7 +3859,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -3912,7 +3909,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/notice/regist \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -3926,7 +3923,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/notice/regist \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -3936,7 +3933,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -3946,7 +3943,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -3956,7 +3953,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -3966,7 +3963,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4014,7 +4011,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/notice/${registNumber}"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4028,7 +4025,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/notice/${registNumber}"
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -4038,7 +4035,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4048,7 +4045,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4058,7 +4055,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
@@ -4068,7 +4065,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4113,7 +4110,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/notice/${registNumber
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4127,7 +4124,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/notice/${registNumber
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -4137,7 +4134,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4147,7 +4144,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -4157,7 +4154,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4167,7 +4164,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4212,7 +4209,7 @@ curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/notice/{registNumber}/
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4226,7 +4223,7 @@ curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/notice/{registNumber}/
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -4236,7 +4233,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4246,7 +4243,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -4256,7 +4253,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4266,7 +4263,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4305,7 +4302,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4331,7 +4328,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -4352,7 +4349,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4362,7 +4359,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4407,7 +4404,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list/search?word=$
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4433,7 +4430,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list/search?word=$
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -4454,7 +4451,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4464,7 +4461,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4474,7 +4471,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4519,7 +4516,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/${receptionNumber}
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4542,7 +4539,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/${receptionNumber}
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -4561,7 +4558,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4571,7 +4568,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -4581,7 +4578,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4591,7 +4588,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4636,7 +4633,7 @@ curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/board/{receptionNumber
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4650,7 +4647,7 @@ curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/board/{receptionNumber
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -4660,7 +4657,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4670,7 +4667,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -4680,7 +4677,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4690,7 +4687,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4742,7 +4739,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/board/${receptionNumber
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4756,7 +4753,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/board/${receptionNumber
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -4766,7 +4763,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -4776,7 +4773,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (존재하지 않는 게시물)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "NB",
   "message": "No Exist Board."
@@ -4795,7 +4792,7 @@ HTTP/1.1 400 Bad Request
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4805,7 +4802,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4848,7 +4845,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4875,7 +4872,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -4896,7 +4893,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4906,7 +4903,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -4953,7 +4950,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/user/list/${usersequn
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -4967,7 +4964,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/user/list/${usersequn
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success."
@@ -4977,7 +4974,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -4987,7 +4984,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -5034,7 +5031,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/search?word${s
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -5061,7 +5058,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/search?word${s
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -5082,7 +5079,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
@@ -5092,7 +5089,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -5102,7 +5099,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -5144,7 +5141,7 @@ curl -v -X GET "http://localhost:4000/api/rentCar/admin/reservation/list" \
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -5171,7 +5168,7 @@ curl -v -X GET "http://localhost:4000/api/rentCar/admin/reservation/list" \
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -5193,7 +5190,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -5203,7 +5200,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
@@ -5244,7 +5241,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/reservation/${reserva
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -5258,7 +5255,7 @@ curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/reservation/${reserva
 **응답 성공**
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
@@ -5268,7 +5265,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
@@ -5278,7 +5275,7 @@ Content-Type: application/json;charset=UTF-8
 **응답 : 실패 (데이터베이스 오류)**
 ```bash
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json;charset=UTF-8
+contentType: application/json;charset=UTF-8
 {
   "code": "DBE",
   "message": "Database Error."
