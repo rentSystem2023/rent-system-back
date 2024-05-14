@@ -28,7 +28,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar"
 
 | name | description | required |
 |---|:---:|:---:|
-| Content-Type | 반환하는 Response Body의 Content Type (application/json) | O |
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
 
 ###### Response Body
 
@@ -39,8 +39,8 @@ curl -v -X GET "http://localhost:4000/api/rentcar"
 | popularCarList | popularCarList[] | 인기차량 리스트 |O |
 
 **popularCarList**
-| car_image_url | String | 차량 이미지 | O |
-| car_name | String | 차량 이름 | O |
+| carImageUrl | String | 차량 이미지 | O |
+| carName | String | 차량 이름 | O |
 
 ###### Example
 
@@ -53,9 +53,9 @@ Content-Type: application/json;charset=UTF-8
   "message": "Success.",
   "popularCarList": [
     {
-      "car_image_url": "image.jpg",
-      "car_name": "아반떼"
-    }, ...
+      "carImageUrl": "image.jpg",
+      "carName": "아반떼"
+    },
   ]
 }
 ```
