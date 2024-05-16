@@ -15,6 +15,8 @@ import lombok.Setter;
 public class SignUpRequestDto {
     @NotBlank
     private String userId;
+    @NotBlank
+    private String userName;
     @NotNull
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
     private String userPassword;
@@ -22,10 +24,11 @@ public class SignUpRequestDto {
     @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
     private String userEmail;
     @NotBlank
-    private String authNumber;
+    private String JoinPath;
     @NotBlank
-    private String userName;
+    private String JoinDate;
     @NotBlank
-    private String joinDate;
+    private String UserTelnumber;
+    
     
 }

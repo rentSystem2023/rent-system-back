@@ -11,6 +11,5 @@ public class CompanyEntity {
     private String companyTelnumber;
     private String owner;
     private String registDate;
-    private String companyImageUrl;
     private String companyRule;
 }
