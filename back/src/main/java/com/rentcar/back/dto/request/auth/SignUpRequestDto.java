@@ -16,7 +16,7 @@ public class SignUpRequestDto {
     @NotBlank
     private String userId;
     @NotBlank
-    private String userName;
+    private String nickName;
     @NotNull
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
     private String userPassword;
@@ -26,9 +26,5 @@ public class SignUpRequestDto {
     @NotBlank
     private String JoinPath;
     @NotBlank
-    private String JoinDate;
-    @NotBlank
-    private String UserTelnumber;
-    
-    
+    private String authNumber;
 }
