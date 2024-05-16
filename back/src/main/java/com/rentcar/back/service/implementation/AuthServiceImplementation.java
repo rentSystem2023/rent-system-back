@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.rentcar.back.common.util.EmailAuthNumberUtill;
+import com.rentcar.back.common.util.EmailAuthNumberUtil;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
@@ -27,10 +27,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service // 이 클래스를 서비스 클래스로 사용하기 위함
 @RequiredArgsConstructor //의존성 주입을 위해 사용
-public class AuthServiceImplimentation implements AuthService {
+public class AuthServiceImplementation implements AuthService {
 
     private final UserRepository userRepository;
-    private final EmailAuthNumberRepository emailAuthNumberrepository;
+    private final EmailAuthNumberRepository emailAuthNumberRepository;
     private final MailProvider mailProvider;
 
     // 암호화된 비밀번호
@@ -68,27 +68,27 @@ public class AuthServiceImplimentation implements AuthService {
     public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
 
         // 밑에서 사용하기 위해 위에서 잡아주는 작업
-        String acessToken = null;
+        String accessToken = null;
 
         try {
             // - (userId , userPassword)
             String userId = dto.getUserId();
             String userPassword = dto.getUserPassword();
 
-            UserEntity userentity = userRepository.findByUserId(userId);
+            UserEntity userEntity = userRepository.findByUserId(userId);
             // 유저엔티티는 null
-            if (userentity == null)
+            if (userEntity == null)
                 return ResponseDto.signInFailed();
 
-            // 암호화된 비밀번호는 userentity에 있음으로 user entity. 으로 꺼내옴
-            String encodedPassword = userentity.getUserPassword();
-            boolean isMathched = passwordEncoder.matches(userPassword, encodedPassword); // 평뮨의 비밀번호 , 암호화된 비밀번호 비교
+            // 암호화된 비밀번호는 userEntity에 있음으로 user entity. 으로 꺼내옴
+            String encodedPassword = userEntity.getUserPassword();
+            boolean isMatched = passwordEncoder.matches(userPassword, encodedPassword); // 평뮨의 비밀번호 , 암호화된 비밀번호 비교
             // 만약 일치하지 않는다면?
-            if (!isMathched)
+            if (!isMatched)
                 return ResponseDto.signInFailed();
 
-            acessToken = jwtProvider.create(userId);
-            if (acessToken == null)
+            accessToken = jwtProvider.create(userId);
+            if (accessToken == null)
                 return ResponseDto.tokenCreationFailed();
 
         } catch (Exception exception) {
@@ -97,7 +97,7 @@ public class AuthServiceImplimentation implements AuthService {
             return ResponseDto.databaseError();
         }
 
-        return SignInResponseDto.success(acessToken);
+        return SignInResponseDto.success(accessToken);
     }
 
     @Override
@@ -105,20 +105,20 @@ public class AuthServiceImplimentation implements AuthService {
 
         try {
 
-            // 레포지토리에서 existByuserEmail 작업 해주고
+            // 레포지토리에서 existByUserEmail 작업 해주고
             String userEmail = dto.getUserEmail();
             boolean existedEmail = userRepository.existsByUserEmail(userEmail);
             // 존재한다면
             if (existedEmail)
                 return ResponseDto.duplicatedEmail();
 
-            String authNumber = EmailAuthNumberUtill.createCodeNumber();
+            String authNumber = EmailAuthNumberUtil.createCodeNumber();
 
             // 바로 위에서 받은 인증번호 저장하려면 엔터티를 만들어 줘야 함
             EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, authNumber);
 
             // 그 다음 save 작업 해줘야 함 그러기 위해서는 public 선언해주고 emailAuthNumberEntity 저장
-            emailAuthNumberrepository.save(emailAuthNumberEntity);
+            emailAuthNumberRepository.save(emailAuthNumberEntity);
 
             mailProvider.mailAuthSend(userEmail, authNumber);
 
@@ -146,9 +146,9 @@ public class AuthServiceImplimentation implements AuthService {
 
             // 데이터베이스의 email_auth_number 테이블에서 해당하는 userEmail과 authNumber를 모두 가지고 있는 데이터가
             // 있는지 확인
-            boolean isMathched = emailAuthNumberrepository.existsByEmailAndAuthNumber(userEmail, userNumber);
+            boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, userNumber);
             // 해당하는 데이터가 없다면 'AF' 응답 처리
-            if (!isMathched)
+            if (!isMatched)
                 return ResponseDto.authenticationFailed();
 
         } catch (Exception exception) {
@@ -182,9 +182,9 @@ public class AuthServiceImplimentation implements AuthService {
 
             // 데이터베이스의 email_auth_number 테이블에서 해당하는 userEmail과 authNumber를 모두 가지고 있는 데이터가
             // 있는지 확인
-            boolean isMathched = emailAuthNumberrepository.existsByEmailAndAuthNumber(userEmail, authNumber);
+            boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, authNumber);
             // 만약 FALSE 라면
-            if (!isMathched)
+            if (!isMatched)
                 return ResponseDto.authenticationFailed();
 
             // 사용자로부터 입력받은 userPassword를 암호화
