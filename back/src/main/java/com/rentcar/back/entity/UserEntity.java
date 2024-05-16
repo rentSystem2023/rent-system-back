@@ -24,24 +24,30 @@ public class UserEntity {
     // 데이터베이스에 개의 컬럼이 존재함
     @Id // UserId의 기본키 지정 
     private String userId; 
-    private String userName;        // 추가
+    private String nickName;        // 추가
     private String userPassword;
     private String userEmail;
     private String userRole;
     private String joinPath;
     private String joinDate;        // 추가
-    private String userTelnumber;   // 추가
+
 
 
     // 새로운 생성자 작성 (implement 서비스에서 쓰기 위해)
     public UserEntity(SignUpRequestDto dto) {
         this.userId = dto.getUserId();
-        this.userName = dto.getUserName();      // 추가
+        this.nickName = dto.getNickName();      // 추가
         this.userPassword = dto.getUserPassword();
         this.userEmail = dto.getUserEmail();
         this.userRole = "ROLE_USER";
         this.joinPath = dto.getJoinPath();      // 추가
-        this.joinDate = dto.getJoinDate();      // 추가
-        this.userTelnumber = dto.getUserTelnumber();  // 추가
+    }
+    
+    public UserEntity (String userId, String nickName, String userPassword, String userEmail, String userRole, String joinPath) {
+        this.userId = userId;
+        this.nickName = nickName;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
+        this.joinPath = joinPath;
     }
 }
