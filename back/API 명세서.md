@@ -1269,6 +1269,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
@@ -2255,8 +2265,6 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 | noticeList | noticeListItem[] | 공지사항 리스트 | O |
 
 **noticeListItem**
-| name | type | description | required |
-|---|:---:|:---:|:---:|
 | registNumber | int | 공지사항 등록 번호 | O |
 | title | String | 제목 | O |
 | contents | String | 내용 | O |
@@ -2272,7 +2280,7 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
+  "noticeList": [
     {
       "registNumber": 1,
       "title": "공지사항",
@@ -2331,8 +2339,9 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/notice/${registNumber}"
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
+| noticeDetailsList | noticeDetailsListItem[] | 공지사항 리스트 | O |
 
-
+**noticeDetailsListItem**
 | registNumber | int | 공지사항 등록 번호 | O |
 | title | String | 제목 | O |
 | contents | String | 내용 | O |
@@ -2349,13 +2358,16 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "registNumber": ${registNumber},
-  "status": ${status},
-  "title": "${title}",
-  "contents": "${contents}",
-  "writeDatetime": "${writeDatetime}",
-  "viewCount": ${viewCount},
-  "imageUrl": ${imageUrl}
+  "noticeDetailsList": [
+    {
+        "registNumber": ${registNumber},
+        "title": "${title}",
+        "contents": "${contents}",
+        "writeDatetime": "${writeDatetime}",
+        "viewCount": ${viewCount},
+        "imageUrl": ${imageUrl}
+    }
+  ]
 }
 ```
 
@@ -2387,8 +2399,8 @@ contentType: application/json;charset=UTF-8
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공처리를 합니다. 만약 작성에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **POST**  
-- URL : **/rentcar/user/board**  
+- method : **POST**
+- URL : **/rentcar/user/board**
 
 ##### Request
 
@@ -2689,7 +2701,7 @@ contentType: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 불러오기  
+0.#### - Q&A 게시물 불러오기  
   
 ##### 설명
 
@@ -4921,7 +4933,7 @@ contentType: application/json;charset=UTF-8
  인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
-- URL : **/admin/user/list/{userSequnce}**  
+- URL : **/admin/user/list/{userSequence}**  
 
 ##### Request
 
@@ -4934,12 +4946,12 @@ contentType: application/json;charset=UTF-8
 ###### Path Variable
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| usersequnce | int | 순번 | O |
+| userSequence | int | 순번 | O |
 
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/user/list/${usersequnce}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/user/list/${userSequence}" \
 
  -H "Authorization: Bearer {JWT}"
 ```
