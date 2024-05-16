@@ -7,9 +7,10 @@ public class ReservationEntity {
     @Id
     private String reservationCode;
     private String userId;
-    private Integer companyCode;
-    private Integer carCode;
+    private String insuranceType;
     private String reservationDate;
     private String reservationState;
     private String reservationPeriod;
+    private Integer companyCarCode;
+    
 }
