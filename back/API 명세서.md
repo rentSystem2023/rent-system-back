@@ -1603,7 +1603,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar"
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
+| carImageUrl | String | 차량이미지 | X |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -1709,7 +1709,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
+| carImageUrl | String | 차량이미지 | X |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -1788,7 +1788,6 @@ contentType: application/json;charset=UTF-8
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -1813,7 +1812,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch?word=${carNameWord}"
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
+| carImageUrl | String | 차량이미지 | X |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -1892,7 +1891,6 @@ contentType: application/json;charset=UTF-8
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -1917,7 +1915,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch"
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
+| carImageUrl | String | 차량이미지 | X |
 | normalPrice | int | 일반 자차 보험 가격 | O |
 | luxuryPrice | int | 고급 자차 보험 가격 | O |
 | superPrice | int | 슈퍼 자차 보험 가격 | O |
@@ -1996,8 +1994,9 @@ contentType: application/json;charset=UTF-8
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | carName | String | 차량명 | O |
-| carImageUrl | String | 차량이미지 | O |
-| insurance_type | String | 차량 보험 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
 
 
 ###### Example
@@ -2025,7 +2024,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}"
 **PriceListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| carImageUrl | String | 차량이미지 | O |
+| carImageUrl | String | 차량이미지 | X |
 | carName | String | 차량명 | O |
 | fuelType | String | 연료 | O |
 | insuranceType | String | 보험이름 | O |
@@ -2119,7 +2118,9 @@ contentType: application/json;charset=UTF-8
 | carRentCompany | String | 업체명 | O |
 | reservationCount | int | 예약수 | O |
 | carYear | String | 연식 | O |
-| insuranceType | String | 차량 보험 | O |
+| normalPrice | int | 일반 자차 보험 가격 | O |
+| luxuryPrice | int | 고급 자차 보험 가격 | O |
+| superPrice | int | 슈퍼 자차 보험 가격 | O |
 
 ###### Example
 
@@ -2146,7 +2147,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}/${det
 **PriceListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| carImageUrl | String | 차량이미지 | O |
+| carImageUrl | String | 차량이미지 | X |
 | carName | String | 차량명 | O |
 | carYear | String | 연식 | O |
 | reservationPeriod | String | 대여날짜 | O |
@@ -2157,12 +2158,11 @@ curl -v -X GET "http://localhost:4000/api/rentcar/carsearch/${pricesearch}/${det
 | grade | String | 차량 등급 | O |
 | carOil | String | 연비 | O |
 | fuelType | String | 연료 | O |
-| insuranceType | String | 보험 | O |
 | capacity | String | 차량 수용인원수 | O |
 | rentCompany | String | 업체 이름 | O |
 | address | String | 업체 주소 | O |
 | companyTelnumber | String | 업체 전화번호 | O |
-| companyRule | String | 업체 영업방침 | O |
+| companyRule | String | 업체 영업방침 | X |
 
 
 ###### Example
@@ -2186,7 +2186,6 @@ contentType: application/json;charset=UTF-8
       "brand": "현대",
       "carOil": 15.3,
       "fuelType": "가솔린",
-      "insuranceType": "일반 자차 보험",
       "capacity": 5,
       "rentCompany": "장수하자 현대렌터카 제주공항 1호점",
       "address": "제주특별자치도 제주시 용문로 8",
@@ -2267,7 +2266,6 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 **noticeListItem**
 | registNumber | int | 공지사항 등록 번호 | O |
 | title | String | 제목 | O |
-| contents | String | 내용 | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
 
@@ -2283,8 +2281,7 @@ contentType: application/json;charset=UTF-8
   "noticeList": [
     {
       "registNumber": 1,
-      "title": "공지사항",
-      "contents": "공지사항 내용",
+      "title": "제목",
       "writeDatetime": "24.05.02",
       "viewCount": 0
     }, ...
@@ -2347,7 +2344,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/notice/${registNumber}"
 | contents | String | 내용 | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
+| imageUrl | String | 이미지 | X |
 
 ###### Example
 
