@@ -1357,7 +1357,6 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/list/${writerId}" \
 | writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
 
 ###### Example
 
@@ -1375,8 +1374,7 @@ contentType: application/json;charset=UTF-8
       "title": "테스트1",
       "writerId": "j******",
       "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "image.jpg"
+      "viewCount": 0
     }, ...
   ]
 }
@@ -1485,7 +1483,6 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/list/${writerId}/search?w
 | writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
 
 ###### Example
 
@@ -1503,8 +1500,7 @@ contentType: application/json;charset=UTF-8
       "title": "테스트1",
       "writerId": "j******",
       "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "image.jpg"
+      "viewCount": 0
     }, ...
   ]
 }
@@ -2244,7 +2240,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/user/notice/list" \
 ```
 
 ##### Response
@@ -2306,7 +2302,7 @@ contentType: application/json;charset=UTF-8
 공지사항 페이지에서 공지사항 등록 번호를 입력받고 요청을 보내면 해당하는 공지사항 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/user/notice/{registNumber}**  
+- URL : **/rentcar/user/notice/list/{registNumber}**  
 
 ##### Request
 
@@ -2319,7 +2315,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user/notice/${registNumber}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/user/notice/list/${registNumber}" 
 ```
 
 ##### Response
@@ -2390,39 +2386,28 @@ contentType: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 작성  
+#### - 공지사항 게시물 조회수 증가  
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공처리를 합니다. 만약 작성에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
-- method : **POST**
-- URL : **/rentcar/user/board**
+- method : **PATCH**  
+- URL : **/rentcar/user/notice/{registNumber}/increase-view-count**  
 
 ##### Request
 
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Request Body
+###### Path Variable
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| title | String | Q&A 제목 | O |
-| contents | String | Q&A 내용 | O |
-| imageUrl | String | 이미지 | O |
+| receptionNumber | int | 접수 번호 | O |
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/user/board" \
- -H "Authorization: Bearer {JWT}" \
- -d "title={title}" \
- -d "contents={contents}"\
- -d "imageUrl={imageUrl}"
+curl -v -X PATCH "http://localhost:4000/api/rentcar/user/notice/{registNumber}/increase-view-count$" \
+ -H "Authorization: Bearer {JWT}"
 ```
 
 ##### Response
@@ -2448,7 +2433,7 @@ HTTP/1.1 200 OK
 contentType: application/json;charset=UTF-8
 {
   "code": "SU",
-  "message": "Success.",
+  "message": "Success."
 }
 ```
 
@@ -2462,6 +2447,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (존재하지 않는 게시물)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NB",
+  "message": "No Exist Board."
+}
+```
+
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
@@ -2469,16 +2464,6 @@ contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (인증 실패)**
-```bash
-HTTP/1.1 401 Unauthorized
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authentication Failed."
 }
 ```
 
@@ -2498,24 +2483,17 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+작성일 기준 내림차순으로 Q&A 전체 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/user/board/list**  
+- URL : **/rentcar/user/qna/list**  
 
 ##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
 
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user/board/list" \
- -H "Authorization: Bearer {JWT}"
+curl -v -X GET "http://localhost:4000/api/rentcar/user/qna/list" \
 ```
 
 ##### Response
@@ -2592,18 +2570,12 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 검색어에 해당하는 Q&A 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/user/board/list/search**  
+- URL : **/rentcar/user/qna/list/search**  
 
 ##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
 
 ###### Query Param
 
@@ -2614,8 +2586,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user/board/list/search?word=${searchWord}" \
- -H "Authorization: Bearer {JWT}"
+curl -v -X GET "http://localhost:4000/api/rentcar/user/qna/list/search?word=${searchWord}" \
 ```
 
 ##### Response
@@ -2698,22 +2669,16 @@ contentType: application/json;charset=UTF-8
 
 ***
 
-0.#### - Q&A 게시물 불러오기  
+#### - Q&A 게시물 불러오기  
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+Q&A 게시물 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/user/board/{receptionNumber}**  
+- URL : **/rentcar/user/qna/{receptionNumber}**  
 
 ##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
 
 ###### Path Variable
 
@@ -2724,8 +2689,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user/board/${receptionNumber}" \
- -H "Authorization: Bearer {JWT}"
+curl -v -X GET "http://localhost:4000/api/rentcar/user/qna/${receptionNumber}" \
 ```
 
 ##### Response
@@ -2750,7 +2714,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/user/board/${receptionNumber}"
 | viewCount | int | 조회수 | O |
 | contents | String | 내용 | O |
 | comment | String | 답글 내용 | X |
-| imageUrl | String | 이미지 | O |
+| imageUrl | String | 이미지 | X |
 
 ###### Example
 
@@ -2815,14 +2779,14 @@ contentType: application/json;charset=UTF-8
 
 ***
 
-#### - Q&A 게시물 조회수 증가  
-  
+#### - Q&A 게시물 작성  
+
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용을 입력받고 작성에 성공하면 성공처리를 합니다. 만약 작성에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PATCH**  
-- URL : **/rentcar/user/board/{receptionNumber}/increase-view-count**  
+- method : **POST**
+- URL : **/rentcar/user/qna/regist**
 
 ##### Request
 
@@ -2831,6 +2795,108 @@ contentType: application/json;charset=UTF-8
 | name | description | required |
 |---|:---:|:---:|
 | Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| title | String | Q&A 제목 | O |
+| contents | String | Q&A 내용 | O |
+| category | String | Q&A 유형 | O |
+| imageUrl | String | 이미지 | X |
+| public | Boolean | Q&A 공개여부 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/rentcar/user/qna/regist" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "title={title}" \
+ -d "contents={contents}"\
+ -d "imageUrl={imageUrl}" \
+ -d "category={category}" \
+ -d "public={public}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - Q&A 게시물 조회수 증가  
+  
+##### 설명
+
+Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **PATCH**  
+- URL : **/rentcar/user/qna/{receptionNumber}/increase-view-count**  
+
+##### Request
 
 ###### Path Variable
 
@@ -2841,8 +2907,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4000/api/rentcar/user/board/{receptionNumber}/increase-view-count$" \
- -H "Authorization: Bearer {JWT}"
+curl -v -X PATCH "http://localhost:4000/api/rentcar/user/qna/${receptionNumber}/increase-view-count" \
 ```
 
 ##### Response
@@ -2921,7 +2986,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
-- URL : **/rentcar/user/board/{receptionNumber}**  
+- URL : **/rentcar/user/qna/{receptionNumber}**  
 
 ##### Request
 
@@ -2940,7 +3005,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4000/api/rentcar/user/board/${receptionNumber}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/user/qna/${receptionNumber}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -2991,6 +3056,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (토큰 생성 실패)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "TF",
+  "message": "Token creation Failed."
+}
+```
+
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
@@ -3020,7 +3095,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수 번호, 제목, 내용을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **PUT**  
-- URL : **/rentcar/user/board/{receptionNumber}**  
+- URL : **/rentcar/user/qna/{receptionNumber}**  
 
 ##### Request
 
@@ -3042,14 +3117,20 @@ contentType: application/json;charset=UTF-8
 |---|:---:|:---:|:---:|
 | title | String | Q&A 제목 | O |
 | contents | String | Q&A 내용 | O |
+| category | String | Q&A 유형 | O |
+| imageUrl | String | 이미지 | X |
+| public | Boolean | Q&A 공개여부 | O |
 
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:4000/api/rentcar/user/board/${receptionNumber}" \
+curl -v -X PUT "http://localhost:4000/api/rentcar/user/qna/${receptionNumber}" \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
- -d "contents={contents}
+ -d "contents={contents} \
+ -d "category={category} \
+ -d "imageUrl={imageUrl} \
+ -d "public={public} 
 ```
 
 ##### Response
@@ -3340,7 +3421,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체명, 사진, 담당자 이름, 연락처, 주소를 입력받고 등록에 성공하면 성공처리 합니다. 만약 등록에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **POST**  
-- URL : **/rentcar/admin/company/regist**  
+- URL : **/admin/company/regist**  
 
 ##### Request
 
@@ -3358,7 +3439,7 @@ contentType: application/json;charset=UTF-8
 | address | String | 주소 | O |
 | owner | String | 담당자 | O |
 | companyTelnumber | String | 연락처 | O |
-| companyRule | String | 영업방침 | O |
+| companyRule | String | 영업방침 | X |
 
 ###### Example
 
@@ -3390,7 +3471,7 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/regist" \
 | address | String | 주소 | O |
 | owner | String | 담당자 | O |
 | companyTelnumber | String | 연락처 | O |
-| companyRule | String | 영업방침 | O |
+| companyRule | String | 영업방침 | X |
 
 ###### Example
 
@@ -3457,8 +3538,8 @@ contentType: application/json;charset=UTF-8
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체명, 사진, 담당자 이름, 연락처, 주소를 입력받고 수정에 성공하면 성공처리 합니다. 만약 수정에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PUT**  
-- URL : **/rentcar/admin/company/{companyCode}**  
+- method : **PATCH**  
+- URL : **/admin/company/{companyCode}**  
 
 ##### Request
 
@@ -3482,12 +3563,12 @@ contentType: application/json;charset=UTF-8
 | address | String | 주소 | O |
 | owner | String | 담당자 | O |
 | companyTelnumber | String | 연락처 | O |
-| companyRule | String | 영업방침 | O |
+| companyRule | String | 영업방침 | X |
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/${companyCode}" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/company/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
  -d "rentCompany={rentCompany}" \
  -d "address={address}
@@ -3510,13 +3591,6 @@ curl -v -X POST "http://localhost:4000/api/rentcar/admin/company/${companyCode}"
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-| rentCompany | String | 업체명 | O |
-| address | String | 주소 | O |
-| owner | String | 담당자 | O |
-| companyTelnumber | String | 연락처 | O |
-| companyRule | String | 영업방침 | O |
 
 ###### Example
 
@@ -3526,12 +3600,7 @@ HTTP/1.1 200 OK
 contentType: application/json;charset=UTF-8
 {
   "code": "SU",
-  "message": "Success.",
-  "rentCompany": "민머리 철수.",
-  "address": "제주시",
-  "owner": "김민철",
-  "companyTelnumber": "064-123-1345",
-  "companyRule": "룰"
+  "message": "Success."
 }
 ```
 
@@ -3594,7 +3663,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체번호를 입력받고 요청을 보내면 해당하는 업체 정보가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
-- URL : **/rentcar/admin/{companyCode}**  
+- URL : **/admin/{companyCode}**  
 
 ##### Request
 
@@ -3615,11 +3684,6 @@ contentType: application/json;charset=UTF-8
 ```bash
 curl -v -X DELETE "http://localhost:4000/api/rentcar/admin/company/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
- -d "rentCompany={rentCompany}" \
- -d "address={address}
- -d "owner={owner}
- -d "companyTelnumber={companyTelnumber}
- -d "companyRule={companyRule}
 ```
 
 ##### Response
@@ -3700,7 +3764,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 공지사항 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/admin/notice/list**  
+- URL : **/admin/notice/list**  
 
 ##### Request
 
@@ -3738,10 +3802,8 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/list" \
 |---|:---:|:---:|:---:|
 | registNumber | int | 공지사항 등록 번호 | O |
 | title | String | 제목 | O |
-| contents | String | 내용 | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
 
 ###### Example
 
@@ -3756,10 +3818,8 @@ contentType: application/json;charset=UTF-8
     {
       "registNumber": 1,
       "title": "공지사항",
-      "contents": "공지사항 내용",
       "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "image.jpg"
+      "viewCount": 0
     }, ...
   ]
 }
@@ -3792,7 +3852,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 공지사항 등록 번호를 입력받고 요청을 보내면 해당하는 공지항 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/admin/notice/{registNumber}**  
+- URL : **/admin/notice/{registNumber}**  
 
 ##### Request
 
@@ -3834,7 +3894,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/notice/${registNumber}" 
 | contents | String | 내용 | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
+| imageUrl | String | 이미지 | X |
 
 ###### Example
 
@@ -3884,7 +3944,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용, 사진을 입력받고 작성에 성공하면 성공처리 합니다. 만약 작성에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **POST**  
-- URL : **/rentcar/admin/notice/regist**  
+- URL : **/admin/notice/regist**  
 
 ##### Request
 
@@ -3900,7 +3960,7 @@ contentType: application/json;charset=UTF-8
 |---|:---:|:---:|:---:|
 | title | String | 제목 | O |
 | contents | String | 내용 | O |
-| imageUrl | String | 이미지 | O |
+| imageUrl | String | 이미지 | X |
 
 ###### Example
 
@@ -3988,7 +4048,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용, 사진을 입력받고 수정에 성공하면 성공처리 합니다. 만약 수정에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **POST**  
-- URL : **/rentcar/admin/notice/{registNumber}**  
+- URL : **/admin/notice/{registNumber}**  
 
 ##### Request
 
@@ -4090,7 +4150,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 공지사항 게시물이 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
-- URL : **/rentcar/admin/notice/{registNumber}**  
+- URL : **/admin/notice/{registNumber}**  
 
 ##### Request
 
@@ -4182,105 +4242,6 @@ contentType: application/json;charset=UTF-8
 
 ***
 
-#### - 공지사항 게시물 조회수 증가  
-  
-##### 설명
-
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
-
-- method : **PATCH**  
-- URL : **/rentcar/admin/notice/{registNumber}/increase-view-count**  
-
-##### Request
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| Authorization | 인증에 사용될 Bearer 토큰 | O |
-
-###### Path Variable
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| receptionNumber | int | 접수 번호 | O |
-
-###### Example
-
-```bash
-curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/notice/{registNumber}/increase-view-count$" \
- -H "Authorization: Bearer {JWT}"
-```
-
-##### Response
-
-###### Header
-
-| name | description | required |
-|---|:---:|:---:|
-| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
-
-###### Response Body
-
-| name | type | description | required |
-|---|:---:|:---:|:---:|
-| code | String | 결과 코드 | O |
-| message | String | 결과 메세지 | O |
-
-###### Example
-
-**응답 성공**
-```bash
-HTTP/1.1 200 OK
-contentType: application/json;charset=UTF-8
-{
-  "code": "SU",
-  "message": "Success."
-}
-```
-
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-contentType: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (존재하지 않는 게시물)**
-```bash
-HTTP/1.1 400 Bad Request
-contentType: application/json;charset=UTF-8
-{
-  "code": "NB",
-  "message": "No Exist Board."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-contentType: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
-}
-```
-
-***
-
 #### - Q&A 전체 게시물 리스트 불러오기  
   
 ##### 설명
@@ -4288,7 +4249,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/admin/board/list**  
+- URL : **/admin/qna/list**  
 
 ##### Request
 
@@ -4301,7 +4262,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/qna/list" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4330,7 +4291,6 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list" \
 | writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
 
 ###### Example
 
@@ -4348,8 +4308,7 @@ contentType: application/json;charset=UTF-8
       "title": "테스트1",
       "writerId": "j******",
       "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "umage.jpg"
+      "viewCount": 0
     }, ...
   ]
 }
@@ -4384,7 +4343,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 게시물 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/admin/board/list/search**  
+- URL : **/rentcar/admin/qna/list/search**  
 
 ##### Request
 
@@ -4403,7 +4362,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/qna/list/search?word=${searchWord}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4432,7 +4391,6 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/list/search?word=$
 | writerId | String | 작성자 아이디</br>(첫글자를 제외한 나머지 문자는 *) | O |
 | writeDatetime | String | 작성일</br>(yy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
-| imageUrl | String | 이미지 | O |
 
 ###### Example
 
@@ -4450,8 +4408,7 @@ contentType: application/json;charset=UTF-8
       "title": "테스트1",
       "writerId": "j******",
       "writeDatetime": "24.05.02",
-      "viewCount": 0,
-      "imageUrl": "image.jpg"
+      "viewCount": 0
     }, ...
   ]
 }
@@ -4496,7 +4453,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물 데이터를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/rentcar/admin/board/{receptionNumber}**  
+- URL : **/rentcar/admin/qna/{receptionNumber}**  
 
 ##### Request
 
@@ -4515,7 +4472,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/${receptionNumber}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/admin/qna/${receptionNumber}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4540,7 +4497,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/board/${receptionNumber}
 | writeDatetime | String | 작성일</br>(yyyy.mm.dd 형태) | O |
 | viewCount | int | 조회수 | O |
 | contents | String | 내용 | O |
-| imageUrl | String | 이미지 | O |
+| imageUrl | String | 이미지 | X |
 | comment | String | 답글 내용 | X |
 
 ###### Example
@@ -4613,7 +4570,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호를 입력받고 요청을 보내면 해당하는 Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **PATCH**  
-- URL : **/rentcar/admin/board/{receptionNumber}/increase-view-count**  
+- URL : **/rentcar/admin/qna/{receptionNumber}/increase-view-count**  
 
 ##### Request
 
@@ -4632,7 +4589,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/board/{receptionNumber}/increase-view-count$" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/admin/qna/{receptionNumber}/increase-view-count$" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4712,7 +4669,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 접수번호와 답글 내용을 입력받고 요청을 보내면 해당하는 Q&A 게시물의 답글이 작성됩니다. 만약 증가에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
-- URL : **/rentcar/admin/board/{receptionNumber}/comment**  
+- URL : **/rentcar/admin/qna/{receptionNumber}/comment**  
 
 ##### Request
 
@@ -4737,7 +4694,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/admin/board/${receptionNumber}/comment" \
+curl -v -X POST "http://localhost:4000/api/rentcar/admin/qna/${receptionNumber}/comment" \
  -H "Authorization: Bearer {JWT}" \
  -d "comment={commnet}"
 ```
@@ -4867,9 +4824,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list" \
 **userListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-
 | userSequence | int | 순번 | O |
-| userCode | int | 유저 고유 번호 | O |
 | userId | String | 유저 아이디  | O |
 | userName | String | 유저 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
 | userTelnumnber | String | 유저 전화번호 (010  *) | O |
@@ -4888,7 +4843,6 @@ contentType: application/json;charset=UTF-8
   "userList": [
     {
       "userSequence": 1,
-      "userCode": 1234,
       "userId" : asdqwdq,
       "userName": "김**",
       "userTelnumnber": "010-****-0000",
@@ -4925,9 +4879,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 회원 목록의 순번을 입력받고
- 요청을 보내면 해당하는 회원 목록 리스트가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 
- 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 회원 목록의 순번을 입력받고 요청을 보내면 해당하는 회원 목록 리스트가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
 - URL : **/admin/user/list/{userSequence}**  
@@ -5006,9 +4958,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 
-요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 회원목록 리스트를 반환합니다. 
-만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 회원목록 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/admin/user/list/{searchWord}**  
@@ -5053,9 +5003,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/admin/user/list/search?word${s
 **userListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-
 | userSequence | int | 순번 | O |
-| userCode | int | 유저 고유 번호 | O |
 | userId | String | 유저 아이디  | O |
 | userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
 | userTelnumnber | String | 유저 전화번호 (010-****-0000 형태) | O |
@@ -5074,7 +5022,6 @@ contentType: application/json;charset=UTF-8
   "userList": [
     {
       "userSequence": 1,
-      "userCode": 1234,
       "userId" : asdqwdq,
       "userName": "김**",
       "userTelnumnber": "010-****-0000",
@@ -5122,8 +5069,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 
-만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **reservation/list**  
