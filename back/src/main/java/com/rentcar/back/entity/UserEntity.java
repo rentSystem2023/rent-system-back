@@ -21,26 +21,27 @@ public class UserEntity {
     
 
     
-    // 데이터베이스에 5개의 컬럼이 존재함
+    // 데이터베이스에 개의 컬럼이 존재함
     @Id // UserId의 기본키 지정 
     private String userId; 
-    private String userName;
+    private String userName;        // 추가
     private String userPassword;
     private String userEmail;
     private String userRole;
     private String joinPath;
-    private String joinDate;
+    private String joinDate;        // 추가
+    private String userTelnumber;   // 추가
+
 
     // 새로운 생성자 작성 (implement 서비스에서 쓰기 위해)
-    public UserEntity(SignUpRequestDto dto){
+    public UserEntity(SignUpRequestDto dto) {
         this.userId = dto.getUserId();
-        this.userName = dto.getUserName();
+        this.userName = dto.getUserName();      // 추가
         this.userPassword = dto.getUserPassword();
         this.userEmail = dto.getUserEmail();
         this.userRole = "ROLE_USER";
-        this.joinPath = "HOME";
-        this.joinDate = dto.getJoinDate();
-        
-
+        this.joinPath = dto.getJoinPath();      // 추가
+        this.joinDate = dto.getJoinDate();      // 추가
+        this.userTelnumber = dto.getUserTelnumber();  // 추가
     }
 }

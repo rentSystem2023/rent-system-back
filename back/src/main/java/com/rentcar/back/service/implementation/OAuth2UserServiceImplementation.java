@@ -1,5 +1,6 @@
 package com.rentcar.back.service.implementation;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -50,17 +51,6 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             // 10자리수로 검증 진행
             String userId = oauthClientName + "_"+id.substring(0,10);
 
-
-            //* =========================================================================== */
-            //*  사용자 이름 설정 !! 문제가 있을 수 있음!
-            String userName = oAuth2User.getAttribute("nickname");
-            //*  가입 날짜 설정 (현재 날짜와 시간 사용) !! 문제가 있을 수 있음!
-            String joinDate = oAuth2User.getAttribute("");
-          //* =========================================================================== */
-
-
-
-
             // 데이터베이스에 존재하는지 검사하는 코드
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser){
@@ -72,7 +62,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             emailAuthNumberRepository.save(emailAuthNumberEntity);
             
                 // 가입권한과 , 경로는 만들어져 있어서 바로 사용 가능
-                UserEntity userEntity = new UserEntity(userId,userName,password,email,"ROLE_USER",oauthClientName,joinDate);
+                UserEntity userEntity = new UserEntity(userId,password,email,"ROLE_USER",oauthClientName);
                 userRepository.save(userEntity);
             }
 
