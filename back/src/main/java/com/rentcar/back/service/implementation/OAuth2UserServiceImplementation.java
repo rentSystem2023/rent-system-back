@@ -62,7 +62,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             emailAuthNumberRepository.save(emailAuthNumberEntity);
             
                 // 가입권한과 , 경로는 만들어져 있어서 바로 사용 가능
-                UserEntity userEntity = new UserEntity(userId,password,email,"ROLE_USER",oauthClientName);
+                UserEntity userEntity = new UserEntity(userId,password,email,"ROLE_USER",oauthClientName);    
                 userRepository.save(userEntity);
             }
 

@@ -182,7 +182,7 @@ public class AuthServiceImplementation implements AuthService {
 
             // 데이터베이스의 email_auth_number 테이블에서 해당하는 userEmail과 authNumber를 모두 가지고 있는 데이터가
             // 있는지 확인
-            boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, authNumber);
+            boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, authNumber);    
             // 만약 FALSE 라면
             if (!isMatched)
                 return ResponseDto.authenticationFailed();
