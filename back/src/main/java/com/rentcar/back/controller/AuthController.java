@@ -17,9 +17,9 @@ import com.rentcar.back.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-// Auth 모듈 컨트롤러 : /api/v1/auth
+// Auth 모듈 컨트롤러 : /api/rentcar/auth
 @RestController // JSON 형태의 리스폰스를 반환하려고 할 때 사용
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/rentcar/auth")
 @RequiredArgsConstructor // AuthService 의존성 주입을 위해 작업
 public class AuthController {
 
