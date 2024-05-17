@@ -115,4 +115,23 @@ public class UserServiceImplementation implements UserService{
     
     }
 
+    @Override
+    public ResponseEntity<ResponseDto> deleteUserList(String userId) {
+        
+        try {
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if (userEntity == null) return ResponseDto.noExistUser();
+
+            userRepository.delete(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+
+    }
+
 }

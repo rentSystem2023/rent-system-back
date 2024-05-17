@@ -70,4 +70,14 @@ public class UserController {
         ResponseEntity<? super GetUserListResponseDto> response = userService.getUserList(userId);
         return response;
     }
+
+    @DeleteMapping("/list/{userId}")
+    public ResponseEntity<ResponseDto> deleteUserList (
+        @PathVariable("userId") String userId
+        //, @AuthenticationPrincipal String userId
+        // 토큰 없어도 되겠죠?
+    ) {
+        ResponseEntity<ResponseDto> response = userService.deleteUserList(userId);
+        return response;
+    }
 }

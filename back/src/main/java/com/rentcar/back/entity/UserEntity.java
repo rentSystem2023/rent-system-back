@@ -41,7 +41,7 @@ public class UserEntity {
     public UserEntity(SignUpRequestDto dto) {
 
         Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
         String joinDate = simpleDateFormat.format(now);
 
         this.userId = dto.getUserId();
@@ -49,7 +49,7 @@ public class UserEntity {
         this.userPassword = dto.getUserPassword();
         this.userEmail = dto.getUserEmail();
         this.userRole = "ROLE_USER";
-        this.joinPath = dto.getJoinPath();      // 추가
+        this.joinPath = "HOME";      // 추가
         this.joinDate = joinDate;
     }
     

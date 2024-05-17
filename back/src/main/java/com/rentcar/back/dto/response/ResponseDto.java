@@ -49,6 +49,12 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    // 존재하지 않는 회원
+    public static ResponseEntity<ResponseDto> noExistUser() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_USER, ResponseMessage.NO_EXIST_USER);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     // 이미 작성된 답글
     public static ResponseEntity<ResponseDto> writtenComment() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.WRITTEN_COMMENT, ResponseMessage.WRITTEN_COMMENT);
