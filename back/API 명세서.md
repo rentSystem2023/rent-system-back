@@ -501,7 +501,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 받으면 해당 토큰의 작성자(subject)에 해당하는 사용자 정보를 반환합니다. 성공시에는 사용자의 아이디와 권한을 반환합니다. 인증 실패 및 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/userinfo**  
+- URL : **/**  
 
 ##### Request
 
@@ -514,7 +514,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/auth/userinfo" \
+curl -v -X GET "http://localhost:4100/api/rentcar/user" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -760,6 +760,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (존재하지 않는 내 정보)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NI",
+  "message": "No Exist Information."
+}
+```
+
 **응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
@@ -777,6 +787,16 @@ contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
