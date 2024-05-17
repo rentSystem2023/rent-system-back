@@ -2,6 +2,7 @@ package com.rentcar.back.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
+import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -50,5 +52,22 @@ public class UserController {
         return response;
     }
 
+    @DeleteMapping("/information/{userId}")
+    public ResponseEntity<ResponseDto> deleteMyInfo (
+        @PathVariable("userId") String userId
+        //, @AuthenticationPrincipal String userId
+        // 토큰 없어도 되겠죠?
+    ) {
+        ResponseEntity<ResponseDto> response = userService.deleteMyInfo(userId);
+        return response;
+    }
 
+    // 관리자의 회원목록 리스트
+    @GetMapping("/list")
+    public ResponseEntity<? super GetUserListResponseDto> getUserList (
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<? super GetUserListResponseDto> response = userService.getUserList(userId);
+        return response;
+    }
 }
