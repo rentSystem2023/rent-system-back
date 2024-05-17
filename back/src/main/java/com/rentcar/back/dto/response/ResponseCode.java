@@ -20,6 +20,7 @@ public interface ResponseCode {
     String NO_EXIST_RESERVATION = "NR";
     String NO_EXIST_VEHICLE = "NV";
     String NO_EXIST_COMPANY = "NC";
+    String NO_EXIST_INFORMATION = "NI";
     String WRITTEN_COMMENT = "WC";
     String SIGN_IN_FAILED = "SF";
     String AUTHENTICATION_FAILED = "AF";

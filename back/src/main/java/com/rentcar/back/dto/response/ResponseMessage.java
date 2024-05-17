@@ -20,6 +20,7 @@ public interface ResponseMessage {
     String NO_EXIST_RESERVATION = "No Exist Reservation.";
     String NO_EXIST_VEHICLE = "No Exist Vehicle.";
     String NO_EXIST_COMPANY = "No Exist Company.";
+    String NO_EXIST_INFORMATION = "No Exist Information";
     String WRITTEN_COMMENT = "Written Comment.";
     String SIGN_IN_FAILED = "Sign in Failed.";
     String AUTHENTICATION_FAILED = "Authentication Failed.";
