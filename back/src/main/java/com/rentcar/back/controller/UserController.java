@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 // 컨트롤러의 메서드에서 인증 접근 주체의 정보를 가져옴
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/rentcar/user")
 @RequiredArgsConstructor
 public class UserController {
   

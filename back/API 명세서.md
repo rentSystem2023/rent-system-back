@@ -485,6 +485,13 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+
+***
+
+<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> user 모듈 </h2>
+
+- url : /api/rentcar/user
+
 ***
 
 #### - 로그인 유저 정보 반환  
@@ -572,11 +579,6 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-***
-
-<h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> user 모듈 </h2>
-
-- url : /api/rentcar/user
 
 ***
 
@@ -1761,7 +1763,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "NC",
-  "message": "No Exist Car."
+  "message": "No Exist Vehicle."
 }
 ```
 
@@ -1881,7 +1883,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "NC",
-  "message": "No Exist Car."
+  "message": "No Exist Vehicle."
 }
 ```
 
@@ -2007,7 +2009,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "NC",
-  "message": "No Exist Car."
+  "message": "No Exist Vehicle."
 }
 ```
 
