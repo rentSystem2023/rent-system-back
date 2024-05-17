@@ -19,7 +19,7 @@ public interface UserService {
 
     ResponseEntity<ResponseDto> deleteMyInfo(String userId);
 
-    ResponseEntity<? super GetUserListResponseDto> getUserList (String userId); 
+    ResponseEntity<? super GetUserListResponseDto> getUserList (String userId);
 
     ResponseEntity<ResponseDto> deleteUserList(String userId);
 
