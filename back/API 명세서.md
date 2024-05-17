@@ -2,7 +2,7 @@
 
 해당 API 명세서는 '렌트카 서비스'의 REST API를 명세하고 있습니다.
 
-- Domain : <http://localhost:4100> 
+- Domain : <http://localhost:4000> 
 
 ***
 
@@ -33,7 +33,7 @@
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/auth/sign-in" \
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/sign-in" \
  -d "userId=service123" \
  -d "userPassword=P!ssw0rd"
 ```
@@ -130,7 +130,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/auth/id-check" \
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/id-check" \
  -d "userId=service123" 
 ```
 
@@ -218,7 +218,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/auth/email-auth" \
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/email-auth" \
  -d "userEmail=email@email.com"
 ```
 
@@ -312,7 +312,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/auth/email-auth-check" \
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/email-auth-check" \
  -d "userEmail=email@email.com" \
  -d "authNumber=0123"
 ```
@@ -393,17 +393,15 @@ contentType: application/json;charset=UTF-8
 |---|:---:|:---:|:---:|
 | userId | String | 사용자 아이디 | O |
 | userPassword | String | 사용자 비밀번호 (영문+숫자 8~13자) | O |
-| userTelnumber | String | 사용자 전화번호 | O |
 | userEmail | String | 사용자 이메일 (이메일 형태의 데이터) | O |
 | authNumber | String | 인증 확인할 인증 번호 | O |
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/auth/sign-up" \
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/sign-up" \
  -d "userId=service123" \
  -d "userPassword=Pa55w0rd" \
- -d "userTelnumber=010-1234-5678" \
  -d "userEmail=email@email.com" \
  -d "authNumber=0123"
 ```
@@ -514,7 +512,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/user" \
+curl -v -X GET "http://localhost:4000/api/rentcar/user" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -603,7 +601,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentCar/user/information" \
+curl -v -X GET "http://localhost:4000/api/rentCar/user/information" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -626,10 +624,9 @@ curl -v -X GET "http://localhost:4100/api/rentCar/user/information" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| userName | String | 사용자의 이름 | O |
+| nickName | String | 사용자의 닉네임 | O |
 | userId | String | 사용자의 아이디 | O |
 | userPassword | String | 사용자의 비밀번호 | O |
-| telnumber | String | 사용자의 전화번호 | O |
 | userEmail | String | 사용자의 이메일 | O |
 | joinDate | Date | 사용자의 가입날짜 | O |
 | userRole | String | 사용자의 권한 | O |
@@ -643,10 +640,9 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "userName": "장현아",
+  "nickName": "nickname",
   "userId": "admin",
   "userPassword": "qewr1234",
-  "telnumber": "010-1234-5678",
   "userEmail": "email@email.com",
   "joinDate": "2024.05.14",
   "userRole": "${userRole}"
@@ -719,17 +715,15 @@ contentType: application/json;charset=UTF-8
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | userPassword | String | 사용자의 비밀번호 | O |
-| telnumber | String | 사용자의 전화번호 | O |
 | userEmail | String | 사용자의 이메일 | O |
 
 
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4100/api/rentCar/user/information/modify" \
+curl -v -X PATCH "http://localhost:4000/api/rentCar/user/information/modify" \
  -H "Authorization: Bearer {JWT}" \
  -d "userPassword={userPassword}" \
- -d "telnumber={telnumber}" \
  -d "userEmail={userEmail}" \ 
 ```
 
@@ -848,7 +842,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4100/api/rentCar/user/information/${userId}" \
+curl -v -X DELETE "http://localhost:4000/api/rentCar/user/information/${userId}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -942,7 +936,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/user/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/user/list" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -966,9 +960,8 @@ curl -v -X GET "http://localhost:4100/api/rentcar/user/list" \
 **userListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| userId | String | 유저 아이디  | O |
-| userName | String | 유저 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
-| userTelnumnber | String | 유저 전화번호 (010  *) | O |
+| userId | String | 사용자의 아이디  | O |
+| nickName | String | 사용자의 닉네임  | O |
 | userEmail | String | 사용자 이메일</br>(이메일 네글자를 제외한 나머지 문자는 *, @ 이후로는 보임)| O |
 | joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
 
@@ -983,9 +976,8 @@ contentType: application/json;charset=UTF-8
   "message": "Success.",
   "userList": [
     {
-      "userId" : asdqwdq,
-      "userName": "김**",
-      "userTelnumnber": "010-****-0000",
+      "userId" : "asdqwdq",
+      "nickName": "nickname",
       "userEmail": "e453***@email.com",
       "joinDate": "24.05.02"
     }, ...
@@ -1060,7 +1052,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4100/api/rentcar/user/list/${userId}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/user/list/${userId}" \
 
  -H "Authorization: Bearer {JWT}"
 ```
@@ -1170,7 +1162,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/user/list/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/user/list/search?word=${searchWord}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1193,9 +1185,8 @@ curl -v -X GET "http://localhost:4100/api/rentcar/user/list/search?word=${search
 **userListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| userId | String | 유저 아이디  | O |
-| userName | String | 유저 이름 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
-| userTelnumnber | String | 유저 전화번호 (010-****-0000 형태) | O |
+| userId | String | 사용자의 아이디  | O |
+| nickName | String | 사용자의 닉네임  | O |
 | userEmail | String | 사용자 이메일</br>(이메일 네글자를 제외한 나머지 문자는 *, @ 이후로는 보임)| O |
 | joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
 
@@ -1210,9 +1201,8 @@ contentType: application/json;charset=UTF-8
   "message": "Success.",
   "userList": [
     {
-      "userId" : asdqwdq,
-      "userName": "김**",
-      "userTelnumnber": "010-****-0000",
+      "userId" : "asdqwdq",
+      "nickName": "nickname",
       "userEmail": "e453***@email.com",
       "joinDate": "24.05.02"
     }, ...
@@ -1309,7 +1299,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/rentCar/reservation/mylist" \
+curl -v -X GET "http://localhost:4000/rentCar/reservation/mylist" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1328,7 +1318,7 @@ curl -v -X GET "http://localhost:4100/rentCar/reservation/mylist" \
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
 | carImageUrl | String | 차량 사진 | O |
-| userName | String | 예약자명 | O |
+| nickName | String | 예약자의 닉네임 | O |
 | reservationDate | String | 예약날짜 | O |
 | reservationCode | String | 예약번호 | O |
 | rentCompany | String | 영업점 | O |
@@ -1343,7 +1333,7 @@ contentType: application/json;charset=UTF-8
   "code": "SU",
   "message": "Success.",
   "carImageUrl": "image.jpg",
-  "userName": "userName",
+  "nickName": "nickname",
   "reservationDate": 2024.05.14,
   "reservationCode": "ASDFFG23445",
   "rentCompany": "민머리 철수 렌트카"
@@ -1412,7 +1402,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentCar/reservation/mylist/${reservationCode}" \
+curl -v -X GET "http://localhost:4000/api/rentCar/reservation/mylist/${reservationCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1439,7 +1429,7 @@ curl -v -X GET "http://localhost:4100/api/rentCar/reservation/mylist/${reservati
 | rentCompany | String | 렌트 업체 이름 | O |
 | companyTelnumber | String | 렌트 업체 전화번호 | O |
 | address | String | 렌트 업체 주소 | O |
-| userName | String | 사용자(예약자)의 이름 | O |
+| nickName | String | 사용자(예약자)의 닉네임 | O |
 
 ###### Example
 
@@ -1459,7 +1449,7 @@ contentType: application/json;charset=UTF-8
   "rentCompany": "민머리 철수 렌트카",
   "companyTelnumber": "064-727-5680",
   "address": "제주특별자치도 제주시 용문로 8",
-  "userName": "장현아"
+  "nickName": "nickname"
 }
 ```
 
@@ -1541,7 +1531,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4100/api/rentcar/reservation/mylist/${reservationCode}" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/reservation/mylist/${reservationCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1638,7 +1628,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/reservation/popularcar-list" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/popularcar-list" 
 ```
 
 ##### Response
@@ -1718,7 +1708,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/reservation/search" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/search" 
 ```
 
 ##### Response
@@ -1828,7 +1818,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/reservation/search/${carCode}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/search/${carCode}" 
 ```
 
 ##### Response
@@ -1951,7 +1941,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/reservation/search/${companyCarCode}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/search/${companyCarCode}" 
 ```
 
 ##### Response
@@ -2076,7 +2066,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentCar/reservation/list/search/${companyCarCode}" \
+curl -v -X POST "http://localhost:4000/api/rentCar/reservation/list/search/${companyCarCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -2170,7 +2160,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentCar/reservation/list" \
+curl -v -X GET "http://localhost:4000/api/rentCar/reservation/list" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -2196,7 +2186,7 @@ curl -v -X GET "http://localhost:4100/api/rentCar/reservation/list" \
 |---|:---:|:---:|:---:|
 | reservationCode | String | 예약 번호 | O |
 | userId | String | 사용자 아이디 | O |
-| userName | String | 작성자 이름</br>(첫글자를 제외한 나머지 문자는 *)  | O |
+| nickName | String | 작성자 닉네임  | O |
 | companyCode | Int | 업체 번호 | O |
 | carNumber | String | 차량 번호 | O |
 | reservationDate | String |예약 날짜| O |
@@ -2216,7 +2206,7 @@ contentType: application/json;charset=UTF-8
     {
       "reservationCode": ABCD-1234,
       "userId": "asdqwdq",
-      "userName": "홍**",
+      "nickName": "nickname",
       "companyCode": 1234,
       "carNumber": "123하1234",
       "reservationDate": "24.05.02",
@@ -2290,7 +2280,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4100/api/rentcar/reservation/list/${reservationCode}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/reservation/list/${reservationCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -2394,7 +2384,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/notice/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/notice/list" \
 ```
 
 ##### Response
@@ -2470,7 +2460,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/notice/list/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/notice/list/search?word=${searchWord}" \
 ```
 
 ##### Response
@@ -2558,7 +2548,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/notice/list/${registNumber}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/notice/list/${registNumber}" 
 ```
 
 ##### Response
@@ -2632,7 +2622,7 @@ Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4100/api/rentcar/notice/${registNumber}/increase-view-count" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/notice/${registNumber}/increase-view-count" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -2725,7 +2715,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/notice/regist \
+curl -v -X POST "http://localhost:4000/api/rentcar/notice/regist \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
  -d "contents={contents}" \
@@ -2827,7 +2817,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/notice/list/${registNumber}" \
+curl -v -X POST "http://localhost:4000/api/rentcar/notice/list/${registNumber}" \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
  -d "contents={contents}" \
@@ -2949,7 +2939,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4100/api/rentcar/notice/list/${registNumber}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/notice/list/${registNumber}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -3059,7 +3049,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentCar/qna/mylist" \
+curl -v -X GET "http://localhost:4000/api/rentCar/qna/mylist" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -3179,7 +3169,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/qna/mylist/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/qna/mylist/search?word=${searchWord}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -3285,7 +3275,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/qna/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/qna/list" \
 ```
 
 ##### Response
@@ -3368,7 +3358,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/qna/list/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/qna/list/search?word=${searchWord}" \
 ```
 
 ##### Response
@@ -3461,7 +3451,7 @@ Q&A 게시물 데이터를 반환합니다. 만약 불러오기에 실패하면 
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/qna/list/${receptionNumber}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/qna/list/${receptionNumber}" \
 ```
 
 ##### Response
@@ -3571,7 +3561,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/qna/regist" \
+curl -v -X POST "http://localhost:4000/api/rentcar/qna/regist" \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
  -d "contents={contents}"\
@@ -3659,7 +3649,7 @@ Q&A 게시물의 조회수를 증가합니다. 만약 증가에 실패하면 실
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4100/api/rentcar/qna/${receptionNumber}/increase-view-count" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/qna/${receptionNumber}/increase-view-count" \
 ```
 
 ##### Response
@@ -3747,7 +3737,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4100/api/rentcar/qna/list/${receptionNumber}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/qna/list/${receptionNumber}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -3876,7 +3866,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PUT "http://localhost:4100/api/rentcar/qna/list/${receptionNumber}" \
+curl -v -X PUT "http://localhost:4000/api/rentcar/qna/list/${receptionNumber}" \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
  -d "contents={contents} \
@@ -4007,7 +3997,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/qna/${receptionNumber}/admin-comment" \
+curl -v -X POST "http://localhost:4000/api/rentcar/qna/${receptionNumber}/admin-comment" \
  -H "Authorization: Bearer {JWT}" \
  -d "comment={commnet}"
 ```
@@ -4136,7 +4126,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/company/list" \
+curl -v -X GET "http://localhost:4000/api/rentcar/company/list" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4250,7 +4240,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4100/api/rentcar/company/list/search?word=${searchWord}" \
+curl -v -X GET "http://localhost:4000/api/rentcar/company/list/search?word=${searchWord}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -4374,7 +4364,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4100/api/rentcar/company/regist" \
+curl -v -X POST "http://localhost:4000/api/rentcar/company/regist" \
  -H "Authorization: Bearer {JWT}" \
  -d "rentCompany={rentCompany}" \
  -d "address={address}" \
@@ -4508,7 +4498,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4100/api/rentcar/company/list/${companyCode}" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/company/list/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
  -d "rentCompany={rentCompany}" \
  -d "address={address}
@@ -4632,7 +4622,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4100/api/rentcar/company/list/${companyCode}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/company/list/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
