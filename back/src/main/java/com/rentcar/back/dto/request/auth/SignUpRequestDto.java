@@ -24,7 +24,5 @@ public class SignUpRequestDto {
     @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
     private String userEmail;
     @NotBlank
-    private String JoinPath;
-    @NotBlank
     private String authNumber;
 }
