@@ -17,6 +17,9 @@ public interface ResponseCode {
     String DUPLICATED_ID = "DI";
     String DUPLICATED_EMAIL = "DE";
     String NO_EXIST_BOARD = "NB";
+    String NO_EXIST_RESERVATION = "NR";
+    String NO_EXIST_VEHICLE = "NV";
+    String NO_EXIST_COMPANY = "NC";
     String WRITTEN_COMMENT = "WC";
     String SIGN_IN_FAILED = "SF";
     String AUTHENTICATION_FAILED = "AF";
@@ -25,5 +28,6 @@ public interface ResponseCode {
     String TOKEN_CREATION_FAILED = "TF";
     String MAIL_SEND_FAILED = "MF";
     String DATABASE_ERROR = "DBE";
+    String REGISTED_COMPANY = "RC";
 }
 
