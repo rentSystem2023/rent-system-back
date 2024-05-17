@@ -1,5 +1,4 @@
 package com.rentcar.back.controller;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,8 +55,8 @@ public class AuthController {
     // body의 형태가 responseDto
     public ResponseEntity<ResponseDto> emailAuthCheck(
             // @RequestBody로 받기 위해 ,valid = 유효성 검사
-            @RequestBody @Valid EmailAuthCheckRequestDto requsetBody) {
-        ResponseEntity<ResponseDto> response = authService.emailAuthCheck(requsetBody);
+            @RequestBody @Valid EmailAuthCheckRequestDto requestBody) {
+        ResponseEntity<ResponseDto> response = authService.emailAuthCheck(requestBody);
         return response;
     }
 
@@ -65,8 +64,10 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<ResponseDto> signUp(
             // @RequestBody로 받기 위해 ,valid = 유효성 검사
-            @RequestBody @Valid SignUpRequestDto requsetBody) {
-        ResponseEntity<ResponseDto> response = authService.SignUp(requsetBody);
+            @RequestBody @Valid SignUpRequestDto requestBody) {
+        ResponseEntity<ResponseDto> response = authService.SignUp(requestBody);
         return response;
     }
+
+
 }
