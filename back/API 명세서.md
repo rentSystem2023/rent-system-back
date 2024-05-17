@@ -703,7 +703,7 @@ contentType: application/json;charset=UTF-8
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 이름, 아이디, 비밀번호, 전화번호, 이메일을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PATCH**  
+- method : **PATCH**
 - URL : **/information/modify**
 
 ##### Request
