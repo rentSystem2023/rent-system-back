@@ -104,7 +104,7 @@ public class UserServiceImplementation implements UserService{
         
         try {
 
-            List<UserEntity> userEntities = userRepository.findByOrderByReceptionNumberDesc();
+            List<UserEntity> userEntities = userRepository.findByOrderByUserIdDesc();
             return GetUserListResponseDto.success(userEntities);
 
         } catch (Exception exception) {
