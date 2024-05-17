@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
@@ -42,9 +43,10 @@ public class UserController {
 
     @PatchMapping("/information/modify")
     public ResponseEntity<ResponseDto> myInfoModify (
-        @RequestBody 
+        @RequestBody PatchUserRequestDto RequestBody,
+        @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<ResponseDto> response = userService.myInfoModify(null);
+        ResponseEntity<ResponseDto> response = userService.myInfoModify(userId);
         return response;
     }
 
