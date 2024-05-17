@@ -69,7 +69,7 @@ public class UserServiceImplementation implements UserService{
         } catch (Exception exception) {
 
             exception.printStackTrace();
-            
+
             return ResponseDto.databaseError();
         }
 
