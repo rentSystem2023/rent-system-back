@@ -21,6 +21,8 @@ public interface UserService {
 
     ResponseEntity<? super GetUserListResponseDto> getUserList (String userId); 
 
+    ResponseEntity<ResponseDto> deleteUserList(String userId);
+
 
 }
 
