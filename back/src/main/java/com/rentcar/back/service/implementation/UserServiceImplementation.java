@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
+import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.entity.UserEntity;
 import com.rentcar.back.repository.UserRepository;
 import com.rentcar.back.service.UserService;
@@ -63,7 +64,7 @@ public class UserServiceImplementation implements UserService{
             UserEntity userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.noExistInfo();
 
-            userEntity.myInfoModify(userId);
+            userEntity = userRepository.findByUserId(userId);
             userRepository.save(userEntity);
 
         } catch (Exception exception) {
@@ -77,5 +78,26 @@ public class UserServiceImplementation implements UserService{
 
     
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteMyInfo(String userId) {
+        try {
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if (userEntity == null) return ResponseDto.noExistInfo();
+
+            userRepository.delete(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetUserListResponseDto> getUserList(String userId) {
+        
     
 }
