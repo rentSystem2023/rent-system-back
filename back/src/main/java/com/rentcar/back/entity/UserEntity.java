@@ -1,5 +1,9 @@
 package com.rentcar.back.entity;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 
 import jakarta.persistence.Entity;
@@ -35,12 +39,18 @@ public class UserEntity {
 
     // 새로운 생성자 작성 (implement 서비스에서 쓰기 위해)
     public UserEntity(SignUpRequestDto dto) {
+
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String joinDate = simpleDateFormat.format(now);
+
         this.userId = dto.getUserId();
         this.nickName = dto.getNickName();      // 추가
         this.userPassword = dto.getUserPassword();
         this.userEmail = dto.getUserEmail();
         this.userRole = "ROLE_USER";
         this.joinPath = dto.getJoinPath();      // 추가
+        this.joinDate = joinDate;
     }
     
     public UserEntity (String userId, String nickName, String userPassword, String userEmail, String userRole, String joinPath) {
@@ -50,4 +60,5 @@ public class UserEntity {
         this.userRole = userRole;
         this.joinPath = joinPath;
     }
+
 }
