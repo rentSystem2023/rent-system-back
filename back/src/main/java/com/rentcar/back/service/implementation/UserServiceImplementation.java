@@ -1,5 +1,7 @@
 package com.rentcar.back.service.implementation;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -99,5 +101,18 @@ public class UserServiceImplementation implements UserService{
     @Override
     public ResponseEntity<? super GetUserListResponseDto> getUserList(String userId) {
         
+        
+        try {
+
+            List<UserEntity> userEntities = userRepository.findByOrderByReceptionNumberDesc();
+            return GetUserListResponseDto.success(userEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
     
+    }
+
 }
