@@ -1,17 +1,14 @@
-package com.rentcar.back.dto.request.board.qnaboard;
+package com.rentcar.back.dto.request.board.noticeboard;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-// 게시판 유효성 검사 Request Body DTO
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostBoardRequestDto {
-
+public class PostNoticeBoardRequestDto {
     @NotBlank
     private String title;
     @NotBlank
