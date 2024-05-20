@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.PostReservationResponseDto;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
@@ -28,15 +29,18 @@ public class ReservationServiceImplementation implements ReservationService {
             if (!isExistUser)
                 return ResponseDto.authenticationFailed();
             // 예약 내역 확인
-            reservationEntity = reservationRepository.findByUserId(userId);
+            reservationEntity = reservationRepository.getReservationList(userId);
 
             // 성공 작성
             return GetReservationMyListResponseDto.success(reservationEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseDto.databaseError();
+            return ResponseDto.databaseError();                           
         }
 
     }
+
+
+
 }
