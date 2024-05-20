@@ -22,7 +22,7 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
 
     private GetNoticeBoardResponseDto (NoticeBoardEntity noticeBoardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        String writeDatetime = ChangeDateFormatUtil.changeYYYYMMDD(noticeBoardEntity.getWriteDateTime());
+        String writeDatetime = ChangeDateFormatUtil.changeYYYYMMDD(noticeBoardEntity.getWriteDatetime());
 
         this.registNumber = noticeBoardEntity.getRegistNumber();
         this.title = noticeBoardEntity.getTitle();
