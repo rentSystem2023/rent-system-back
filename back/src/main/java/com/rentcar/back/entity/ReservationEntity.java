@@ -31,6 +31,4 @@ public class ReservationEntity {
     private String reservationDate;
     @NotBlank
     private String rentCompany;
-
-
 }
