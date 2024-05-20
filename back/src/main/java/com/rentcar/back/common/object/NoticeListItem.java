@@ -24,10 +24,10 @@ public class NoticeListItem {
         this.viewCount = noticeBoardEntity.getViewCount();
     }
 
-    public static List<NoticeListItem> getList(List<NoticeBoardEntity> boardEntities) throws Exception {
+    public static List<NoticeListItem> getList(List<NoticeBoardEntity> noticeBoardEntities) throws Exception {
        List<NoticeListItem> noticeList = new ArrayList<>();
        
-       for (NoticeBoardEntity noticeBoardEntity: boardEntities) {
+       for (NoticeBoardEntity noticeBoardEntity: noticeBoardEntities) {
             NoticeListItem noticeListItem = new NoticeListItem(noticeBoardEntity);
             noticeList.add(noticeListItem);
        }
