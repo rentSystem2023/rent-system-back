@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
+import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.entity.UserEntity;
@@ -104,7 +105,7 @@ public class UserServiceImplementation implements UserService{
         
         try {
 
-            List<UserEntity> userEntities = userRepository.findByOrderByUserIdDesc();
+            List<UserEntity> userEntities = userRepository.findByOrderByJoinDateDesc();
             return GetUserListResponseDto.success(userEntities);
 
         } catch (Exception exception) {
@@ -132,6 +133,23 @@ public class UserServiceImplementation implements UserService{
 
         return ResponseDto.success();
 
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList(String searchWord) {
+        
+        
+        try {
+
+            List<UserEntity> userEntities = userRepository.findByUserIdContainsOrderByJoinDateDesc(searchWord);
+            return GetSearchUserListResponseDto.success(userEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+    
     }
 
 }
