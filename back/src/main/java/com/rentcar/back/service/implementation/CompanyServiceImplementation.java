@@ -20,7 +20,7 @@ public class CompanyServiceImplementation implements CompanyService {
     private final CompanyRepository companyRepository;
 
     @Override
-    public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList(Integer companyCode) {
+    public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList() {
 
         try {
 
