@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*")
+                                                .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**")
                                                 .permitAll()
                                                 .requestMatchers("/api/rentcar/qna/").hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment").hasRole("ADMIN")

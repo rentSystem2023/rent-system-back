@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+
 public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
     private final NoticeBoardRepository noticeBoardRepository;
@@ -29,10 +30,10 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
     public ResponseEntity<ResponseDto> postNoticeBoard(PostNoticeBoardRequestDto dto, String userId) {
 
         try {
-
+            
             boolean isExistUser = userRepository.existsById(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
-
+            
             NoticeBoardEntity noticeBoardEntity = new NoticeBoardEntity(dto, userId);
             noticeBoardRepository.save(noticeBoardEntity);
 
@@ -57,7 +58,7 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        
+
     }
 
     @Override
@@ -65,7 +66,8 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
         try {
 
-            List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository.findByTitleContainsOrderByRegistNumberDesc(searchWord);
+            List<NoticeBoardEntity> noticeBoardEntities = noticeBoardRepository
+                    .findByTitleContainsOrderByRegistNumberDesc(searchWord);
             return GetSearchNoticeBoardListResponseDto.success(noticeBoardEntities);
 
         } catch (Exception exception) {
@@ -80,7 +82,8 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
         try {
 
             NoticeBoardEntity noticeBoardEntity = noticeBoardRepository.findByRegistNumber(registNumber);
-            if (noticeBoardEntity == null) return ResponseDto.noExistBoard();
+            if (noticeBoardEntity == null)
+                return ResponseDto.noExistBoard();
 
             return GetNoticeBoardResponseDto.success(noticeBoardEntity);
 
@@ -96,7 +99,8 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
         try {
 
             NoticeBoardEntity noticeBoardEntity = noticeBoardRepository.findByRegistNumber(registNumber);
-            if (noticeBoardEntity == null) return ResponseDto.noExistBoard();
+            if (noticeBoardEntity == null)
+                return ResponseDto.noExistBoard();
 
             noticeBoardEntity.increaseViewCount();
             noticeBoardRepository.save(noticeBoardEntity);
@@ -111,16 +115,18 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
     @Override
     public ResponseEntity<ResponseDto> deleteNoticeBoard(int registNumber, String userId) {
-        
+
         try {
 
             NoticeBoardEntity NoticeBoardEntity = noticeBoardRepository.findByRegistNumber(registNumber);
-            if (NoticeBoardEntity == null) return ResponseDto.noExistBoard();
+            if (NoticeBoardEntity == null)
+                return ResponseDto.noExistBoard();
 
             String writerId = NoticeBoardEntity.getWriterId();
             boolean isWriter = userId.equals(writerId);
-            if (!isWriter) return ResponseDto.authorizationFailed();
-            
+            if (!isWriter)
+                return ResponseDto.authorizationFailed();
+
             noticeBoardRepository.delete(NoticeBoardEntity);
 
         } catch (Exception exception) {
@@ -136,17 +142,18 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
 
         try {
 
-            NoticeBoardEntity NoticeBoardEntity =noticeBoardRepository.findByRegistNumber(registNumber);
-            if (NoticeBoardEntity == null) return ResponseDto.noExistBoard();
+            NoticeBoardEntity NoticeBoardEntity = noticeBoardRepository.findByRegistNumber(registNumber);
+            if (NoticeBoardEntity == null)
+                return ResponseDto.noExistBoard();
 
             String writerId = NoticeBoardEntity.getWriterId();
             boolean isWriter = userId.equals(writerId);
-            if (!isWriter) return ResponseDto.authorizationFailed();
+            if (!isWriter)
+                return ResponseDto.authorizationFailed();
 
             NoticeBoardEntity.update(dto);
 
             noticeBoardRepository.save(NoticeBoardEntity);
-
 
         } catch (Exception exception) {
             exception.printStackTrace();
