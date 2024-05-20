@@ -15,4 +15,9 @@ public class PostQnaBoardRequestDto {
     private String title;
     @NotBlank
     private String contents;
+    @NotBlank
+    private String category;
+    private String imageUrl;
+    @NotBlank
+    private String publicState;
 }

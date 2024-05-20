@@ -15,8 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="qnaboard")
-@Table(name="qnaboard")
+@Entity(name="qnaBoard")
+@Table(name="qnaBoard")
 @Getter
 @Setter
 @NoArgsConstructor
