@@ -29,7 +29,7 @@ public class ReservationServiceImplementation implements ReservationService {
             if (!isExistUser)
                 return ResponseDto.authenticationFailed();
             // 예약 내역 확인
-            reservationEntity = reservationRepository.getReservationList(userId);
+            reservationEntity = reservationRepository.findByUserId(userId);
 
             // 성공 작성
             return GetReservationMyListResponseDto.success(reservationEntity);
