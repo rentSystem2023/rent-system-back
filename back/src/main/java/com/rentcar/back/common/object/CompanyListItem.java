@@ -19,7 +19,7 @@ public class CompanyListItem {
     private String registDate;
 
     private CompanyListItem(CompanyEntity companyEntity) throws Exception {
-        String registDate = ChangeDateFormatUtil.changeYYMMDD(companyEntity.getRegistDate());
+        String registDate = ChangeDateFormatUtil.registYYMMDD(companyEntity.getRegistDate());
         
         this.companyCode = companyEntity.getCompanyCode();
         this.rentCompany = companyEntity.getRentCompany();
