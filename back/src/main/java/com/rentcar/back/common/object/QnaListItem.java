@@ -9,7 +9,7 @@ import com.rentcar.back.entity.QnaBoardEntity;
 import lombok.Getter;
 
 @Getter
-public class BoardListItem {
+public class QnaListItem {
     private Integer receptionNumber;
     private Boolean status;
     private String title;
@@ -17,7 +17,7 @@ public class BoardListItem {
     private String writeDatetime;
     private Integer viewCount;
 
-    private BoardListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
+    private QnaListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(qnaBoardEntity.getWriteDatetime());
 
         String writerId = qnaBoardEntity.getWriterId();
@@ -31,14 +31,14 @@ public class BoardListItem {
         this.viewCount = qnaBoardEntity.getViewCount();
     }
 
-    public static List<BoardListItem> getList(List<QnaBoardEntity> qnaBoardEntities) throws Exception {
-        List<BoardListItem> boardList = new ArrayList<>();
+    public static List<QnaListItem> getList(List<QnaBoardEntity> qnaBoardEntities) throws Exception {
+        List<QnaListItem> qnaList = new ArrayList<>();
     
-        for (QnaBoardEntity boardEntity: qnaBoardEntities) {
-            BoardListItem boardListItem = new BoardListItem(boardEntity);
-            boardList.add(boardListItem);
+        for (QnaBoardEntity qnaBoardEntity: qnaBoardEntities) {
+            QnaListItem boardListItem = new QnaListItem(qnaBoardEntity);
+            qnaList.add(boardListItem);
         }
 
-        return boardList;
+        return qnaList;
     }
 }
