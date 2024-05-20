@@ -16,7 +16,7 @@ public class NoticeListItem {
     private Integer viewCount;
 
     private NoticeListItem(NoticeBoardEntity noticeBoardEntity) throws Exception {
-        String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(noticeBoardEntity.getWriteDateTime());
+        String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(noticeBoardEntity.getWriteDatetime());
         
         this.registNumber = noticeBoardEntity.getRegistNumber();
         this.title = noticeBoardEntity.getTitle();

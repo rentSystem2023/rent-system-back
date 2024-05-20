@@ -31,7 +31,7 @@ public class NoticeBoardEntity {
     private String title;
     private String contents;
     private String writerId;
-    private String writeDateTime;
+    private String writeDatetime;
     private Integer viewCount;
     private String imageUrl;
     
@@ -43,7 +43,7 @@ public class NoticeBoardEntity {
         this.title = dto.getTitle();
         this.contents = dto.getContents();
         this.writerId = userId;
-        this.writeDateTime = writeDatetime;
+        this.writeDatetime = writeDatetime;
         this.viewCount = 0;
 
     }
