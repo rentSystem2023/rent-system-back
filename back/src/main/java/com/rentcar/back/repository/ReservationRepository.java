@@ -7,6 +7,9 @@ import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.entity.UserEntity;
 @Repository
 
-public interface ReservationRepository extends JpaRepository<ReservationEntity, String> {
-    ReservationEntity findByReservationCode(String reservationCode);
-}
+public interface ReservationRepository extends JpaRepository<UserEntity,String> {
+
+    ReservationEntity findByUserId(String userId);
+
+    }
+
