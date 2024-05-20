@@ -29,5 +29,12 @@ public class ChangeDateFormatUtil {
         return reservationDate;
     }
 
+    public static String registYYMMDD(String original) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date datetime = simpleDateFormat.parse(original);
+        simpleDateFormat = new SimpleDateFormat("yy.MM.dd");
+        String registDate = simpleDateFormat.format(datetime);
+        return registDate;
+    }
 
 }
