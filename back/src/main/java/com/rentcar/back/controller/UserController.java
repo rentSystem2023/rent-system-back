@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
+import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.service.UserService;
@@ -78,6 +80,15 @@ public class UserController {
         // 토큰 없어도 되겠죠?
     ) {
         ResponseEntity<ResponseDto> response = userService.deleteUserList(userId);
+        return response;
+    }
+
+
+    @GetMapping("/list/{search}")
+    public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
+        @RequestParam("word") String searchWord
+    ) {
+        ResponseEntity<? super GetSearchUserListResponseDto> response = userService.getSearchUserList(searchWord);
         return response;
     }
 }

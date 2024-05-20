@@ -15,6 +15,12 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
     boolean existsByUserEmail(String userEmail);
     boolean existsByUserId(String userId);
 
-    List<UserEntity> findByOrderByUserIdDesc();
+    List<UserEntity> findByOrderByJoinDateDesc();
+
+    // Contains / Containing / IsContaining => LIKE '%word%'
+    // StartingWith => LIKE 'word%'
+    // EndingWith => LIKE '%word'
+    List<UserEntity> findByUserIdContainsOrderByJoinDateDesc(String userId);
+
 
 }
