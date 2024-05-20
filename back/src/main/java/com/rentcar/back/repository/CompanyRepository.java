@@ -8,7 +8,7 @@ import com.rentcar.back.entity.CompanyEntity;
 import java.util.List;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<CompanyRepository, Integer> {
+public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer> {
     
     List<CompanyEntity> findByOrderByRegistDateDesc();
 }
