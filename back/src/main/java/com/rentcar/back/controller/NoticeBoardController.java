@@ -55,7 +55,7 @@ public class NoticeBoardController {
     ) {
         ResponseEntity<? super GetSearchNoticeBoardListResponseDto> response = noticeBoardService.getSearchNoticeBoardList(word);
         return response;
-    }
+    }   
 
     // 공지사항 게시물 불러오기
     @GetMapping("/{registNumber}")
