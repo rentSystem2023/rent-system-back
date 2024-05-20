@@ -11,9 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PutQnaBoardRequsetDto {
+    
     @NotBlank
     private String title;
     @NotBlank
     private String contents;
-    
+    @NotBlank
+    private String category;
+    private String imageUrl;
+    @NotBlank
+    private String publicState;
 }

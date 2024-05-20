@@ -13,4 +13,5 @@ public class PostNoticeBoardRequestDto {
     private String title;
     @NotBlank
     private String contents;
+    private String imageUrl;
 }
