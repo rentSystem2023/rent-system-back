@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyRequestDto {
+public class PutCompanyRequestDto {
     
     @NotNull
     private Integer companyCode;
@@ -21,7 +21,5 @@ public class CompanyRequestDto {
     private String owner;
     @NotBlank
     private String companyTelnumber;
-    @NotBlank
-    private String registDate;
     private String companyRule;
 }
