@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
@@ -59,27 +60,23 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> myInfoModify(String userId) {
-        
+    public ResponseEntity<ResponseDto> myInfoModify(PatchUserRequestDto dto, String userId) {
         
         try {
-
             UserEntity userEntity = userRepository.findByUserId(userId);
+
             if (userEntity == null) return ResponseDto.noExistInfo();
 
-            userEntity = userRepository.findByUserId(userId);
+            userEntity.update(dto);
+
             userRepository.save(userEntity);
 
         } catch (Exception exception) {
-
             exception.printStackTrace();
-
             return ResponseDto.databaseError();
         }
 
         return ResponseDto.success();
-
-    
     }
 
     @Override

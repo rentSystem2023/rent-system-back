@@ -11,8 +11,8 @@ import lombok.Setter;
 public class PatchUserRequestDto {
     
     @NotBlank
-    private String telnumber;
+    private String userPassword;
     @NotBlank
-    private String userEmail;
+    private String nickName;
 
 }
