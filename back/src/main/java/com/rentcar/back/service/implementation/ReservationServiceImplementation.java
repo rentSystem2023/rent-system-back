@@ -36,7 +36,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
             List<GetUserReservationResultSet> reservationEntity = reservationRepository.getUserReservationList(userId);
 
-            return GetReservationMyListResponseDto.success(reservationEntity, null, null, null);
+            return GetReservationMyListResponseDto.success(reservationEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
