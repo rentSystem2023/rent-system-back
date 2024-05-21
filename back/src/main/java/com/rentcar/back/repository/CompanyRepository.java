@@ -5,13 +5,15 @@ import org.springframework.stereotype.Repository;
 
 import com.rentcar.back.entity.CompanyEntity;
 
+
 import java.util.List;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer> {
     
     List<CompanyEntity> findByOrderByRegistDateDesc();
+    CompanyEntity findByCompanyCode(Integer companyCode);
 
-    List<CompanyEntity> findByRentCompanyContainsOrderByRentCompany(String rentCompany);
+    List<CompanyEntity> findByRentCompanyContainsOrderByRegistDateDesc(String rentCompany);
 }
 
