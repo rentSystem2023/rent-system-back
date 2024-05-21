@@ -12,5 +12,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer>
     
     List<CompanyEntity> findByOrderByRegistDateDesc();
 
-    List<CompanyEntity> findByRentCompany(String rentCompany);
+    List<CompanyEntity> findByRentCompanyContainsOrderByRentCompany(String rentCompany);
 }
+
