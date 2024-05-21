@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
+import com.rentcar.back.dto.response.company.GetSearchCompanyListResponseDto;
 import com.rentcar.back.entity.CompanyEntity;
 import com.rentcar.back.repository.CompanyRepository;
 import com.rentcar.back.service.CompanyService;
@@ -32,6 +33,19 @@ public class CompanyServiceImplementation implements CompanyService {
             return ResponseDto.databaseError();
         }
 
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList(String searchWord) {
+
+        try{
+            List<CompanyEntity> companyEntities = companyRepository
+                .findByRentCompany(searchWord);
+                return GetSearchCompanyListResponseDto.success(companyEntities);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
     
 }
