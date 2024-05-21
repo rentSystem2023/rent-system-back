@@ -1,10 +1,14 @@
 package com.rentcar.back.entity;
 
+import com.rentcar.back.dto.request.company.CompanyRequestDto;
+
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,4 +30,28 @@ public class CompanyEntity {
     private String owner;
     private String registDate;
     private String companyRule;
+
+    public CompanyEntity(CompanyRequestDto dto, String companyCode) {
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String companyDatetime = simpleDateFormat.format(now);
+
+        this.companyCode = dto.getCompanyCode();
+        this.rentCompany = dto.getRentCompany();
+        this.address = dto.getAddress();
+        this.companyTelnumber = dto.getCompanyTelnumber();
+        this.owner = dto.getOwner();
+        this.registDate = companyDatetime;
+        this.companyRule = dto.getCompanyRule();
+    }
+
+    // public CompanyEntity (Integer companyCode, String rentCompany, String address, String companyTelnumber, String owner, String registDate, String companyRule) {
+    //     this.companyCode = companyCode;
+    //     this.rentCompany = rentCompany;
+    //     this.address = address;
+    //     this.companyTelnumber = companyTelnumber;
+    //     this.owner = owner;
+    //     this.registDate = companyDatetime;
+    //     this.companyRule = companyRule;
+    // }
 }
