@@ -20,4 +20,5 @@ public interface QnaBoardRepository extends JpaRepository <QnaBoardEntity, Integ
     QnaBoardEntity findByReceptionNumber(Integer receptionNumber);
 
 
+
 }

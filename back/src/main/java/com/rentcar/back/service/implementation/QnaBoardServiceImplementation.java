@@ -10,8 +10,10 @@ import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardListResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardMyListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardListResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardMyListResponseDto;
 import com.rentcar.back.entity.QnaBoardEntity;
 import com.rentcar.back.repository.QnaBoardRepository;
 import com.rentcar.back.repository.UserRepository;
@@ -184,4 +186,37 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
         return ResponseDto.success();
     }
 
+
+    // QnA MyList
+    @Override
+    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList() {
+        try {
+
+            List<QnaBoardEntity> qnaBoardEntities = qnaBoardRepository.findByOrderByReceptionNumberDesc();
+            return GetQnaBoardMyListResponseDto.success(qnaBoardEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+    }
+
+    // QnA search
+    @Override
+    public ResponseEntity<? super  GetSearchQnaBoardMyListResponseDto> getSearchQnaBoardMyList(String searchWord) {
+        
+        try {
+
+            List<QnaBoardEntity> qnaboardEntities = qnaBoardRepository.findByTitleContainsOrderByReceptionNumberDesc(searchWord);
+            return GetSearchQnaBoardMyListResponseDto.success(qnaboardEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
 }
+
+
+
