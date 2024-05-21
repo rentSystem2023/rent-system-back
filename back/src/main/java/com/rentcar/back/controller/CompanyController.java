@@ -30,9 +30,9 @@ public class CompanyController {
     // company 검색 불러오기
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList (
-        @RequestParam("word") String searchWord
+        @RequestParam("word") String word
     ) {
-        ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService.getSearchCompanyList(searchWord);
+        ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService.getSearchCompanyList(word);
         return response;
     }
     

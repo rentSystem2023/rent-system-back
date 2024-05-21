@@ -40,7 +40,7 @@ public class CompanyServiceImplementation implements CompanyService {
 
         try{
             List<CompanyEntity> companyEntities = companyRepository
-                .findByRentCompany(searchWord);
+                .findByRentCompanyContainsOrderByRentCompany(searchWord);
                 return GetSearchCompanyListResponseDto.success(companyEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
