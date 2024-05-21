@@ -57,7 +57,7 @@ public class CompanyServiceImplementation implements CompanyService {
     @Override
     public ResponseEntity<ResponseDto> postCompany(PostCompanyRequestDto dto, String userId) {
         
-          try {
+        try {
             
             boolean isExistUser = userRepository.existsById(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
@@ -67,7 +67,9 @@ public class CompanyServiceImplementation implements CompanyService {
 
         }catch(Exception exception){
             exception.printStackTrace();
-            return ResponseDto.databaseError();
+            return ResponseDto.databaseError(); 
         }
+
+        return ResponseDto.success();
     }
 }
