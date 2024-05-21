@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
+import com.rentcar.back.dto.response.company.GetSearchCompanyListResponseDto;
 import com.rentcar.back.service.CompanyService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/rentcar/company")
@@ -23,4 +26,14 @@ public class CompanyController {
         ResponseEntity<? super GetCompanyListResponseDto> response = companyService.getCompanyList();
         return response;
     }
+
+    // company 검색 불러오기
+    @GetMapping("/list/search")
+    public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList (
+        @RequestParam("word") String searchWord
+    ) {
+        ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService.getSearchCompanyList(searchWord);
+        return response;
+    }
+    
 }
