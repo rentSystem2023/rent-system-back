@@ -1,5 +1,7 @@
 package com.rentcar.back.service.implementation;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
+import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 import com.rentcar.back.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +34,7 @@ public class ReservationServiceImplementation implements ReservationService {
             boolean isExistUser = reservationRepository.existsById(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
-            ReservationEntity reservationEntity = reservationRepository.findByUserIdOrderByRegervationDateDesc(userId);
+            List<GetUserReservationResultSet> reservationEntity = reservationRepository.getUserReservationList(userId);
 
             return GetReservationMyListResponseDto.success(reservationEntity, null, null, null);
 

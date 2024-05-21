@@ -1,10 +1,11 @@
 package com.rentcar.back.dto.response.reservation;
 
-
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.rentcar.back.common.object.ReservationListItem;
 import com.rentcar.back.common.util.ChangeDateFormatUtil;
 import com.rentcar.back.dto.response.ResponseCode;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -13,29 +14,20 @@ import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.CompanyEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.entity.UserEntity;
+import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 
 import lombok.Getter;
 @Getter
 public class GetReservationMyListResponseDto extends ResponseDto {
-    private String carImageUrl;
-    private String nickName;
-    private String reservationDate;
-    private String reservationCode;
-    private String rentCompany;
 
-    private GetReservationMyListResponseDto(ReservationEntity reservationEntity, CarEntity carEntity, UserEntity userEntity, CompanyEntity companyEntity) throws Exception {
+    private List<ReservationListItem> reservationList;
+
+    private GetReservationMyListResponseDto(List<GetUserReservationResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        String reservationDate = ChangeDateFormatUtil.changeYYYYMMDD(reservationEntity.getReservationDate());
-
-        this.carImageUrl = carEntity.getCarImageUrl();
-        this.nickName = userEntity.getNickName();
-        this.reservationDate = reservationDate;
-        this.reservationCode = reservationEntity.getReservationCode();
-        this.rentCompany = companyEntity.getRentCompany();
-
+        this.reservationList = ReservationListItem.getList(resultSets);
     }
-        public static ResponseEntity<GetReservationMyListResponseDto> success (ReservationEntity reservationEntity, CarEntity carEntity, UserEntity userEntity, CompanyEntity companyEntity) throws Exception {
-        GetReservationMyListResponseDto responseBody = new GetReservationMyListResponseDto(reservationEntity, carEntity, userEntity, companyEntity);
+        public static ResponseEntity<GetReservationMyListResponseDto> success (List<GetUserReservationResultSet> resultSets) throws Exception {
+        GetReservationMyListResponseDto responseBody = new GetReservationMyListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
