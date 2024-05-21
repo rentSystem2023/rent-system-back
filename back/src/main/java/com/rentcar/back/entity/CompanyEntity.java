@@ -44,14 +44,4 @@ public class CompanyEntity {
         this.registDate = companyDatetime;
         this.companyRule = dto.getCompanyRule();
     }
-
-    // public CompanyEntity (Integer companyCode, String rentCompany, String address, String companyTelnumber, String owner, String registDate, String companyRule) {
-    //     this.companyCode = companyCode;
-    //     this.rentCompany = rentCompany;
-    //     this.address = address;
-    //     this.companyTelnumber = companyTelnumber;
-    //     this.owner = owner;
-    //     this.registDate = companyDatetime;
-    //     this.companyRule = companyRule;
-    // }
 }
