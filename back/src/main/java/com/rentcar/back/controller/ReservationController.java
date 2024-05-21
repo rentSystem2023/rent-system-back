@@ -27,7 +27,7 @@ public class ReservationController {
     public ResponseEntity<? super GetReservationMyListResponseDto> getReservationList (
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<? super GetReservationMyListResponseDto> response = reservationService.getReservationList(userId);
+        ResponseEntity<? super GetReservationMyListResponseDto> response = reservationService.getReservationMyList(userId);
         return response;
     }
 
