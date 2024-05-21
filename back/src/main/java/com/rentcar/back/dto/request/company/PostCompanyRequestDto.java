@@ -1,6 +1,7 @@
 package com.rentcar.back.dto.request.company;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostCompanyRequestDto {
-
+    
+    @NotNull
+    private Integer companyCode;
     @NotBlank
     private String rentCompany;
     @NotBlank
@@ -19,6 +22,5 @@ public class PostCompanyRequestDto {
     @NotBlank
     private String companyTelnumber;
     private String companyRule;
-    @NotBlank
-    private Integer compnayCode;
+    
 }

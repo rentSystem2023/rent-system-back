@@ -1,6 +1,8 @@
 package com.rentcar.back.entity;
 
 import com.rentcar.back.dto.request.company.CompanyRequestDto;
+import com.rentcar.back.dto.request.company.PostCompanyRequestDto;
+import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -31,7 +33,7 @@ public class CompanyEntity {
     private String registDate;
     private String companyRule;
 
-    public CompanyEntity(CompanyRequestDto dto, String companyCode) {
+    public CompanyEntity(PostCompanyRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String companyDatetime = simpleDateFormat.format(now);
@@ -42,6 +44,14 @@ public class CompanyEntity {
         this.companyTelnumber = dto.getCompanyTelnumber();
         this.owner = dto.getOwner();
         this.registDate = companyDatetime;
+        this.companyRule = dto.getCompanyRule();
+    }
+
+    public void update(PutCompanyRequestDto dto){
+        this.rentCompany = dto.getRentCompany();
+        this.address = dto.getAddress();
+        this.owner = dto.getOwner();
+        this.companyTelnumber = dto.getCompanyTelnumber();
         this.companyRule = dto.getCompanyRule();
     }
 }

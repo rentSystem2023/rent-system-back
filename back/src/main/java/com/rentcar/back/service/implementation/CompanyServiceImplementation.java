@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.request.company.PostCompanyRequestDto;
+import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
 import com.rentcar.back.dto.response.company.GetSearchCompanyListResponseDto;
@@ -64,6 +65,63 @@ public class CompanyServiceImplementation implements CompanyService {
             
             CompanyEntity companyEntity = new CompanyEntity(dto, userId);
             companyRepository.save(companyEntity);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError(); 
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> putCompany(PutCompanyRequestDto dto, int companyCode, String userId) {
+        
+        try {
+            
+            CompanyEntity companyEntity = companyRepository.findByCompanyCode(companyCode);
+
+            if(companyEntity == null) {
+                return ResponseDto.noExistCompany();
+            }
+
+            Integer compantCode = companyEntity.getCompanyCode();
+            boolean isCompanyCode = compantCode.equals(compantCode);
+
+            if(!isCompanyCode){
+                return ResponseDto.authorizationFailed();
+            }
+
+            companyEntity.update(dto);
+
+            companyRepository.save(companyEntity);           
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError(); 
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteCompany(int companyCode, String userId) {
+        try {
+            
+            CompanyEntity companyEntity = companyRepository.findByCompanyCode(companyCode);
+
+            if(companyEntity == null) {
+                return ResponseDto.noExistCompany();
+            }
+
+            Integer compantCode = companyEntity.getCompanyCode();
+            boolean isCompanyCode = compantCode.equals(compantCode);
+
+            if(!isCompanyCode){
+                return ResponseDto.authorizationFailed();
+            }
+
+            companyRepository.delete(companyEntity);        
 
         }catch(Exception exception){
             exception.printStackTrace();
