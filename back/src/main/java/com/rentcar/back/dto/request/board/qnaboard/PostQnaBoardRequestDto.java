@@ -1,6 +1,7 @@
 package com.rentcar.back.dto.request.board.qnaboard;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,6 @@ public class PostQnaBoardRequestDto {
     @NotBlank
     private String category;
     private String imageUrl;
-    @NotBlank
-    private String publicState;
+    @NotNull
+    private Boolean publicState;
 }
