@@ -4378,6 +4378,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/company/list/search?word=${sea
 | owner | String | 담당자 | O |
 | companyTelnumber | String | 연락처 | O |
 | registDate | String | 등록일</br>(yy.mm.dd 형태) | O |
+| companyRule | String | 업체 방침 | O |
 
 ###### Example
 
@@ -4388,14 +4389,15 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
+  "companyList": [
     {
       "companyCode": 1,
       "rentCompany": "민머리철수",
       "address": "제주시 제주도",
       "owner": "김민철",
       "companyTelnumber": "010-1234-5678",
-      "registDate": "24.02.04"
+      "registDate": "24.02.04",
+      "companyRule" : ""
     }, ...
   ]
 }
