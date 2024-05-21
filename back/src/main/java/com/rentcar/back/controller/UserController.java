@@ -19,6 +19,7 @@ import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 // 컨트롤러의 메서드에서 인증 접근 주체의 정보를 가져옴
@@ -47,10 +48,10 @@ public class UserController {
 
     @PatchMapping("/information/modify")
     public ResponseEntity<ResponseDto> myInfoModify (
-        @RequestBody PatchUserRequestDto RequestBody,
+        @RequestBody @Valid PatchUserRequestDto requestBody,
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<ResponseDto> response = userService.myInfoModify(userId);
+        ResponseEntity<ResponseDto> response = userService.myInfoModify(requestBody, userId);
         return response;
     }
 
