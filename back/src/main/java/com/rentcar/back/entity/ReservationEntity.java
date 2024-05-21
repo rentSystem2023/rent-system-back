@@ -1,12 +1,8 @@
 package com.rentcar.back.entity;
 
-import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,12 +19,11 @@ public class ReservationEntity {
     
     @Id
     private String reservationCode;
-    @NotBlank
-    private String nickName;
-    @NotBlank
-    private String carImageUrl;
-    @NotBlank
+    private String userId;
+    private String insuranceType;
     private String reservationDate;
-    @NotBlank
-    private String rentCompany;
+    private String reservationState;
+    private String reservationStart;
+    private String reservationEnd;
+    private String companyCarCode;
 }

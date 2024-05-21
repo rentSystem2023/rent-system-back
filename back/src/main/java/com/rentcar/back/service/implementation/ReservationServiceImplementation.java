@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.PostReservationResponseDto;
+import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
@@ -21,18 +22,18 @@ public class ReservationServiceImplementation implements ReservationService {
     private final ReservationRepository reservationRepository;
 
     @Override
-    public ResponseEntity<? super GetReservationMyListResponseDto> getReservationList(String userId) {
+    public ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId) {
 
-        ReservationEntity reservationEntity;
+
+    
         try {
-            boolean isExistUser = userRepository.existsById(userId);
-            if (!isExistUser)
-                return ResponseDto.authenticationFailed();
-            // 예약 내역 확인
-            reservationEntity = reservationRepository.findByUserId(userId);
 
-            // 성공 작성
-            return GetReservationMyListResponseDto.success(reservationEntity);
+            boolean isExistUser = reservationRepository.existsById(userId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            ReservationEntity reservationEntity = reservationRepository.findByUserIdOrderByRegervationDateDesc(userId);
+
+            return GetReservationMyListResponseDto.success(reservationEntity, null, null, null);
 
         } catch (Exception exception) {
             exception.printStackTrace();
