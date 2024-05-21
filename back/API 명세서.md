@@ -2908,8 +2908,8 @@ contentType: application/json;charset=UTF-8
 
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 제목, 내용, 사진을 입력받고 수정에 성공하면 성공처리 합니다. 만약 수정에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **POST**  
-- URL : **/list/{registNumber}**  
+- method : **PUT**  
+- URL : **/list/{registNumber}/modify**  
 
 ##### Request
 
@@ -2919,16 +2919,25 @@ contentType: application/json;charset=UTF-8
 |---|:---:|:---:|
 | Authorization | 인증에 사용될 Bearer 토큰 | O |
 
+###### Path Variable
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| registNumber | int | 공지사항 등록번호 | O |
+
 ###### Request Body
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
-| registNumber | int | 공지사항 접수번호 | O |
+| title | String | 공지사항 제목 | O |
+| contents | String | 공지사항 내용 | O |
+| imageUrl | String | 이미지 | X |
+
 
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4000/api/rentcar/notice/list/${registNumber}" \
+curl -v -X PUT "http://localhost:4000/api/rentcar/notice/list/${registNumber}/modify" \
  -H "Authorization: Bearer {JWT}" \
  -d "title={title}" \
  -d "contents={contents}" \
@@ -3403,9 +3412,9 @@ curl -v -X GET "http://localhost:4000/api/rentcar/qna/list" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
+| qnaList | QnaListItem[] | Q&A 게시물 리스트 | O |
 
-**BoardListItem**
+**QnaListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | receptionNumber | int | 접수 번호 | O |
