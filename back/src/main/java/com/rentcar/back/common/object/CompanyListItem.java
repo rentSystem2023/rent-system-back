@@ -17,6 +17,7 @@ public class CompanyListItem {
     private String owner;
     private String companyTelnumber;
     private String registDate;
+    private String companyRule;
 
     private CompanyListItem(CompanyEntity companyEntity) throws Exception {
         String registDate = ChangeDateFormatUtil.registYYMMDD(companyEntity.getRegistDate());
@@ -27,6 +28,7 @@ public class CompanyListItem {
         this.owner = companyEntity.getOwner();
         this.companyTelnumber = companyEntity.getCompanyTelnumber();
         this.registDate = registDate;
+        this.companyRule = companyEntity.getCompanyRule();
 
     }
 
