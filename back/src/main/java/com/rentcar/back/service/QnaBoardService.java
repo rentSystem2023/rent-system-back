@@ -7,8 +7,10 @@ import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardListResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardMyListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardListResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardMyListResponseDto;
 
 
 
@@ -26,4 +28,9 @@ public interface QnaBoardService {
 
     ResponseEntity<ResponseDto> deleteQnaBoard(int receptionNumber, String userId);
 
+    //QnA MyList
+    ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList();
+
+    //QnA search
+    ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchQnaBoardMyList(String searchWord);
 }

@@ -18,8 +18,10 @@ import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardListResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardMyListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardListResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardMyListResponseDto;
 import com.rentcar.back.service.QnaBoardService;
 
 import jakarta.validation.Valid;
@@ -107,4 +109,22 @@ public class QnaBoardController {
         return response;
     }
 
+    // 나의 Q&A 리스트 불러오기
+    @GetMapping("/mylist")
+    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList () {
+        ResponseEntity<? super GetQnaBoardMyListResponseDto> response = qnaBoardService.getQnaBoardMyList();
+        return response;
+    }
+
+
+    // 나의 Q&A 리스트 불러오기
+    @GetMapping("/mylist/search")
+    public ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchBoardMyList (     
+        @RequestParam("word") String word
+    ) {
+        ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> response = qnaBoardService.getSearchQnaBoardMyList(word);
+        return response;
+    
+
+    }
 }
