@@ -20,17 +20,10 @@ import lombok.Setter;
 public class CompanyEntity {
     @Id
     private Integer companyCode;
-    @NotBlank
     private String rentCompany;
-    @NotBlank
     private String address;
-    @NotBlank
     private String companyTelnumber;
-    @NotBlank
     private String owner;
-    @NotBlank
     private String registDate;
-    @NotNull
     private String companyRule;
-    
 }

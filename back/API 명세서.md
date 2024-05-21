@@ -380,7 +380,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 아이디, 비밀번호, 이메일, 인증번호, 전화번호를 입력받아 회원가입 처리를 합니다. 정상적으로 회원가입이 완료되면 성공처리를 합니다. 만약 중복된 아이디, 중복된 이메일, 인증번호 불일치가 발생하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 아이디, 비밀번호, 이메일, 인증번호 입력받아 회원가입 처리를 합니다. 정상적으로 회원가입이 완료되면 성공처리를 합니다. 만약 중복된 아이디, 중복된 이메일, 인증번호 불일치가 발생하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/sign-up**  
@@ -393,6 +393,7 @@ contentType: application/json;charset=UTF-8
 |---|:---:|:---:|:---:|
 | userId | String | 사용자 아이디 | O |
 | userPassword | String | 사용자 비밀번호 (영문+숫자 8~13자) | O |
+| nickName | String | 사용자 닉네임 | O |
 | userEmail | String | 사용자 이메일 (이메일 형태의 데이터) | O |
 | authNumber | String | 인증 확인할 인증 번호 | O |
 
@@ -402,6 +403,7 @@ contentType: application/json;charset=UTF-8
 curl -v -X POST "http://localhost:4000/api/rentcar/auth/sign-up" \
  -d "userId=service123" \
  -d "userPassword=Pa55w0rd" \
+ -d "nickName=nickName" \
  -d "userEmail=email@email.com" \
  -d "authNumber=0123"
 ```
@@ -823,7 +825,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 입력받고 요청을 보내면 해당하는 사용자 정보가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **DELETE**  
-- URL : **/information/{userId}**  
+- URL : **/information/modify**  
 
 ##### Request
 
@@ -842,7 +844,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4000/api/rentCar/user/information/${userId}" \
+curl -v -X DELETE "http://localhost:4000/api/rentCar/user/information/modify" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1027,6 +1029,112 @@ contentType: application/json;charset=UTF-8
 
 ***
 
+#### - 회원 상세 페이지 불러오기
+
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 회원 상세 페이지에서 회원 아이디, 닉네임, 이메일, 가입 날짜를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/list/{userId}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentcar/user/list/${userId}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| userId | String | 사용자의 아이디  | O |
+| nickName | String | 사용자의 닉네임  | O |
+| userEmail | String | 사용자 이메일</br>(이메일 네글자를 제외한 나머지 문자는 *, @ 이후로는 보임)| O |
+| joinDate | String | 작성일</br>(yy.mm.dd 형태) | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userList": [
+    {
+      "userId" : "asdqwdq",
+      "nickName": "nickname",
+      "userEmail": "e453***@email.com",
+      "joinDate": "24.05.02"
+    }, ...
+  ]
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
 #### - 회원 목록 리스트 삭제하기
 
 ##### 설명
@@ -1143,7 +1251,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 검색어를 입력받고 요청을 보내면 작성일 기준 내림차순으로 제목에 해당 검색어가 포함된 회원목록 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/list/{searchWord}**  
+- URL : **/list/search**  
 
 ##### Request
 
@@ -1299,7 +1407,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/rentCar/reservation/mylist" \
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/mylist" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -1621,14 +1729,14 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 요청을 보내면 차량의 사진, 이름을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/popularcar-list**  
+- URL : **/**  
 
 ##### Request
 
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/reservation/popularcar-list" 
+curl -v -X GET "http://localhost:4000/api/rentcar/" 
 ```
 
 ##### Response
@@ -1686,10 +1794,10 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 검색 카테고리(위치(주소), 예약기간)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 검색 카테고리(위치(주소), 예약 시작 날짜, 예약 끝 날짜)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/search**  
+- URL : **/**  
 
 ##### Request
 
@@ -1698,17 +1806,18 @@ contentType: application/json;charset=UTF-8
 | name | description | required |
 |---|:---:|:---:|
 
-###### Path Variable
+###### Qury Param
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | address | String | 위치(주소) | O |
-| reservationPeriod | String | 예약기간 | O |
+| reservationStart | String | 예약 시작 날짜 | O |
+| reservationEnd | String | 예약 끝 날짜 | O |
 
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/reservation/search" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/?address=${address}&reservationStart=${reservationStart}&reservationEnd=${reservationEnd}" 
 ```
 
 ##### Response
@@ -1796,7 +1905,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 업체명을 내림차순으로 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/search/${carCode}**  
+- URL : **/inqury**  
 
 ##### Request
 
@@ -1818,7 +1927,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/reservation/search/${carCode}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/inqury?address=${address}&reservationStart=${reservationStart}&reservationEnd=${reservationEnd}&carCode=${carCode}&insuranceType=${insuranceType}" 
 ```
 
 ##### Response
@@ -1916,7 +2025,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
-- URL : **/search/${companyCarCode}**  
+- URL : **/inqury-detail**  
 
 ##### Request
 
@@ -1941,7 +2050,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/reservation/search/${companyCarCode}" 
+curl -v -X GET "http://localhost:4000/api/rentcar/reservation/inqury-detail?reservationStart=${reservationStart}&reservationEnd=${reservationEnd}&carCode=${carCode}&companyCarCode=${companyCarCode}&insuranceType=${insuranceType}" 
 ```
 
 ##### Response
