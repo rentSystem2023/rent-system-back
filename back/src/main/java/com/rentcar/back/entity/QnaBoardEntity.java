@@ -8,6 +8,8 @@ import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ import lombok.Setter;
 public class QnaBoardEntity {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer receptionNumber;
     private Boolean status;
     private String title;
@@ -32,8 +35,8 @@ public class QnaBoardEntity {
     private String writeDatetime;
     private Integer viewCount;
     private String comment;
-    private String imageUrl;    // ??
-    private String category;    // 
+    private String imageUrl;    
+    private String category;   
     private boolean publicState;   
 
     public QnaBoardEntity(PostQnaBoardRequestDto dto, String userId) {
@@ -47,6 +50,7 @@ public class QnaBoardEntity {
         this.writerId = userId;
         this.writeDatetime = writeDatetime;
         this.viewCount = 0;
+        this.category = dto.getCategory();
         this.publicState = true;
     }
 

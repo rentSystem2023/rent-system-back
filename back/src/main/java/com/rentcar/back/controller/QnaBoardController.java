@@ -33,7 +33,7 @@ public class QnaBoardController {
     private final QnaBoardService qnaBoardService;
 
     // Q&A 작성하기
-    @PostMapping("/")
+    @PostMapping("/regist")
     ResponseEntity<ResponseDto> postQnaBoard (
         @RequestBody @Valid PostQnaBoardRequestDto requestBody, 
         @AuthenticationPrincipal String userId
@@ -69,7 +69,7 @@ public class QnaBoardController {
     }
 
     // Q&A 게시물 불러오기
-    @GetMapping("/{receptionNumber}")
+    @GetMapping("/list/{receptionNumber}")
     public ResponseEntity<? super GetQnaBoardResponseDto> getQnaBoard (
         @PathVariable("receptionNumber") int receptionNumber
     ) {
@@ -78,7 +78,7 @@ public class QnaBoardController {
     }
 
     // Q&A 수정하기
-    @PutMapping("/{receptionNumber}")
+    @PutMapping("/{receptionNumber}/modify")
     public ResponseEntity<ResponseDto> putQnaBoard (
         @RequestBody @Valid PutQnaBoardRequsetDto requestBody,
         @PathVariable("receptionNumber") int receptionNumber,
@@ -98,7 +98,7 @@ public class QnaBoardController {
     }
 
     // Q&A 게시물 삭제하기
-    @DeleteMapping("/{receptionNumber}")
+    @DeleteMapping("/{receptionNumber}/delete")
     public ResponseEntity<ResponseDto> deleteQnaBoard (
         @PathVariable("receptionNumber") int receptionNumber,
         @AuthenticationPrincipal String userId

@@ -32,7 +32,7 @@ public class NoticeBoardController {
     private final NoticeBoardService noticeBoardService;
 
     // 공지사항 작성하기
-    @PostMapping("/")
+    @PostMapping("/regist")
     ResponseEntity<ResponseDto> postNoticeBoard (
         @RequestBody @Valid PostNoticeBoardRequestDto requestBody, 
         @AuthenticationPrincipal String userId
@@ -58,7 +58,7 @@ public class NoticeBoardController {
     }   
 
     // 공지사항 게시물 불러오기
-    @GetMapping("/{registNumber}")
+    @GetMapping("/list/{registNumber}")
     public ResponseEntity<? super GetNoticeBoardResponseDto> getNoticeBoard (
         @PathVariable("registNumber") int registNumber
     ) {
@@ -67,7 +67,7 @@ public class NoticeBoardController {
     }
 
     // 공지사항 수정하기
-    @PutMapping("/{registNumber}")
+    @PutMapping("/{registNumber}/modify")
     public ResponseEntity<ResponseDto> putNoticeBoard (
         @RequestBody @Valid PutNoticeBoardRequestDto requestBody,
         @PathVariable("registNumber") int registNumber,
@@ -87,7 +87,7 @@ public class NoticeBoardController {
     }
 
     // 공지사항 게시물 삭제하기
-    @DeleteMapping("/{registNumber}")
+    @DeleteMapping("/{registNumber}/delete")
     public ResponseEntity<ResponseDto> deleteNoticeBoard (
         @PathVariable("registNumber") int registNumber,
         @AuthenticationPrincipal String userId

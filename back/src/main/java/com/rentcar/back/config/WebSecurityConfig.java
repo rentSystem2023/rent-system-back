@@ -57,11 +57,12 @@ public class WebSecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**")
-                                                .permitAll()
-                                                .requestMatchers("/api/rentcar/qna/").hasRole("USER")
-                                                .requestMatchers("/api/rentcar/qna/*/comment").hasRole("ADMIN")
-                                                .anyRequest().authenticated())
+                                                .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**", 
+                                                "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count").permitAll()
+                                                .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete")
+                                                .hasRole("USER")
+                                                .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
+                                                "/api/rentcar/notice/*/delete").hasRole("ADMIN").anyRequest().authenticated())
 
                                 .oauth2Login(oauth2 -> oauth2
                                                 .authorizationEndpoint(endpoint -> endpoint
