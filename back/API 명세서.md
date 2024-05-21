@@ -4609,7 +4609,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4000/api/rentcar/company/list/${companyCode}" \
+curl -v -X PATCH "http://localhost:4000/api/rentcar/company/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
  -d "rentCompany={rentCompany}" \
  -d "address={address}
@@ -4733,7 +4733,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4000/api/rentcar/company/list/${companyCode}" \
+curl -v -X DELETE "http://localhost:4000/api/rentcar/company/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
 ```
 
