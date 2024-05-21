@@ -5,6 +5,8 @@ import java.time.Instant;
 import java.util.Date;
 
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
+import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
+import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,8 +25,6 @@ import lombok.Setter;
 
 public class UserEntity {    
     
-
-    
     // 데이터베이스에 개의 컬럼이 존재함
     @Id // UserId의 기본키 지정 
     private String userId; 
@@ -34,8 +34,6 @@ public class UserEntity {
     private String userRole;
     private String joinPath;
     private String joinDate;        // 추가
-
-
 
     // 새로운 생성자 작성 (implement 서비스에서 쓰기 위해)
     public UserEntity(SignUpRequestDto dto) {
@@ -61,5 +59,7 @@ public class UserEntity {
         this.joinPath = joinPath;
     }
 
-
+    public void update(PatchUserRequestDto dto){
+        this.nickName = dto.getNickName();
+    }
 }

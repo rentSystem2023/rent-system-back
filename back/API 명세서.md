@@ -514,7 +514,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X GET "http://localhost:4000/api/rentcar/user" \
+curl -v -X GET "http://localhost:4000/api/rentcar/user/" \
  -H "Authorization: Bearer {JWT}"
 ```
 
@@ -626,12 +626,13 @@ curl -v -X GET "http://localhost:4000/api/rentCar/user/information" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| nickName | String | 사용자의 닉네임 | O |
 | userId | String | 사용자의 아이디 | O |
 | userPassword | String | 사용자의 비밀번호 | O |
+| nickName | String | 사용자의 닉네임 | O |
 | userEmail | String | 사용자의 이메일 | O |
-| joinDate | Date | 사용자의 가입날짜 | O |
 | userRole | String | 사용자의 권한 | O |
+| joinPath | String | 가입 경로 | O |
+| joinDate | Date | 사용자의 가입날짜 | O |
 
 ###### Example
 
@@ -642,12 +643,13 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "nickName": "nickname",
   "userId": "admin",
   "userPassword": "qewr1234",
+  "nickName": "nickname",
   "userEmail": "email@email.com",
-  "joinDate": "2024.05.14",
-  "userRole": "${userRole}"
+  "userRole": "ROLE_USER"
+  "joinPath": "HOME",
+  "joinDate": "2024-05-14",
 }
 ```
 
@@ -3176,9 +3178,9 @@ curl -v -X GET "http://localhost:4000/api/rentCar/qna/mylist" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| boardList | boardListItem[] | Q&A 게시물 리스트 | O |
+| boardMyList | boardMyListItem[] | Q&A 게시물 리스트 | O |
 
-**boardListItem**
+**boardMyListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | receptionNumber | int | 접수 번호 | O |
@@ -3197,7 +3199,7 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
+  "boardMyList": [
     {
       "receptionNumber": 1,
       "status": false,
@@ -3296,9 +3298,9 @@ curl -v -X GET "http://localhost:4000/api/rentcar/qna/mylist/search?word=${searc
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| boardList | BoardListItem[] | Q&A 게시물 리스트 | O |
+| boardMyList | boardMyListItem[] | Q&A 게시물 리스트 | O |
 
-**BoardListItem**
+**boardMyListItem**
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | receptionNumber | int | 접수 번호 | O |
@@ -3317,7 +3319,7 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
+  "boardMyList": [
     {
       "receptionNumber": 1,
       "status": false,
@@ -4580,7 +4582,7 @@ contentType: application/json;charset=UTF-8
 클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체명, 사진, 담당자 이름, 연락처, 주소를 입력받고 수정에 성공하면 성공처리 합니다. 만약 수정에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **PATCH**  
-- URL : **/list/{companyCode}**  
+- URL : **/{companyCode}**  
 
 ##### Request
 

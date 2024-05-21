@@ -9,8 +9,6 @@ import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
 import com.rentcar.back.dto.response.company.GetSearchCompanyListResponseDto;
 import com.rentcar.back.entity.CompanyEntity;
-import com.rentcar.back.entity.NoticeBoardEntity;
-import com.rentcar.back.entity.UserEntity;
 import com.rentcar.back.repository.CompanyRepository;
 import com.rentcar.back.repository.UserRepository;
 import com.rentcar.back.service.CompanyService;
@@ -85,15 +83,7 @@ public class CompanyServiceImplementation implements CompanyService {
                 return ResponseDto.noExistCompany();
             }
 
-            Integer compantCode = companyEntity.getCompanyCode();
-            boolean isCompanyCode = compantCode.equals(compantCode);
-
-            if(!isCompanyCode){
-                return ResponseDto.authorizationFailed();
-            }
-
             companyEntity.update(dto);
-
             companyRepository.save(companyEntity);           
 
         }catch(Exception exception){
@@ -112,13 +102,6 @@ public class CompanyServiceImplementation implements CompanyService {
 
             if(companyEntity == null) {
                 return ResponseDto.noExistCompany();
-            }
-
-            Integer compantCode = companyEntity.getCompanyCode();
-            boolean isCompanyCode = compantCode.equals(compantCode);
-
-            if(!isCompanyCode){
-                return ResponseDto.authorizationFailed();
             }
 
             companyRepository.delete(companyEntity);        
