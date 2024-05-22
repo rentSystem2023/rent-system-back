@@ -17,7 +17,7 @@ public class ReservationListItem {
     private String rentCompany;
 
     public ReservationListItem (GetUserReservationResultSet resultSet) throws Exception {
-        String reservationDate = ChangeDateFormatUtil.changeYYYYMMDD(resultSet.getReservationDate());
+        String reservationDate = ChangeDateFormatUtil.registYYMMDD(resultSet.getReservationDate());
         this.carImageUrl = resultSet.getCarImageUrl();
         this.nickName = resultSet.getNickName();
         this.reservationDate = reservationDate;
