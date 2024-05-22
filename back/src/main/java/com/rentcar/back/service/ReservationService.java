@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 
 
@@ -17,4 +18,7 @@ public interface ReservationService {
         
         // 예약 하기
         ResponseEntity<ResponseDto> postReservationBoard(PostReservationRequestDto dto, String userId);
+
+        // 나의 예약 상세 보기
+        ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservationDetailMyList(String userId);
 }

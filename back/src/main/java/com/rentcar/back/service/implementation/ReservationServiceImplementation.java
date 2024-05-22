@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.CompanyCarRepository;
@@ -63,4 +64,17 @@ public class ReservationServiceImplementation implements ReservationService {
             return ResponseDto.databaseError();
         }
     }
+
+    @Override
+    public ResponseEntity<GetReservationDetailMyListResponseDto> getReservationDetailMyList(String userId) {
+
+        try {
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+
 }
