@@ -19,6 +19,7 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
     private String writeDatetime;
     private Integer viewCount;
     private String contents;
+    private String imageUrl;
 
     private GetNoticeBoardResponseDto (NoticeBoardEntity noticeBoardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -30,6 +31,7 @@ public class GetNoticeBoardResponseDto extends ResponseDto {
         this.writeDatetime = writeDatetime;
         this.viewCount = noticeBoardEntity.getViewCount();
         this.contents = noticeBoardEntity.getContents();
+        this.imageUrl = noticeBoardEntity.getImageUrl();
     }
 
     public static ResponseEntity<GetNoticeBoardResponseDto> success(NoticeBoardEntity noticeBoardEntity) throws Exception {
