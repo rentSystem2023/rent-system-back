@@ -12,7 +12,7 @@ import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 @Repository
 
 public interface ReservationRepository extends JpaRepository<ReservationEntity, String> {
-    ReservationEntity findByUserIdOrderByRegervationDateDesc(String userId);
+    ReservationEntity findByUserIdOrderByReservationDateDesc(String userId);
 
     @Query(value=
         "SELECT " +
