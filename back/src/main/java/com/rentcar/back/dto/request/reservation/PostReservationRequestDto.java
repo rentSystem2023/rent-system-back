@@ -9,15 +9,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
+// 예약 하기
 public class PostReservationRequestDto  {
     @NotBlank
     private String insuranceType;
+    @NotBlank
+    private String reservationStart;
+    @NotBlank
+    private String reservationEnd;
     @NotNull
-    private Integer commpanyCarCode;
+    private Integer companyCarCode;
     @NotBlank
-    private String reservationDate;
-    @NotBlank
-    private String reservationSate;
-    @NotBlank
-    private String reservationPeriod;
+    private String reservationState;
 }
+
+
+
+
