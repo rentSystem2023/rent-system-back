@@ -1,6 +1,5 @@
 package com.rentcar.back.entity;
 
-import com.rentcar.back.dto.request.company.CompanyRequestDto;
 import com.rentcar.back.dto.request.company.PostCompanyRequestDto;
 import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 
