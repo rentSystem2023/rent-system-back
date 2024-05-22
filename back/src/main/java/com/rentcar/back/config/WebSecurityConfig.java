@@ -58,7 +58,7 @@ public class WebSecurityConfig {
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**", 
-                                                "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count").permitAll()
+                                                "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count", "/api/rentcar/reservation/mylist").permitAll()
                                                 .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete")
                                                 .hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
@@ -97,6 +97,8 @@ class AuthorizationFailedEntryPoint implements AuthenticationEntryPoint {
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response,
                         AuthenticationException authException) throws IOException, ServletException {
+
+                authException.printStackTrace();
 
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);

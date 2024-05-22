@@ -13,6 +13,7 @@ public class ChangeDateFormatUtil {
         return joinDate;
     }
 
+    // yyyy.MM.dd
     public static String changeYYYYMMDD(String original) throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date datetime = simpleDateFormat.parse(original);
@@ -21,14 +22,8 @@ public class ChangeDateFormatUtil {
         return writeDatetime;
     }
 
-    public static String changeYYYMMDD(String original) throws Exception {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date datetime = simpleDateFormat.parse(original);
-        simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        String reservationDate = simpleDateFormat.format(datetime);
-        return reservationDate;
-    }
 
+    // yy.MM.dd
     public static String registYYMMDD(String original) throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date datetime = simpleDateFormat.parse(original);
