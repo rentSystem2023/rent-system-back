@@ -20,8 +20,7 @@ public class PostReservationRequestDto  {
     private String reservationEnd;
     @NotNull
     private Integer companyCarCode;
-    @NotBlank
-    private String reservationState;
+
 }
 
 
