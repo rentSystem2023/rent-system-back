@@ -2161,11 +2161,14 @@ contentType: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
+| resevationCode | String | 보험 유형 | O |
+| userId | String | 유저 아이디 | O |
 | insuranceType | String | 보험 유형 | O |
-| commpanyCarCode | int | 업체 차량 코드 | O |
 | reservationDate | String | 예약 날짜 | O |
-| reservationSate | String | 예약 상태 | O |
-| reservationPeriod | String | 예약 기간 | O |
+| reservationState | String | 예약 상태 | O |
+| reservationStart | String | 예약 시작 날짜 | O |
+| reservatinEnd | String | 예약 종료 날짜 | O |
+| commpanyCarCode | int | 업체 차량 코드 | O |
 
 
 ###### Header

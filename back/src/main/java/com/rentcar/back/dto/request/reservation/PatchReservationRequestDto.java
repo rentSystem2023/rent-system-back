@@ -11,5 +11,5 @@ import lombok.Setter;
 public class PatchReservationRequestDto {
 
     @NotBlank
-    private String reservationCode;
+    private Integer reservationCode;
 }

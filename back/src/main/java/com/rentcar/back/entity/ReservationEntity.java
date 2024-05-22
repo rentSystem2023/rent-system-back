@@ -1,6 +1,14 @@
 package com.rentcar.back.entity;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
+import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,12 +26,28 @@ import lombok.Setter;
 public class ReservationEntity {
     
     @Id
-    private String reservationCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Integer reservationCode;
     private String userId;
     private String insuranceType;
     private String reservationDate;
     private String reservationState;
     private String reservationStart;
     private String reservationEnd;
-    private String companyCarCode;
+    private Integer companyCarCode;
+
+
+public ReservationEntity(PostReservationRequestDto dto, String userId) {
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String reservationDate = simpleDateFormat.format(now);
+        this.insuranceType = dto.getInsuranceType();
+        this.reservationDate = reservationDate;
+        this.reservationStart = dto.getReservationStart();
+        this.reservationEnd = dto.getReservationEnd();
+        this.userId = userId;
+        this.companyCarCode = dto.getCompanyCarCode();
+    }
+
 }

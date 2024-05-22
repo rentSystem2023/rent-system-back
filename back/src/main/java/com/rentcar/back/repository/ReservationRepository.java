@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import com.rentcar.back.entity.ReservationEntity;
+import com.rentcar.back.repository.resultSet.GetCarCodeReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 
 @Repository
-
-public interface ReservationRepository extends JpaRepository<ReservationEntity, String> {
+public interface ReservationRepository extends JpaRepository<ReservationEntity, Integer> {
     ReservationEntity findByUserIdOrderByReservationDateDesc(String userId);
 
     @Query(value=
@@ -30,10 +31,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "ON CC.car_code = CA.car_code " +
         "INNER JOIN company CO " +
         "ON CC.company_code = CO.company_code " +
-        "WHERE R.user_id = :userId "
+        "WHERE R.user_id = :userId"
     , nativeQuery=true)
-    public List<GetUserReservationResultSet> getUserReservationList(@Param("userId") String userId);
-
+    List<GetUserReservationResultSet> getUserReservationList(@Param("userId") String userId);
 }
-
-    
