@@ -2,7 +2,6 @@ package com.rentcar.back.repository;
 
 import java.util.List;
 
-import org.antlr.v4.runtime.atn.SemanticContext.AND;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 
@@ -103,7 +103,8 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "OR (R.reservation_start <= :reservationStart AND R.reservation_end >= :reservationEnd) " +
         ") " + 
         ")"
-        , nativeQuery = true)
-    List<> ();
+    , nativeQuery = true)
+    GetSearchReservationResultSet getSearchReservationList
+    (@Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
         
 }
