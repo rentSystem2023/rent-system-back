@@ -36,13 +36,39 @@ public class ResponseDto {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_EMAIL, ResponseMessage.DUPLICATED_EMAIL);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
-
+    
     // 존재하지 않는 게시물
     public static ResponseEntity<ResponseDto> noExistBoard() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD, ResponseMessage.NO_EXIST_BOARD);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    // 존재하지 않는 예약내역
+    public static ResponseEntity<ResponseDto> noExistReservation() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RESERVATION, ResponseMessage.NO_EXIST_RESERVATION);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+    
+    // 존재하지 않는 차량
+    public static ResponseEntity<ResponseDto> noExistVehicle() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_VEHICLE, ResponseMessage.NO_EXIST_VEHICLE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    // 존재하지 않는 업체
+    public static ResponseEntity<ResponseDto> noExistCompany() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_COMPANY,
+                ResponseMessage.NO_EXIST_COMPANY);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+    
+    // 이미 등록된 업체
+    public static ResponseEntity<ResponseDto> registedCompany() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.REGISTED_COMPANY,
+                ResponseMessage.REGISTED_COMPANY);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+    
     // 존재하지 않는 내 정보
     public static ResponseEntity<ResponseDto> noExistInfo() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_INFORMATION, ResponseMessage.NO_EXIST_INFORMATION);
@@ -52,13 +78,6 @@ public class ResponseDto {
     // 존재하지 않는 회원
     public static ResponseEntity<ResponseDto> noExistUser() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_USER, ResponseMessage.NO_EXIST_USER);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
-    }
-
-    // 존재하지 않는 업체
-    public static ResponseEntity<ResponseDto> noExistCompany() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_COMPANY,
-                ResponseMessage.NO_EXIST_COMPANY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
@@ -74,14 +93,14 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 
-    // 이메일 인증 실패
+    // 인증 실패
     public static ResponseEntity<ResponseDto> authenticationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHENTICATION_FAILED,
                 ResponseMessage.AUTHENTICATION_FAILED);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 
-    // 게시물 삭제
+    // 인가 실패
     public static ResponseEntity<ResponseDto> authorizationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHORIZATION_FAILED,
                 ResponseMessage.AUTHORIZATION_FAILED);
