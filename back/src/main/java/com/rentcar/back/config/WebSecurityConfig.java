@@ -63,7 +63,6 @@ public class WebSecurityConfig {
                                                 .hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
                                                 "/api/rentcar/notice/*/delete", "/api/rentcar/company/**", "/api/rentcar/user/list/*").hasRole("ADMIN").anyRequest().authenticated())
-
                                 .oauth2Login(oauth2 -> oauth2
                                                 .authorizationEndpoint(endpoint -> endpoint
                                                                 .baseUri("/api/rentcar/auth/oauth2"))
