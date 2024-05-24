@@ -16,6 +16,7 @@ import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
+import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.service.UserService;
 
@@ -92,4 +93,14 @@ public class UserController {
         ResponseEntity<? super GetSearchUserListResponseDto> response = userService.getSearchUserList(searchWord);
         return response;
     }
+
+    // 회원관리 상세보기
+    @GetMapping("/list/{userId}")
+    public ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (
+        @PathVariable("userId") String userId
+    ) {
+        ResponseEntity<? super GetUserDetailListResponseDto> response = userService.getUserDetailList(userId);
+        return response;
+    }
+
 }
