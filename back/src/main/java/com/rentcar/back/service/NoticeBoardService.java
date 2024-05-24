@@ -22,6 +22,6 @@ public interface NoticeBoardService {
 
     ResponseEntity<ResponseDto> increaseViewCount(int registNumber);
 
-    ResponseEntity<ResponseDto> deleteNoticeBoard(int registNumber, String userId);        // 접근주체의 아이디?
+    ResponseEntity<ResponseDto> deleteNoticeBoard(int registNumber, String userId);
 
 }

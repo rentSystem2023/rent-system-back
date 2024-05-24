@@ -18,6 +18,7 @@ public interface ResponseCode {
     String DUPLICATED_EMAIL = "DE";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_RESERVATION = "NR";
+    String NO_CANCEL_STATE = "NS";
     String NO_EXIST_VEHICLE = "NV";
     String NO_EXIST_COMPANY = "NC";
     String REGISTED_COMPANY = "RC";

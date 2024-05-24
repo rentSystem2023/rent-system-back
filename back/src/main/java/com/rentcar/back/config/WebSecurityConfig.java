@@ -58,11 +58,13 @@ public class WebSecurityConfig {
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**", 
-                                                "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count", "/api/rentcar/reservation/mylist").permitAll()
+                                                "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count", "/api/rentcar/reservation/mylist",
+                                                "/api/rentcar/reservation/popular").permitAll()
                                                 .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete")
                                                 .hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
-                                                "/api/rentcar/notice/*/delete", "/api/rentcar/company/**", "/api/rentcar/user/list/*").hasRole("ADMIN").anyRequest().authenticated())
+                                                "/api/rentcar/notice/*/delete", "/api/rentcar/company/**", "/api/rentcar/user/list/**", "api/rentcar/reservation/cancel/**",
+                                                "api/rentcar/reservation/list").hasRole("ADMIN").anyRequest().authenticated())
                                 .oauth2Login(oauth2 -> oauth2
                                                 .authorizationEndpoint(endpoint -> endpoint
                                                                 .baseUri("/api/rentcar/auth/oauth2"))

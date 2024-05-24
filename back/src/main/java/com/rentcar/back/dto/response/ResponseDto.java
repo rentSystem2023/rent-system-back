@@ -49,6 +49,12 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
     
+    // 존재하지 않는 예약내역
+    public static ResponseEntity<ResponseDto> noCancelState() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_CANCEL_STATE, ResponseMessage.NO_CANCEL_STATE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     // 존재하지 않는 차량
     public static ResponseEntity<ResponseDto> noExistVehicle() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_VEHICLE, ResponseMessage.NO_EXIST_VEHICLE);
