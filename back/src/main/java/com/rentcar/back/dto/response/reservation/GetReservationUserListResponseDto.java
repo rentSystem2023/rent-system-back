@@ -22,8 +22,8 @@ public class GetReservationUserListResponseDto extends ResponseDto {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.reservationUserList = ReservationUserListItem.getList(resultSets);
     }
-        public static ResponseEntity<GetReservationUserListResponseDto> success (List<GetAllUserReservationResultSet> resultSets) throws Exception {
-            GetReservationUserListResponseDto responseBody = new GetReservationUserListResponseDto(resultSets);
-            return ResponseEntity.status(HttpStatus.OK).body(responseBody);
-        }
+    public static ResponseEntity<GetReservationUserListResponseDto> success (List<GetAllUserReservationResultSet> resultSets) throws Exception {
+        GetReservationUserListResponseDto responseBody = new GetReservationUserListResponseDto(resultSets);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
 }
