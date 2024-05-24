@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
+import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
@@ -26,6 +27,8 @@ public interface UserService {
     ResponseEntity<ResponseDto> deleteUserList(String userId);
 
     ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList(String searchWord);
+
+    ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (String userId);
 
 }
 
