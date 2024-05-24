@@ -53,7 +53,11 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
         "INNER JOIN car CA ON CC.car_code = CA.car_code " +
         "INNER JOIN company CO ON CC.company_code = CO.company_code " +
-        "WHERE R.reservation_code = :reservationCode"
+        "WHERE R.user_Id = :userId"
     , nativeQuery = true)
-    List<GetUserDetatilReservationResultSet> getUserDetailReservationList(@Param("reservationCode") int reservationCode);
+    GetUserDetatilReservationResultSet getUserDetailReservationList(@Param("userId") String userId);
+
+    ReservationEntity findByReservationCode (Integer reservationCode);
+
+    List<ReservationEntity> findByUserId(String userId);
 }
