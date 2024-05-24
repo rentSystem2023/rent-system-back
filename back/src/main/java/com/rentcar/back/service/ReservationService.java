@@ -2,9 +2,10 @@ package com.rentcar.back.service;
 
 import org.springframework.http.ResponseEntity;
 
-
+import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationCancleListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 
@@ -20,5 +21,11 @@ public interface ReservationService {
         ResponseEntity<ResponseDto> postReservationBoard(PostReservationRequestDto dto, String userId);
 
         // 나의 예약 상세 보기
-        ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservationDetailMyList(String userId);
+        ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservationDetailMyList(int reservationCode, String userId);
+
+        // 예약 취소하기
+        ResponseEntity<ResponseDto> patchReservation(PatchReservationRequestDto dto, int reservationCode, String userId);
+
+        // 취소 신청 예약 리스트 불러오기
+        ResponseEntity<? super GetReservationCancleListResponseDto> getReservationCancleList(String userId);
 }

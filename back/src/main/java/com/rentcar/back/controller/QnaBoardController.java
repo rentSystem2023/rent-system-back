@@ -117,7 +117,7 @@ public class QnaBoardController {
     }
 
 
-    // 나의 Q&A 리스트 불러오기
+    // 나의 Q&A 검색 리스트 찾기
     @GetMapping("/mylist/search")
     public ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchBoardMyList (     
         @RequestParam("word") String word

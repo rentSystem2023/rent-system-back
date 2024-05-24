@@ -20,6 +20,7 @@ public interface ResponseMessage {
     String NO_EXIST_RESERVATION = "No Exist Reservation.";
     String NO_EXIST_VEHICLE = "No Exist Vehicle.";
     String NO_EXIST_COMPANY = "No Exist Company.";
+    String REGISTED_COMPANY = "Registed Company.";
     String NO_EXIST_INFORMATION = "No Exist Information";
     String NO_EXIST_USER = "No Exist User";
     String WRITTEN_COMMENT = "Written Comment.";
@@ -30,6 +31,5 @@ public interface ResponseMessage {
     String TOKEN_CREATION_FAILED = "Token creation Failed.";
     String MAIL_SEND_FAILED = "Mail send Failed.";
     String DATABASE_ERROR = "Database Error.";
-    String REGISTED_COMPANY = "Registed Company.";
 }
 
