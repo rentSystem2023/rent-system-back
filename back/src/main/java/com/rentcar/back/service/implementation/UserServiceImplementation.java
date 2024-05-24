@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
+import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.entity.UserEntity;
 import com.rentcar.back.repository.UserRepository;
@@ -148,5 +150,19 @@ public class UserServiceImplementation implements UserService{
 
     
     }
+
+    @Override
+    public ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList(String userId) {
+        try{
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if (userEntity == null) return ResponseDto.noExistUser();
+
+            return GetUserDetailListResponseDto.success(userEntity);
+        }catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
 
 }
