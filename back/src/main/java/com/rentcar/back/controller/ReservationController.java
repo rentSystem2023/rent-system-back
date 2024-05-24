@@ -2,6 +2,7 @@ package com.rentcar.back.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationCancleListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.service.ReservationService;
 
 import jakarta.validation.Valid;
@@ -51,15 +54,15 @@ public class ReservationController {
     @GetMapping("/mylist/{reservationCode}")
     public ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservaitonDetailList (
         @AuthenticationPrincipal String userId,
-        @PathVariable int reservationCode
+        @PathVariable ("reservationCode") int reservationCode
     ) {
         ResponseEntity<? super GetReservationDetailMyListResponseDto> response = reservationService.getReservationDetailMyList(reservationCode, userId);
         return response;
     }
 
     // 예약 취소하기
-    @PatchMapping("/mylist/{reservationCode}/cancle")
-    public ResponseEntity<ResponseDto> PatchReservationCancle (
+    @PatchMapping("/mylist/{reservationCode}/cancel")
+    public ResponseEntity<ResponseDto> PatchReservationCancel (
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationCode") int reservationCode,
         @RequestBody @Valid PatchReservationRequestDto requestBody 
@@ -69,11 +72,38 @@ public class ReservationController {
     }
 
     // 취소 신청 예약 리스트 불러오기
-    @GetMapping("/cancle")
-    public ResponseEntity<? super GetReservationCancleListResponseDto> GetReservationCancleList (
+    @GetMapping("/cancel/{reservationState}")
+    public ResponseEntity<? super GetReservationCancelListResponseDto> GetReservationCancelList (
+        @AuthenticationPrincipal String userId,
+        @PathVariable ("reservationState") String reservationState
+    ) {
+        ResponseEntity<? super GetReservationCancelListResponseDto> response = reservationService.getReservationCancelList(userId, reservationState);
+        return response;
+    }
+
+    // 예약 취소 신청 승인하기
+    @DeleteMapping("/cancel/{reservationCode}")
+    public ResponseEntity<ResponseDto> DeleteReservation (
+        @AuthenticationPrincipal String userId,
+        @PathVariable ("reservationCode") int reservationCode
+    ) {
+        ResponseEntity<ResponseDto> response = reservationService.deleteReservation(reservationCode, userId);
+        return response;
+    }
+
+    // 전체 예약 목록 리스트 불러오기
+    @GetMapping("/list")
+    public ResponseEntity<? super GetReservationUserListResponseDto> GetReservationUserList (
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<? super GetReservationCancleListResponseDto> response = reservationService.getReservationCancleList(userId);
+        ResponseEntity<? super GetReservationUserListResponseDto> response = reservationService.getReservationUserList(userId);
+        return response;
+    }
+
+    // 인기 차량 리스트 불러오기
+    @GetMapping("/popular")
+    public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList () {
+        ResponseEntity<? super GetReservationPopularListResponseDto> response = reservationService.getReservationPopularList();
         return response;
     }
 

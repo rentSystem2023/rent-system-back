@@ -5,16 +5,17 @@ import org.springframework.http.ResponseEntity;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationCancleListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 
 
 
 public interface ReservationService {
 
         // 나의 예약 리스트 보기
-        // ResponseEntity<ResponseDto>PostReservation (PostReservationResponseDto dto, String userId); //userId 는 JWT를 통해 따로 받아옴
         ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId);
         
         // 예약 하기
@@ -27,5 +28,14 @@ public interface ReservationService {
         ResponseEntity<ResponseDto> patchReservation(PatchReservationRequestDto dto, int reservationCode, String userId);
 
         // 취소 신청 예약 리스트 불러오기
-        ResponseEntity<? super GetReservationCancleListResponseDto> getReservationCancleList(String userId);
+        ResponseEntity<? super GetReservationCancelListResponseDto> getReservationCancelList(String reservationState, String userId);
+
+        // 예약 취소 신청 승인 하기
+        ResponseEntity<ResponseDto> deleteReservation (int reservationCode, String userId);
+
+        // 전체 예약 목록 리스트 불러오기
+        ResponseEntity<? super GetReservationUserListResponseDto> getReservationUserList(String userId);
+
+        // 인기 차량 리스트 불러오기
+        ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList();
 }

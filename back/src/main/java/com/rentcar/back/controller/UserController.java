@@ -86,7 +86,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/list/{search}")
+    @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
         @RequestParam("word") String searchWord
     ) {
@@ -95,7 +95,7 @@ public class UserController {
     }
 
     // 회원관리 상세보기
-    @GetMapping("/list/{userId}")
+    @GetMapping("/list/{userId}/")
     public ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (
         @PathVariable("userId") String userId
     ) {
