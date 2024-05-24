@@ -8,13 +8,18 @@ import org.springframework.stereotype.Service;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationCancleListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
+import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
+import com.rentcar.back.repository.CarRepository;
 import com.rentcar.back.repository.CompanyCarRepository;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
+import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 import com.rentcar.back.service.ReservationService;
@@ -28,6 +33,7 @@ public class ReservationServiceImplementation implements ReservationService {
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository;
     private final CompanyCarRepository companyCarRepository;
+    private final CarRepository carRepository;
 
         // 예약하기
         @Override
@@ -66,7 +72,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseDto.databaseError();                           
+            return ResponseDto.databaseError();      
         }
     }
 
@@ -112,7 +118,23 @@ public class ReservationServiceImplementation implements ReservationService {
 
             reservationEntity.update(dto);
 
-            return ResponseDto.success();
+            reservationRepository.save(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    // 취소 신청 예약 리스트 불러오기
+    @Override
+    public ResponseEntity<? super GetReservationCancelListResponseDto> getReservationCancelList(String userId, String reservationState) {
+
+        try {
+
+            List<ReservationEntity> reservationEntities = reservationRepository.findByReservationState("cancel");
+            return GetReservationCancelListResponseDto.success(reservationEntities);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -120,14 +142,56 @@ public class ReservationServiceImplementation implements ReservationService {
         }
     }
 
-    // 취소 신청 예약 리스트 불러오기
+    // 예약 취소 신청 승인하기
     @Override
-    public ResponseEntity<? super GetReservationCancleListResponseDto> getReservationCancleList(String userId) {
+    public ResponseEntity<ResponseDto> deleteReservation(int reservationCode, String userId) {
+
+        try {
+            
+            ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
+            if (reservationEntity == null) return ResponseDto.noExistReservation();
+
+            String reservationState = reservationEntity.getReservationState();
+            boolean isCancel = "cancel".equals(reservationState);
+            if (!isCancel) return ResponseDto.noCancelState();
+
+            reservationRepository.delete(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();;
+            return ResponseDto.databaseError();
+        }
+        
+        return ResponseDto.success();
+    }
+
+    // 전체 예약 목록 리스트 불러오기
+    @Override
+    public ResponseEntity<? super GetReservationUserListResponseDto> getReservationUserList(String userId) {
 
         try {
 
-            List<ReservationEntity> reservationEntities = reservationRepository.findByUserId(userId);
-            return GetReservationCancleListResponseDto.success(reservationEntities);
+            boolean isExistUser = userRepository.existsById(userId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            List<GetAllUserReservationResultSet> reservationEntity = reservationRepository.getAllUserReservationList();
+
+            return GetReservationUserListResponseDto.success(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList() {
+        
+        try {
+
+            List<CarEntity> carEntity = carRepository.findTop3ByOrderByReservationCountDesc();
+
+            return GetReservationPopularListResponseDto.success(carEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
