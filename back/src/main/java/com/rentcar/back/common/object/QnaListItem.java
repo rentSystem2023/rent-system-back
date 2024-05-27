@@ -16,6 +16,8 @@ public class QnaListItem {
     private String writerId;
     private String writeDatetime;
     private Integer viewCount;
+    private String category;
+    private boolean publicState;
 
     private QnaListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(qnaBoardEntity.getWriteDatetime());
@@ -29,6 +31,8 @@ public class QnaListItem {
         this.writerId = writerId;
         this.writeDatetime = writeDatetime;
         this.viewCount = qnaBoardEntity.getViewCount();
+        this.category = qnaBoardEntity.getCategory();
+        this.publicState = true;
     }
 
     public static List<QnaListItem> getList(List<QnaBoardEntity> qnaBoardEntities) throws Exception {
