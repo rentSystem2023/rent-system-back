@@ -41,5 +41,5 @@ public interface ReservationService {
         ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList();
 
         // 차량 검색 결과 불러오기
-        // ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String address, String reservationStart, String reservationEnd);
+        ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String address, String reservationStart, String reservationEnd);
 }
