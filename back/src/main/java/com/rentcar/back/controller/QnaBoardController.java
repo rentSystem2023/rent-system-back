@@ -62,7 +62,7 @@ public class QnaBoardController {
     }
 
     // Q&A 검색 게시물 리스트 불러오기
-    @GetMapping("/list/{search}")
+    @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchQnaBoardListResponseDto> getSearchBoardList (
         @RequestParam("word") String word
     ) {
