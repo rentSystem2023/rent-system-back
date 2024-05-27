@@ -21,6 +21,7 @@ public interface ResponseCode {
     String NO_CANCEL_STATE = "NS";
     String NO_EXIST_VEHICLE = "NV";
     String NO_EXIST_COMPANY = "NC";
+    String NO_EXIST_ADDRESS = "NA";
     String REGISTED_COMPANY = "RC";
     String NO_EXIST_INFORMATION = "NI";
     String NO_EXIST_USER = "NU";

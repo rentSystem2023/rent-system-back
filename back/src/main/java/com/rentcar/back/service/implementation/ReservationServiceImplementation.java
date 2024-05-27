@@ -185,6 +185,7 @@ public class ReservationServiceImplementation implements ReservationService {
         }
     }
 
+    // 인기 차량 리스트 불러오기
     @Override
     public ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList() {
         
@@ -200,13 +201,24 @@ public class ReservationServiceImplementation implements ReservationService {
         }
     }
 
-    @Override
-    public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSearchReservationCarList'");
-    }
+    // // 차량 검색 결과 불러오기
+    // @Override
+    // public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String address, String reservationStart, String reservationEnd) {
 
+    //     try {
 
+    //         boolean existedAddress = reservationRepository.existsByAddress(address);
+    //         if (!existedAddress) return ResponseDto.noExistAddress();
+
+    //         List<GetAllUserReservationResultSet> reservationEntity = reservationRepository.getSearchReservationList(address, reservationStart, reservationEnd);
+
+    //         return GetSearchReservationCarListResponseDto.success(null);
+
+    //     } catch (Exception exception) {
+    //         exception.printStackTrace();
+    //         return ResponseDto.databaseError();
+    //     }
+    // }
 
 
 }
