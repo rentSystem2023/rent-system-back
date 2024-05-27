@@ -13,6 +13,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListRespo
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
 import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.CarRepository;
@@ -197,6 +198,12 @@ public class ReservationServiceImplementation implements ReservationService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSearchReservationCarList'");
     }
 
 
