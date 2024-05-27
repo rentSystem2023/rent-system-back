@@ -18,9 +18,11 @@ import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.CarRepository;
 import com.rentcar.back.repository.CompanyCarRepository;
+import com.rentcar.back.repository.CompanyRepository;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
 import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 import com.rentcar.back.service.ReservationService;
@@ -35,6 +37,7 @@ public class ReservationServiceImplementation implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final CompanyCarRepository companyCarRepository;
     private final CarRepository carRepository;
+    private final CompanyRepository companyRepository;
 
         // 예약하기
         @Override
@@ -201,24 +204,25 @@ public class ReservationServiceImplementation implements ReservationService {
         }
     }
 
-    // // 차량 검색 결과 불러오기
-    // @Override
-    // public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String address, String reservationStart, String reservationEnd) {
+    // 차량 검색 결과 불러오기
+    @Override
+    public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String address, String reservationStart, String reservationEnd) {
 
-    //     try {
+        try {
 
-    //         boolean existedAddress = reservationRepository.existsByAddress(address);
-    //         if (!existedAddress) return ResponseDto.noExistAddress();
+            // 존재하는 주소인지 확인
+            boolean existedAddress = companyRepository.existsByAddress(address);
+            if (!existedAddress) return ResponseDto.noExistAddress();
 
-    //         List<GetAllUserReservationResultSet> reservationEntity = reservationRepository.getSearchReservationList(address, reservationStart, reservationEnd);
+            List<GetSearchReservationResultSet> reservationEntity = reservationRepository.getSearchReservationList(address, reservationStart, reservationEnd);
 
-    //         return GetSearchReservationCarListResponseDto.success(null);
+            return GetSearchReservationCarListResponseDto.success(reservationEntity);
 
-    //     } catch (Exception exception) {
-    //         exception.printStackTrace();
-    //         return ResponseDto.databaseError();
-    //     }
-    // }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
 
 
 }
