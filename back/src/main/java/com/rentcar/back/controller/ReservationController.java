@@ -19,6 +19,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListRespo
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
 import com.rentcar.back.service.ReservationService;
 
 import jakarta.validation.Valid;
@@ -107,4 +108,13 @@ public class ReservationController {
         return response;
     }
 
+    // 차량 검색 결과 불러오기
+    @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}")
+    public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList (
+        @PathVariable ("address") String address,
+        @PathVariable ("reservationStart") String reservationStart, 
+        @PathVariable ("reservationEnd") String reservationEnd
+    ) { ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(address, reservationStart, reservationEnd);
+        return response;
+    }
 }
