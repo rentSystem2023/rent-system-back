@@ -67,6 +67,14 @@ public class ResponseDto {
                 ResponseMessage.NO_EXIST_COMPANY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
+
+    // 존재하지 않는 주소
+    public static ResponseEntity<ResponseDto> noExistAddress() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_ADDRESS,
+                ResponseMessage.NO_EXIST_ADDRESS);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     
     // 이미 등록된 업체
     public static ResponseEntity<ResponseDto> registedCompany() {

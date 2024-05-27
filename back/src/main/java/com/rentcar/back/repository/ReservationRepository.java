@@ -82,29 +82,30 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         , nativeQuery = true)
     List<GetAllUserReservationResultSet> getAllUserReservationList();
 
-    @Query(value = 
-        "SELECT " +
-        "C.car_name AS carName, " +
-        "C.car_image_url AS carImageUrl, " +
-        "CC.normal_price AS normalPrice, " +
-        "CC.luxury_price AS luxuryPrice, " +
-        "CC.super_price AS superPrice " +
-        "FROM company_car CC " +
-        "INNER JOIN car C ON CC.car_code = C.car_code " +
-        "INNER JOIN company CP ON CP.company_code = CC.company_code " +
-        "WHERE CP.address = :address " +
-        "AND NOT EXISTS ( " +
-        "SELECT 1 " +
-        "FROM reservation R " +
-        "WHERE " +
-        "R.company_car_code = CC.company_car_code " +
-        "AND ( " +
-        "(R.reservation_start <= :reservationStart AND R.reservation_end >= :reservationEnd) " +
-        "OR (R.reservation_start <= :reservationStart AND R.reservation_end >= :reservationEnd) " +
-        ") " + 
-        ")"
-    , nativeQuery = true)
-    GetSearchReservationResultSet getSearchReservationList
-    (@Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
+    // @Query(value = 
+    //     "SELECT " +
+    //     "C.car_name AS carName, " +
+    //     "C.car_image_url AS carImageUrl, " +
+    //     "CC.normal_price AS normalPrice, " +
+    //     "CC.luxury_price AS luxuryPrice, " +
+    //     "CC.super_price AS superPrice " +
+    //     "FROM company_car CC " +
+    //     "INNER JOIN car C ON CC.car_code = C.car_code " +
+    //     "INNER JOIN company CP ON CP.company_code = CC.company_code " +
+    //     "WHERE CP.address = :address " +
+    //     "AND NOT EXISTS ( " +
+    //     "SELECT 1 " +
+    //     "FROM reservation R " +
+    //     "WHERE " +
+    //     "R.company_car_code = CC.company_car_code " +
+    //     "AND ( " +
+    //     "(R.reservation_start <= :reservationStart AND R.reservation_end >= :reservationEnd) " +
+    //     "OR (R.reservation_start <= :reservationStart AND R.reservation_end >= :reservationEnd) " +
+    //     ") " + 
+    //     ")"
+    // , nativeQuery = true)
+    // GetSearchReservationResultSet getSearchReservationList
+    // (@Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
         
+    // boolean existsByAddress(String address);
 }

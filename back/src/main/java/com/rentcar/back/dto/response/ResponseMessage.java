@@ -18,9 +18,10 @@ public interface ResponseMessage {
     String DUPLICATED_EMAIL = "Duplicated Email.";
     String NO_EXIST_BOARD = "No Exist Board.";
     String NO_EXIST_RESERVATION = "No Exist Reservation.";
-    String NO_CANCEL_STATE = "No Cancel State";
+    String NO_CANCEL_STATE = "No Cancel State.";
     String NO_EXIST_VEHICLE = "No Exist Vehicle.";
     String NO_EXIST_COMPANY = "No Exist Company.";
+    String NO_EXIST_ADDRESS = "No Exist Address.";
     String REGISTED_COMPANY = "Registed Company.";
     String NO_EXIST_INFORMATION = "No Exist Information";
     String NO_EXIST_USER = "No Exist User";
@@ -28,7 +29,7 @@ public interface ResponseMessage {
     String SIGN_IN_FAILED = "Sign in Failed.";
     String AUTHENTICATION_FAILED = "Authentication Failed.";
     String AUTHORIZATION_FAILED = "Authorization Failed";
-    String NOT_FOUND = "Not Found";
+    String NOT_FOUND = "Not Found.";
     String TOKEN_CREATION_FAILED = "Token creation Failed.";
     String MAIL_SEND_FAILED = "Mail send Failed.";
     String DATABASE_ERROR = "Database Error.";
