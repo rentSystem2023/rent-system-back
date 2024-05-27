@@ -49,7 +49,7 @@ public class NoticeBoardController {
     }
 
     // 공지사항 검색 게시물 리스트 불러오기
-    @GetMapping("/list/search")
+    @GetMapping("/list/{search}")
     public ResponseEntity<? super GetSearchNoticeBoardListResponseDto> getSearchNoticeBoardList (
         @RequestParam("word") String word
     ) {
