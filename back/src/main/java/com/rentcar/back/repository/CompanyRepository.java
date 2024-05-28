@@ -17,5 +17,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer>
     List<CompanyEntity> findByRentCompanyContainsOrderByRegistDateDesc(String rentCompany);
 
     boolean existsByAddress(String address);
+    boolean existsByRentCompany(String rentCompany);
 }
 

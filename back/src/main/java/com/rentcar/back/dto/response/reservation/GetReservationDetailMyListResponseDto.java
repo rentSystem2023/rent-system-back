@@ -43,5 +43,4 @@ public class GetReservationDetailMyListResponseDto extends ResponseDto {
         GetReservationDetailMyListResponseDto responseBody = new GetReservationDetailMyListResponseDto(resultSet);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

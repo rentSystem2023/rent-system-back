@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetSearchReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationPriceResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
@@ -80,68 +81,117 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
         "INNER JOIN car CA ON CC.car_code = CA.car_code " +
         "INNER JOIN company CO ON CC.company_code = CO.company_code"
-        , nativeQuery = true)
+    , nativeQuery = true)
     List<GetAllUserReservationResultSet> getAllUserReservationList();
 
     @Query(value = 
-    "SELECT " +
+        "SELECT " +
         "C.car_name AS carName, " +
         "C.car_image_url AS carImageUrl, " +
         "CC.normal_price AS normalPrice, " +
         "CC.luxury_price AS luxuryPrice, " +
         "CC.super_price AS superPrice " +
-    "FROM company_car CC " +
-    "LEFT JOIN car C ON CC.car_code = C.car_code " +
-    "WHERE company_car_code NOT IN ( " +
+        "FROM company_car CC " +
+        "LEFT JOIN car C ON CC.car_code = C.car_code " +
+        "WHERE company_car_code NOT IN ( " +
         "SELECT company_car_code FROM reservation " +
         "WHERE  " +
-        "(reservation_start < :reservationStart AND reservation_end > :reservationStart) " +
+        "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
         "OR " +
-        "(reservation_start < :reservationEnd AND reservation_end > :reservationEnd) " +
+        "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
         "OR " +
-        "(reservation_start > :reservationStart AND reservation_end < :reservationEnd) " +
-    ") " +
-    "AND company_code IN ( " +
+        "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
+        ") " +
+        "AND company_code IN ( " +
         "SELECT company_code " +
         "FROM company " +
         "WHERE address = :address " +
-    ") "
+        ") "
     , nativeQuery = true)
     List<GetSearchReservationResultSet> getSearchReservationList
     (@Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
 
     @Query(value =
-    "SELECT " +
-    "C.car_name AS carName, " +
-    "C.car_image_url AS carImageUrl, " +
-    "C.fuel_type AS fuelType, " +
-    "C.reservation_count AS reservationCount, " +
-    "C.car_year AS carYear, " +
-    "CC.normal_price AS normalPrice, " +
-    "CC.luxury_price AS luxuryPrice, " +
-    "CC.super_price AS superPrice, " +
-    "CM.rent_company AS rentCompany " +
-"FROM company_car CC " +
-"LEFT JOIN car C ON CC.car_code = C.car_code " +
-"LEFT JOIN company CM ON CC.company_code = CM.company_code " +
-"WHERE company_car_code NOT IN ( " +
-    "SELECT company_car_code FROM reservation " +
-    "WHERE " +
-    "(reservation_start < '2024-05-21' AND reservation_end > '2024-05-21') " +
-    "OR " +
-    "(reservation_start < '2024-05-25' AND reservation_end > '2024-05-25') " +
-    "OR " +
-    "(reservation_start > '2024-05-21' AND reservation_end < '2024-05-25') " +
-") " +
-"AND CC.company_code IN ( " +
-    "SELECT company_code " +
-    "FROM company " +
-    "WHERE address = '제주시' " +
-") " +
-"AND C.car_name = '마'; "
+        "SELECT " +
+        "C.car_name AS carName, " +
+        "C.car_image_url AS carImageUrl, " +
+        "C.fuel_type AS fuelType, " +
+        "C.reservation_count AS reservationCount, " +
+        "C.car_year AS carYear, " +
+        "CC.normal_price AS normalPrice, " +
+        "CC.luxury_price AS luxuryPrice, " +
+        "CC.super_price AS superPrice, " +
+        "CM.rent_company AS rentCompany " +
+        "FROM company_car CC " +
+        "LEFT JOIN car C ON CC.car_code = C.car_code " +
+        "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
+        "WHERE company_car_code NOT IN ( " +
+        "SELECT company_car_code FROM reservation " +
+        "WHERE " +
+        "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
+        "OR " +
+        "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
+        "OR " +
+        "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
+        ") " +
+        "AND CC.company_code IN ( " +
+        "SELECT company_code " +
+        "FROM company " +
+        "WHERE address = :address " +
+        ") " +
+        "AND C.car_name = :carName"
     , nativeQuery=true)
-    List<GetSearchReservationPriceResultSet> getSearchReservationPriceList
-    (@Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, 
-    @Param("carName") String carName);
+    List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
+        @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
+    );
+
+    @Query(value = 
+        "SELECT " +
+        "C.car_name AS carName, " +
+        "C.car_image_url AS carImageUrl, " +
+        "C.car_year AS carYear, " +
+        "C.brand, " +
+        "C.grade, " +
+        "C.car_oil AS carOil, " +
+        "C.fuel_type AS fuelType, " +
+        "C.capacity, " +
+        "CC.normal_price AS normalPrice, " +
+        "CC.luxury_price AS luxuryPrice, " +
+        "CC.super_price AS superPrice, " +
+        "CM.rent_company AS rentCompany, " +
+        "CM.address, " +
+        "CM.company_telnumber AS companyTelnumber, " +
+        "CM.company_rule AS companyRule, " +
+        "R.reservation_start AS reservationStart, " +
+        "R.reservation_end AS reservationEnd " +
+        "FROM company_car CC " +
+        "LEFT JOIN car C ON CC.car_code = C.car_code " +
+        "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
+        "LEFT JOIN reservation R ON CC.company_car_code = R.company_car_code " +
+        "WHERE CC.company_car_code NOT IN ( " +
+        "SELECT company_car_code " +
+        "FROM reservation " +
+        "WHERE " +
+        "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
+        "OR " +
+        "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
+        "OR " +
+        "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
+        ") " +
+        "AND CC.company_code IN ( " +
+        "SELECT company_code " +
+        "FROM company " +
+        "WHERE address = :address " +
+        ") " +
+        "AND C.car_name = :carName " +
+        "AND CM.rent_company = :rentCompany"
+    , nativeQuery=true)
+    GetSearchReservationDetailResultSet getSearchReservationDetailList (
+        @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, 
+        @Param("carName") String carName, @Param("rentCompany") String rentCompany
+    );
+
+
+
 
 }

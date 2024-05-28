@@ -14,6 +14,8 @@ import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.CarRepository;
@@ -22,6 +24,8 @@ import com.rentcar.back.repository.CompanyRepository;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
 import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetSearchReservationDetailResultSet;
+import com.rentcar.back.repository.resultSet.GetSearchReservationPriceResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
@@ -152,9 +156,11 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
             
+            // 존재하는 예약인지 확인
             ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
+            // 예약상태가 cancel 상태인지 확인
             String reservationState = reservationEntity.getReservationState();
             boolean isCancel = "cancel".equals(reservationState);
             if (!isCancel) return ResponseDto.noCancelState();
@@ -188,6 +194,25 @@ public class ReservationServiceImplementation implements ReservationService {
         }
     }
 
+    // 예약 목록 리스트 삭제하기
+    @Override
+    public ResponseEntity<ResponseDto> deleteReservationList(int reservationCode, String userId) {
+        try {
+            
+            // 존재하는 예약인지 확인
+            ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
+            if (reservationEntity == null) return ResponseDto.noExistReservation();
+
+            reservationRepository.delete(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();;
+            return ResponseDto.databaseError();
+        }
+        
+        return ResponseDto.success();
+    }
+
     // 인기 차량 리스트 불러오기
     @Override
     public ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList() {
@@ -217,6 +242,60 @@ public class ReservationServiceImplementation implements ReservationService {
             List<GetSearchReservationResultSet> reservationEntity = reservationRepository.getSearchReservationList(address, reservationStart, reservationEnd);
 
             return GetSearchReservationCarListResponseDto.success(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    // 보험별(업체) 가격 검색 결과 불러오기
+    @Override
+    public ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> getSearchReservationCarPriceList(
+            String address, String reservationStart, String reservationEnd, String carName) {
+
+        try {
+
+            // 존재하는 주소인지 확인
+            boolean existedAddress = companyRepository.existsByAddress(address);
+            if (!existedAddress) return ResponseDto.noExistAddress();
+
+            // 존재하는 차량(명)인지 확인
+            boolean existedCarName = carRepository.existsByCarName(carName);
+            if (!existedCarName) return ResponseDto.noExistVehicle();
+
+            List<GetSearchReservationPriceResultSet> reservationEntity = reservationRepository.getSearchReservationPriceList(address, reservationStart, reservationEnd, carName);
+
+            return GetSearchReservationCarPriceListResponseDto.success(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    // 차량 예약 상세 검색 결과 불러오기
+    @Override
+    public ResponseEntity<? super GetSearchReservationDetailListResponseDto> getSearchReservationDetailList(
+            String address, String reservationStart, String reservationEnd, String carName, String rentCompany) {
+
+        try {
+
+            // 존재하는 주소인지 확인
+            boolean existedAddress = companyRepository.existsByAddress(address);
+            if (!existedAddress) return ResponseDto.noExistAddress();
+
+            // 존재하는 차량(명)인지 확인
+            boolean existedCarName = carRepository.existsByCarName(carName);
+            if (!existedCarName) return ResponseDto.noExistVehicle();
+
+            // 존재하는 업체인지 확인
+            boolean existedRentCompany = companyRepository.existsByRentCompany(rentCompany);
+            if (!existedRentCompany) return ResponseDto.noExistCompany();
+
+            GetSearchReservationDetailResultSet reservationEntity = reservationRepository.getSearchReservationDetailList(address, reservationStart, reservationEnd, carName, rentCompany);
+
+            return GetSearchReservationDetailListResponseDto.success(reservationEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
