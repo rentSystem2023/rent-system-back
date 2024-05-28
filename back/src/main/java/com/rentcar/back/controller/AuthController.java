@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
+import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -39,6 +40,13 @@ public class AuthController {
     public ResponseEntity<ResponseDto> idCheck( // 클라이언트에게 응답을 보낼때 사용하는 ResponseEntity<ResponseDto>
             @RequestBody @Valid IdCheckRequestDto requestBody) { // valid 유효성검사하는 기본 패키지
         ResponseEntity<ResponseDto> response = authService.idCheck(requestBody);
+        return response;
+    }
+
+    @PostMapping("/nickname-check")
+    public ResponseEntity<ResponseDto> nickNameCheck(
+            @RequestBody @Valid NickNameCheckRequestDto requestBody) {
+        ResponseEntity<ResponseDto> response = authService.nickNameCheck(requestBody);
         return response;
     }
 
