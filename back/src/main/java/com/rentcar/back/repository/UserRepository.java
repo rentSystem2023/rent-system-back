@@ -12,8 +12,10 @@ import com.rentcar.back.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,String> {
     UserEntity findByUserId(String userId);
+    UserEntity findByNickName(String nickName);
     boolean existsByUserEmail(String userEmail);
     boolean existsByUserId(String userId);
+    boolean existsByNickName(String nickName);
 
     List<UserEntity> findByOrderByJoinDateDesc();
 

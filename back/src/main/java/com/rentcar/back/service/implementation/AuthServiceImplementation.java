@@ -9,6 +9,7 @@ import com.rentcar.back.common.util.EmailAuthNumberUtil;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
+import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -62,6 +63,25 @@ public class AuthServiceImplementation implements AuthService {
         }
 
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> nickNameCheck(NickNameCheckRequestDto dto) {
+
+        try {
+            String nickName = dto.getNickName();
+            boolean existedUser = userRepository.existsByNickName(nickName);
+            if (existedUser)
+                return ResponseDto.duplicatedNickName();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            // 스태틱으로 지정했기에 databaseError를 바로 사용할 수 있음
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+
     }
 
     @Override
@@ -206,5 +226,7 @@ public class AuthServiceImplementation implements AuthService {
 
         return ResponseDto.success();
     }
+
+    
 
 }

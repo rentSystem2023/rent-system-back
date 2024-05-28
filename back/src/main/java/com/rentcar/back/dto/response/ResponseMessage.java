@@ -15,6 +15,7 @@ public interface ResponseMessage {
     String SUCCESS = "Success.";
     String VALIDATION_FAILED = "Validation Failed.";
     String DUPLICATED_ID = "Duplicated Id.";
+    String DUPLICATED_NICKNAME = "Duplicated Nickname.";
     String DUPLICATED_EMAIL = "Duplicated Email.";
     String NO_EXIST_BOARD = "No Exist Board.";
     String NO_EXIST_RESERVATION = "No Exist Reservation.";
