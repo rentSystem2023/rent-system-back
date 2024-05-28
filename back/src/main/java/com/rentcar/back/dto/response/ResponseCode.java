@@ -15,6 +15,7 @@ public interface ResponseCode {
     String SUCCESS = "SU";
     String VALIDATION_FAILED = "VF";
     String DUPLICATED_ID = "DI";
+    String DUPLICATED_NICKNAME = "DN";
     String DUPLICATED_EMAIL = "DE";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_RESERVATION = "NR";
