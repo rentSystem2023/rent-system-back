@@ -20,6 +20,8 @@ import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.service.ReservationService;
 
 import jakarta.validation.Valid;
@@ -101,6 +103,16 @@ public class ReservationController {
         return response;
     }
 
+    // 예약 목록 리스트 삭제하기
+    @DeleteMapping("/list/{reservationCode}")
+    public ResponseEntity<ResponseDto> DeleteReservtionList (
+        @AuthenticationPrincipal String userId,
+        @PathVariable ("reservationCode") int reservationCode
+    ) {
+        ResponseEntity<ResponseDto> response = reservationService.deleteReservationList(reservationCode, userId);
+        return response;
+    }
+
     // 인기 차량 리스트 불러오기
     @GetMapping("/popular")
     public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList () {
@@ -114,7 +126,33 @@ public class ReservationController {
         @PathVariable ("address") String address,
         @PathVariable ("reservationStart") String reservationStart, 
         @PathVariable ("reservationEnd") String reservationEnd
-    ) { ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(address, reservationStart, reservationEnd);
+    ) { 
+        ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(address, reservationStart, reservationEnd);
+        return response;
+    }
+
+    // 보험별(업체) 가격 검색 결과 불러오기
+    @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}/{carName}")
+    public ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> getSearchReservationCarPriceList (
+        @PathVariable ("address") String address,
+        @PathVariable ("reservationStart") String reservationStart, 
+        @PathVariable ("reservationEnd") String reservationEnd,
+        @PathVariable ("carName") String carName
+    ) {
+        ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> response = reservationService.getSearchReservationCarPriceList(address, reservationStart, reservationEnd, carName);
+        return response;
+    }
+    
+    // 차량 예약 상세 검색 결과 불러오기
+    @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}/{carName}/{rentCompany}")
+    public ResponseEntity<? super GetSearchReservationDetailListResponseDto> getSearchReservationDetailList (
+        @PathVariable ("address") String address,
+        @PathVariable ("reservationStart") String reservationStart, 
+        @PathVariable ("reservationEnd") String reservationEnd,
+        @PathVariable ("carName") String carName,
+        @PathVariable ("rentCompany") String rentCompany
+    ) {
+        ResponseEntity<? super GetSearchReservationDetailListResponseDto> response = reservationService.getSearchReservationDetailList(address, reservationStart, reservationEnd, carName, rentCompany);
         return response;
     }
 }

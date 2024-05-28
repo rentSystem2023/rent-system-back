@@ -9,4 +9,6 @@ import com.rentcar.back.entity.CarEntity;
 public interface CarRepository extends JpaRepository<CarEntity, Integer> {
     
     List<CarEntity> findTop3ByOrderByReservationCountDesc();
+
+    boolean existsByCarName(String carName);
 }
