@@ -28,28 +28,25 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
     private final QnaBoardRepository qnaBoardRepository;
     private final UserRepository userRepository;
 
-    // Q&A 작성하기
-    @Override
-    public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId) {
+// Q&A 작성하기
+@Override
+public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId) {
+    try {
+        // 사용자 존재 여부 확인
+        boolean isExistUser = userRepository.existsById(userId);
+        if (!isExistUser) return ResponseDto.authenticationFailed();
 
-        try {
+        // Q&A 게시글 생성 및 저장
+        QnaBoardEntity qnaBoardEntity = new QnaBoardEntity(dto, userId);
+        qnaBoardRepository.save(qnaBoardEntity);
 
-            boolean isExistUser = userRepository.existsById(userId);
-            if (!isExistUser) return ResponseDto.authenticationFailed();
-
-            QnaBoardEntity qnaBoardEntity = new QnaBoardEntity(dto, userId);
-            qnaBoardRepository.save(qnaBoardEntity);
-
-            
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return ResponseDto.success();
+    } catch (Exception exception) {
+        exception.printStackTrace();
+        return ResponseDto.databaseError();
     }
 
+    return ResponseDto.success();
+}
     // Q&A 전체 게시물 리스트 불러오기
     @Override
     public ResponseEntity<? super GetQnaBoardListResponseDto> getQnaBoardList() {

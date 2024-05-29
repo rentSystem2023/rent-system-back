@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.rentcar.back.dto.request.auth.FindIdRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
@@ -63,4 +64,7 @@ public class UserEntity {
     public void update(PatchUserRequestDto dto){
         this.nickName = dto.getNickName();
     }
+
+
 }
+

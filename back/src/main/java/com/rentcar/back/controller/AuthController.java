@@ -78,13 +78,7 @@ public class AuthController {
         return response;
     }
 
-    @PostMapping("/find-id")
-    public ResponseEntity<ResponseDto> findId(
-            // @RequestBody로 받기 위해 ,valid = 유효성 검사
-            @RequestBody @Valid FindIdRequestDto requestBody) {
-        ResponseEntity<ResponseDto> response = authService.FindId(requestBody);
-        return response;
-    }
+
 
 
 }
