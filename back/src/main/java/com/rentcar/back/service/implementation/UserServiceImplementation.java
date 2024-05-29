@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
+import com.rentcar.back.dto.response.user.GetFindIdResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
@@ -15,6 +17,7 @@ import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
 import com.rentcar.back.entity.UserEntity;
 import com.rentcar.back.repository.UserRepository;
+import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
 import com.rentcar.back.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -162,5 +165,31 @@ public class UserServiceImplementation implements UserService{
         }
     }
 
+    @Override
+    public ResponseEntity<ResponseDto> FindId(String userEmail) {
+        try {
+            // 이메일을 사용하여 userId를 조회
+            String userId = userRepository.findUserIdByUserEmail(userEmail);
+            
 
+        } catch (Exception exception) {
+            // 예외 발생 시 에러 응답 반환
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    // 아이디 찾기
+    @Override
+    public ResponseEntity<? super GetFindIdResponseDto> getFindId(String userEmail) {
+        try {
+
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+            return GetFindIdResponseDto.success(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.success();
+        }
+    }
 }
