@@ -63,11 +63,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            if (userEntity.getUserEmail() == null) {
-                filterChain.doFilter(request, response);
-                return;
-            }
-
             String role = userEntity.getUserRole();
 
             List<GrantedAuthority> authorities = new ArrayList<>();
