@@ -55,6 +55,7 @@ public class UserEntity {
         this.userId = userId;
         this.nickName = nickName;
         this.userPassword = userPassword;
+        this.userEmail = userEmail;
         this.userRole = userRole;
         this.joinPath = joinPath;
     }

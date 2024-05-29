@@ -58,4 +58,31 @@ public class MailProvider {
         return text;
     }
 
+    // 아이디 찾기에서 성공 시 이메일로 userId 전송됨
+    public void mailUserIdSend(String to, String userId) throws MessagingException {
+
+        // 전송할 메시지 객체 생성
+        // mimeMailMessage참조 변수로 create 생성
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        // 메시지 전송자 메일 지정
+        mimeMessage.setFrom(from);
+        // 메시지 수신자 메일 지정
+        mimeMessage.setRecipient(RecipientType.TO, new InternetAddress(to));
+        // 메시지 제목 지정
+        mimeMessage.setSubject("estate 인증번호");
+        // 메시지 내용 지정
+        mimeMessage.setText(getUserId(userId), "utf-8", "html");
+        // 메시지 전송
+        javaMailSender.send(mimeMessage);
+
+    }
+
+    private String getUserId(String userId){
+        String text = "<h2 style='text-align : center'>rentCar 회원 아이디</h2>" + "<p>요청하신 아이디는 <strong style='color:red;'>"+
+        userId +
+        "</strong>입니다.</p>";
+        return text;
+    }
+
+
 }
