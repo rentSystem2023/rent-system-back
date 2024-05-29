@@ -11,8 +11,8 @@ import lombok.Setter;
 public class FindIdRequestDto {
     @NotBlank
     private String userEmail;
-    @NotBlank
-    private String authNumber;
+    // @NotBlank
+    // private String authNumber;
     @NotBlank
     private String userId;
 }
