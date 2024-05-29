@@ -59,7 +59,7 @@ public class WebSecurityConfig {
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**", 
                                                 "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count", "/api/rentcar/reservation/mylist",
-                                                "/api/rentcar/reservation/popular", "/api/rentcar/reservation/search/**").permitAll()
+                                                "/api/rentcar/reservation/popular", "/api/rentcar/reservation/search/**","/upload").permitAll()
                                                 .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete")
                                                 .hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 

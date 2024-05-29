@@ -40,6 +40,8 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
             QnaBoardEntity qnaBoardEntity = new QnaBoardEntity(dto, userId);
             qnaBoardRepository.save(qnaBoardEntity);
 
+            
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
