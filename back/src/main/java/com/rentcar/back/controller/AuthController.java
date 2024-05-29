@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
+import com.rentcar.back.dto.request.auth.FindIdRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
 import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
@@ -74,6 +75,14 @@ public class AuthController {
             // @RequestBody로 받기 위해 ,valid = 유효성 검사
             @RequestBody @Valid SignUpRequestDto requestBody) {
         ResponseEntity<ResponseDto> response = authService.SignUp(requestBody);
+        return response;
+    }
+
+    @PostMapping("/find-id")
+    public ResponseEntity<ResponseDto> findId(
+            // @RequestBody로 받기 위해 ,valid = 유효성 검사
+            @RequestBody @Valid FindIdRequestDto requestBody) {
+        ResponseEntity<ResponseDto> response = authService.FindId(requestBody);
         return response;
     }
 

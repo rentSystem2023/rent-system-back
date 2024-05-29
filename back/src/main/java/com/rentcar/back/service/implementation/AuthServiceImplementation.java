@@ -238,17 +238,28 @@ public class AuthServiceImplementation implements AuthService {
             String userEmail = dto.getUserEmail();
             String userId = dto.getUserId();
 
-            boolean existedUser = userRepository.existsByUserEmail(userEmail);
-            if (!existedUser)
-                return ResponseDto.noExistEmail();
+            // boolean existedUser = userRepository.existsByUserEmail(userEmail);
+            // if (!existedUser)
+            //     return ResponseDto.noExistEmail();
+
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+            // 유저엔티티는 null
+            if (userEntity == null)
+                return ResponseDto.signInFailed();
+
+            boolean isMatched = passwordEncoder.matches(userEmail); // 평뮨의 비밀번호 , 암호화된 비밀번호 비교
+            // 만약 일치하지 않는다면?
+            if (!isMatched)
+                return ResponseDto.signInFailed();
+
+        userRepository.save(emailAuthNumberEntity);
 
             // 아이디 찾기 성공 시 아이디 보냄
             mailProvider.mailUserIdSend(userEmail, userId);
 
         } catch (MessagingException exception) {
             exception.printStackTrace();
-            return ResponseDto.mailSendFailed(); // 예외 에러 반환
-
+            return ResponseDto.databaseError();
         }
 
         return ResponseDto.success();
