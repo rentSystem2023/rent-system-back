@@ -1,10 +1,10 @@
 package com.rentcar.back.entity;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
+
 import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
 
 import jakarta.persistence.Entity;
@@ -17,14 +17,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name="qnaBoard")
-@Table(name="qnaBoard")
+@Entity(name = "qnaBoard")
+@Table(name = "qnaBoard")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class QnaBoardEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer receptionNumber;
@@ -35,14 +35,14 @@ public class QnaBoardEntity {
     private String writeDatetime;
     private Integer viewCount;
     private String comment;
-    private String imageUrl;    
-    private String category;   
-    private boolean publicState;   
+    private String imageUrl;
+    private String category;
+    private boolean publicState;
 
     public QnaBoardEntity(PostQnaBoardRequestDto dto, String userId) {
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String writeDatetime = simpleDateFormat.format(now);
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String writeDatetime = now.format(formatter);
 
         this.status = false;
         this.title = dto.getTitle();
@@ -52,6 +52,7 @@ public class QnaBoardEntity {
         this.viewCount = 0;
         this.category = dto.getCategory();
         this.publicState = true;
+        this.imageUrl = dto.getImageUrl(); // 이미지 URL 설정
     }
 
     // 조회수 증가
@@ -60,7 +61,7 @@ public class QnaBoardEntity {
     }
 
     // 게시물 수정
-    public void update(PutQnaBoardRequsetDto dto) {         
+    public void update(PutQnaBoardRequsetDto dto) {
         this.title = dto.getTitle();
         this.contents = dto.getContents();
     }

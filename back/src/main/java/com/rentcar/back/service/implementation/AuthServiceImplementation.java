@@ -1,5 +1,6 @@
 package com.rentcar.back.service.implementation;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.auth.SignInResponseDto;
 import com.rentcar.back.entity.EmailAuthNumberEntity;
+import com.rentcar.back.entity.NoticeBoardEntity;
 import com.rentcar.back.entity.UserEntity;
 import com.rentcar.back.provider.JwtProvider;
 import com.rentcar.back.provider.MailProvider;
@@ -226,44 +228,6 @@ public class AuthServiceImplementation implements AuthService {
         }
 
         return ResponseDto.success();
-    }
-
-    @Override
-    public ResponseEntity<ResponseDto> FindId(FindIdRequestDto dto) {
-
-        try {
-
-            // (userId, userPassword, userEmail, authNumber) 유효성검사가 끝나고 SIGNUP DTO에 있는것들
-            // 꺼내오기
-            String userEmail = dto.getUserEmail();
-            String userId = dto.getUserId();
-
-            // boolean existedUser = userRepository.existsByUserEmail(userEmail);
-            // if (!existedUser)
-            //     return ResponseDto.noExistEmail();
-
-            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
-            // 유저엔티티는 null
-            if (userEntity == null)
-                return ResponseDto.signInFailed();
-
-            boolean isMatched = passwordEncoder.matches(userEmail); // 평뮨의 비밀번호 , 암호화된 비밀번호 비교
-            // 만약 일치하지 않는다면?
-            if (!isMatched)
-                return ResponseDto.signInFailed();
-
-        userRepository.save(emailAuthNumberEntity);
-
-            // 아이디 찾기 성공 시 아이디 보냄
-            mailProvider.mailUserIdSend(userEmail, userId);
-
-        } catch (MessagingException exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return ResponseDto.success();
-
     }
 
 }
