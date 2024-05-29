@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
     boolean existsByUserId(String userId);
     boolean existsByNickName(String nickName);
 
+    String findUserIdByUserEmail(String userEmail);
+
     // 아이디, 비밀번호 찾기
     // boolean unExistsByUserPassword(String userId);
     // boolean unExistsByUserEmail(String userEmail);
@@ -28,6 +30,7 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
     // StartingWith => LIKE 'word%'
     // EndingWith => LIKE '%word'
     List<UserEntity> findByUserIdContainsOrderByJoinDateDesc(String userId);
+
 
 
 }

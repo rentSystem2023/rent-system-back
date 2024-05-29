@@ -6,13 +6,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rentcar.back.dto.request.auth.FindIdRequestDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.user.GetFindIdResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
@@ -102,5 +105,21 @@ public class UserController {
         ResponseEntity<? super GetUserDetailListResponseDto> response = userService.getUserDetailList(userId);
         return response;
     }
+
+        @PostMapping("/find-id")
+    public ResponseEntity<? super GetFindIdResponseDto> findIdcheck(@RequestBody @Valid FindIdRequestDto requestBody) {
+        ResponseEntity<? super GetFindIdResponseDto> response = userService.FindId(requestBody.getUserEmail());
+        return response;
+    }
+
+    @GetMapping("/find-id/{userEmail}")
+    public ResponseEntity<? super GetFindIdResponseDto> getfindId (
+        @PathVariable("userEmail") String userEmail
+    ) {
+        ResponseEntity<? super GetFindIdResponseDto> response = userService.getFindId(userEmail);
+        return response;
+    }
+    
+    
 
 }
