@@ -17,6 +17,7 @@ public interface ResponseCode {
     String DUPLICATED_ID = "DI";
     String DUPLICATED_NICKNAME = "DN";
     String DUPLICATED_EMAIL = "DE";
+    String NO_EXIST_EMAIL = "NE";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_RESERVATION = "NR";
     String NO_CANCEL_STATE = "NS";
