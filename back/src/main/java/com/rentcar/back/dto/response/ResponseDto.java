@@ -31,7 +31,7 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
-    // 중복된 아이디
+    // 중복된 닉네임
     public static ResponseEntity<ResponseDto> duplicatedNickName() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_NICKNAME, ResponseMessage.DUPLICATED_NICKNAME);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
@@ -43,6 +43,12 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
     
+    // 존재하지 않는 이메일
+    public static ResponseEntity<ResponseDto> noExistEmail() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_EMAIL, ResponseMessage.NO_EXIST_EMAIL);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     // 존재하지 않는 게시물
     public static ResponseEntity<ResponseDto> noExistBoard() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD, ResponseMessage.NO_EXIST_BOARD);

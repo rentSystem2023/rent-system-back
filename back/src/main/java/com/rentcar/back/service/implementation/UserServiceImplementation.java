@@ -66,11 +66,9 @@ public class UserServiceImplementation implements UserService{
         
         try {
             UserEntity userEntity = userRepository.findByUserId(userId);
-
             if (userEntity == null) return ResponseDto.noExistInfo();
 
             userEntity.update(dto);
-
             userRepository.save(userEntity);
 
         } catch (Exception exception) {

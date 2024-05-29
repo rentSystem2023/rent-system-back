@@ -17,6 +17,7 @@ public interface ResponseMessage {
     String DUPLICATED_ID = "Duplicated Id.";
     String DUPLICATED_NICKNAME = "Duplicated Nickname.";
     String DUPLICATED_EMAIL = "Duplicated Email.";
+    String NO_EXIST_EMAIL = "No Exist Email";
     String NO_EXIST_BOARD = "No Exist Board.";
     String NO_EXIST_RESERVATION = "No Exist Reservation.";
     String NO_CANCEL_STATE = "No Cancel State.";
