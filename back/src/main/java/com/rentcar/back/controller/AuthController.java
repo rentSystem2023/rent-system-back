@@ -1,5 +1,7 @@
 package com.rentcar.back.controller;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.auth.FindIdResponseDto;
 import com.rentcar.back.dto.response.auth.SignInResponseDto;
 import com.rentcar.back.service.AuthService;
 
@@ -78,6 +81,23 @@ public class AuthController {
         return response;
     }
 
+    // 아이디 찾기
+    @PostMapping("/find-id")
+    public ResponseEntity<? super FindIdResponseDto> findId(
+        @RequestBody @Valid FindIdRequestDto requestBody
+    ) {
+        ResponseEntity<? super FindIdResponseDto> response = authService.FindId(requestBody);
+        return response;
+    }
+
+    // 아이디 찾기
+    @GetMapping("/find-id/{userEmail}")
+    public ResponseEntity<? super FindIdResponseDto> getFindId (
+        @PathVariable("userEmail") String userEmail
+    ) {
+        ResponseEntity<? super FindIdResponseDto> response = authService.getFindId(userEmail);
+        return response;
+    }
 
 
 

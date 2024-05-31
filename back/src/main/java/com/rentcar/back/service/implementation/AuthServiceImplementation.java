@@ -15,6 +15,7 @@ import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.auth.FindIdResponseDto;
 import com.rentcar.back.dto.response.auth.SignInResponseDto;
 import com.rentcar.back.entity.EmailAuthNumberEntity;
 import com.rentcar.back.entity.NoticeBoardEntity;
@@ -229,5 +230,42 @@ public class AuthServiceImplementation implements AuthService {
 
         return ResponseDto.success();
     }
+
+     @Override
+    public ResponseEntity<? super FindIdResponseDto> FindId(FindIdRequestDto dto) {
+
+        try {
+            String userEmail = dto.getUserEmail();
+            // String userId = dto.getUserId();
+            
+
+            boolean isMatched = userRepository.existsByUserEmail(userEmail);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+            
+            // UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+
+            // userRepository.save(userEntity);
+            
+            return FindIdResponseDto.success();
+
+          } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+          }
+        //   return ResponseDto.success(userId);
+    }
+
+    @Override
+    public ResponseEntity<? super FindIdResponseDto> getFindId(String userEmail) {
+        
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+
+            // String userId = userEntity.getUserId();
+
+            userRepository.save(userEntity);
+            
+            return FindIdResponseDto.success(userEntity);
+    }
+
 
 }

@@ -10,6 +10,7 @@ import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.auth.FindIdResponseDto;
 import com.rentcar.back.dto.response.auth.SignInResponseDto;
 
 public interface AuthService {
@@ -21,6 +22,10 @@ public interface AuthService {
     ResponseEntity<ResponseDto> emailAuth (EmailAuthRequestDto dto);
     ResponseEntity<ResponseDto> emailAuthCheck (EmailAuthCheckRequestDto dto);
     ResponseEntity<ResponseDto> SignUp (SignUpRequestDto dto);
+
+    ResponseEntity<? super FindIdResponseDto> FindId (FindIdRequestDto dto);
+    ResponseEntity<? super FindIdResponseDto> getFindId (String userEmail);
+
 
 
 
