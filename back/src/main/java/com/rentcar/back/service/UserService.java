@@ -31,8 +31,6 @@ public interface UserService {
 
     ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (String userId);
 
-    ResponseEntity<ResponseDto> FindId(String userEmail);
-
     ResponseEntity<? super GetFindIdResponseDto> getFindId(String userEmail);
 
 }
