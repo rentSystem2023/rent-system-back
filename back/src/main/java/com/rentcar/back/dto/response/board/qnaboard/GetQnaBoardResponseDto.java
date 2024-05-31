@@ -21,6 +21,8 @@ public class GetQnaBoardResponseDto extends ResponseDto {
     private Integer viewCount;
     private String contents;
     private String comment;
+    private String imageUrl;
+    private Boolean publicState;
 
     private GetQnaBoardResponseDto (QnaBoardEntity qnaBoardEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -34,6 +36,8 @@ public class GetQnaBoardResponseDto extends ResponseDto {
         this.viewCount = qnaBoardEntities.getViewCount();
         this.contents = qnaBoardEntities.getContents();
         this.comment = qnaBoardEntities.getComment();
+        this.imageUrl = qnaBoardEntities.getImageUrl();
+        this.publicState = qnaBoardEntities.getPublicState();
     }
 
     public static ResponseEntity<GetQnaBoardResponseDto> success(QnaBoardEntity qnaBoardEntities) throws Exception {
