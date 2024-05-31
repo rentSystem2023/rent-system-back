@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.rentcar.back.dto.request.company.PostCompanyRequestDto;
 import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.company.GetCompanyDetailResponseDto;
 import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
 import com.rentcar.back.dto.response.company.GetSearchCompanyListResponseDto;
 import com.rentcar.back.entity.CompanyEntity;
@@ -37,8 +38,24 @@ public class CompanyServiceImplementation implements CompanyService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
+
+    @Override
+    public ResponseEntity<? super GetCompanyDetailResponseDto> getCompanyDetail(int CompanyCode) {
+
+        try {
+
+            CompanyEntity companyEntities = companyRepository.findByCompanyCode(CompanyCode);
+            if (companyEntities == null) return ResponseDto.noExistCompany();
+
+            return GetCompanyDetailResponseDto.sucess(companyEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
 
     @Override
     public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList(String searchWord) {
@@ -113,4 +130,5 @@ public class CompanyServiceImplementation implements CompanyService {
 
         return ResponseDto.success();
     }
+
 }
