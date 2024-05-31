@@ -242,11 +242,11 @@ public class AuthServiceImplementation implements AuthService {
             boolean isMatched = userRepository.existsByUserEmail(userEmail);
             if (!isMatched) return ResponseDto.authenticationFailed();
             
-            // UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
 
-            // userRepository.save(userEntity);
+            userRepository.save(userEntity);
             
-            return FindIdResponseDto.success();
+            return FindIdResponseDto.success(userEntity);
 
           } catch(Exception exception) {
             exception.printStackTrace();
@@ -254,18 +254,5 @@ public class AuthServiceImplementation implements AuthService {
           }
         //   return ResponseDto.success(userId);
     }
-
-    @Override
-    public ResponseEntity<? super FindIdResponseDto> getFindId(String userEmail) {
-        
-            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
-
-            // String userId = userEntity.getUserId();
-
-            userRepository.save(userEntity);
-            
-            return FindIdResponseDto.success(userEntity);
-    }
-
 
 }
