@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
-import com.rentcar.back.dto.response.user.GetFindIdResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
@@ -103,16 +102,6 @@ public class UserController {
         ResponseEntity<? super GetUserDetailListResponseDto> response = userService.getUserDetailList(userId);
         return response;
     }
-
-    // 내 아이디 찾기
-    @GetMapping("/find-id/{userEmail}")
-    public ResponseEntity<? super GetFindIdResponseDto> getfindId (
-        @PathVariable("userEmail") String userEmail
-    ) {
-        ResponseEntity<? super GetFindIdResponseDto> response = userService.getFindId(userEmail);
-        return response;
-    }
-    
     
 
 }

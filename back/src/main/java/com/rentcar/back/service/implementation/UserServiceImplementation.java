@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
-import com.rentcar.back.dto.response.user.GetFindIdResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
@@ -162,17 +161,4 @@ public class UserServiceImplementation implements UserService{
         }
     }
 
-    // 내 아이디 찾기
-    @Override
-    public ResponseEntity<? super GetFindIdResponseDto> getFindId(String userEmail) {
-        try {
-
-            UserEntity userEntity = userRepository.findByUserEmail(userEmail);
-            return GetFindIdResponseDto.success(userEntity);
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-    }
 }
