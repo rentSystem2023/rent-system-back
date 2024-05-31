@@ -90,15 +90,5 @@ public class AuthController {
         return response;
     }
 
-    // 아이디 찾기
-    @GetMapping("/find-id/{userEmail}")
-    public ResponseEntity<? super FindIdResponseDto> getFindId (
-        @PathVariable("userEmail") String userEmail
-    ) {
-        ResponseEntity<? super FindIdResponseDto> response = authService.getFindId(userEmail);
-        return response;
-    }
-
-
 
 }

@@ -24,10 +24,6 @@ public interface AuthService {
     ResponseEntity<ResponseDto> SignUp (SignUpRequestDto dto);
 
     ResponseEntity<? super FindIdResponseDto> FindId (FindIdRequestDto dto);
-    ResponseEntity<? super FindIdResponseDto> getFindId (String userEmail);
-
-
-
 
     
 }

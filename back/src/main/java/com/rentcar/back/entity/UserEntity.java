@@ -61,11 +61,6 @@ public class UserEntity {
         this.joinPath = joinPath;
     }
 
-    // userId 찾기
-    // public UserEntity (String userEmail) {
-    //     this.userEmail = userEmail;
-    // }
-
     public void update(PatchUserRequestDto dto){
         this.nickName = dto.getNickName();
     }
