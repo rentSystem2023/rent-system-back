@@ -37,7 +37,7 @@ public class QnaBoardEntity {
     private String comment;
     private String imageUrl;
     private String category;
-    private boolean publicState;
+    private Boolean publicState;
 
     public QnaBoardEntity(PostQnaBoardRequestDto dto, String userId) {
         LocalDateTime now = LocalDateTime.now();
@@ -51,8 +51,9 @@ public class QnaBoardEntity {
         this.writeDatetime = writeDatetime;
         this.viewCount = 0;
         this.category = dto.getCategory();
-        this.publicState = true;
+        this.publicState = false;
         this.imageUrl = dto.getImageUrl(); // 이미지 URL 설정
+        this.publicState = dto.getPublicState();
     }
 
     // 조회수 증가
