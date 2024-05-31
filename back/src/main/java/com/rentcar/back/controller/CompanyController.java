@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentcar.back.dto.request.company.PostCompanyRequestDto;
 import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.company.GetCompanyDetailResponseDto;
 import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
 import com.rentcar.back.dto.response.company.GetSearchCompanyListResponseDto;
 import com.rentcar.back.service.CompanyService;
@@ -33,6 +34,15 @@ public class CompanyController {
     @GetMapping("/list")
     public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList () {
         ResponseEntity<? super GetCompanyListResponseDto> response = companyService.getCompanyList();
+        return response;
+    }
+
+    // company 상세 불러오기
+    @GetMapping("/list/{companyCode}")
+    public ResponseEntity<? super GetCompanyDetailResponseDto> getCompanyDetail (
+        @PathVariable("companyCode") int companyCode
+    ) {
+        ResponseEntity<? super GetCompanyDetailResponseDto> response = companyService.getCompanyDetail(companyCode);
         return response;
     }
 
