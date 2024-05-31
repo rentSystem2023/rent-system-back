@@ -10,6 +10,8 @@ import com.rentcar.back.common.util.EmailAuthNumberUtil;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.FindIdRequestDto;
+import com.rentcar.back.dto.request.auth.FindPwRequestDto;
+import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
 import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
@@ -190,6 +192,7 @@ public class AuthServiceImplementation implements AuthService {
             // (userId, userPassword, userEmail, authNumber) 유효성검사가 끝나고 SIGNUP DTO에 있는것들
             // 꺼내오기
             String userId = dto.getUserId();
+            String nickName = dto.getNickName();
             String userPassword = dto.getUserPassword();
             String userEmail = dto.getUserEmail();
             String authNumber = dto.getAuthNumber();
@@ -199,6 +202,11 @@ public class AuthServiceImplementation implements AuthService {
             // 해당하는 데이터가 없다면 에러 처리
             if (existedUser)
                 return ResponseDto.duplicatedId();
+
+            boolean existedNickName = userRepository.existsByNickName(nickName);
+            // 해당하는 데이터가 없다면 에러 처리
+            if (existedNickName)
+                return ResponseDto.duplicatedNickName();
 
             boolean existedEmail = userRepository.existsByUserEmail(userEmail);
             if (existedEmail)
@@ -248,11 +256,61 @@ public class AuthServiceImplementation implements AuthService {
             
             return FindIdResponseDto.success(userEntity);
 
-          } catch(Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
-          }
+        }
         //   return ResponseDto.success(userId);
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> findPassword(FindPwRequestDto dto) {
+
+        try {
+
+            String userId = dto.getUserId();
+            String userEmail = dto.getUserEmail();
+
+            boolean isMatched = userRepository.existsByUserIdAndUserEmail(userId, userEmail);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+            
+            return ResponseDto.success();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> findPasswordReset(FindPwResetRequestDto dto, String userId) {
+
+        try {
+
+            String userPassword = dto.getUserPassword();
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            System.out.println(userId);
+            if (userEntity == null) return ResponseDto.noExistUser();
+
+            boolean isMatched = userRepository.existsById(userId);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+
+            String encodedPassword = passwordEncoder.encode(userPassword);
+
+            dto.setUserPassword(encodedPassword);
+
+            userEntity.findPassword(dto);
+
+            userRepository.save(userEntity);
+
+            return ResponseDto.success();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
 
 }
