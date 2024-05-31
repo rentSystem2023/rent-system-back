@@ -14,11 +14,15 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
     UserEntity findByUserId(String userId);
     UserEntity findByNickName(String nickName);
     UserEntity findByUserEmail(String userEmail);
+    UserEntity findByUserPassword(String userPassword);
     boolean existsByUserEmail(String userEmail);
     boolean existsByUserId(String userId);
     boolean existsByNickName(String nickName);
 
+    boolean existsByUserIdAndUserEmail(String userId, String userEmail);
+
     String findUserIdByUserEmail(String userEmail);
+    String findUserPwByUserId(String userId);
 
     // 아이디, 비밀번호 찾기
     // boolean unExistsByUserPassword(String userId);

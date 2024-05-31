@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.FindIdRequestDto;
+import com.rentcar.back.dto.request.auth.FindPwRequestDto;
+import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
 import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
@@ -24,6 +26,10 @@ public interface AuthService {
     ResponseEntity<ResponseDto> SignUp (SignUpRequestDto dto);
 
     ResponseEntity<? super FindIdResponseDto> FindId (FindIdRequestDto dto);
+
+    ResponseEntity<ResponseDto> findPassword (FindPwRequestDto dto);
+    ResponseEntity<ResponseDto> findPasswordReset (FindPwResetRequestDto dto, String userId);
+
 
     
 }
