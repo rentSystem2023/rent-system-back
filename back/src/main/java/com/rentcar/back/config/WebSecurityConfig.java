@@ -59,8 +59,8 @@ public class WebSecurityConfig {
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**", 
                                                 "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count", "/api/rentcar/reservation/mylist",
-                                                "/api/rentcar/reservation/popular", "/api/rentcar/reservation/search/**","/upload","file/**","api/rentcar/auth/find-id/*","api/rentcar/auth/find-password/*", "api/rentcar/auth/find-password/**").permitAll()
-                                                .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete", "/api/rentcar/user/information", "/api/rentcar/user/information/modify")
+                                                "/api/rentcar/reservation/popular", "/api/rentcar/reservation/search/**","/upload","/file/**","/api/rentcar/auth/find-id/*","/api/rentcar/auth/find-password/*", "/api/rentcar/auth/find-password/**").permitAll()
+                                                .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete", "/api/rentcar/user/information", "/api/rentcar/user/information/modify","/file/**")
                                                 .hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
                                                 "/api/rentcar/notice/*/delete", "/api/rentcar/company/**", "/api/rentcar/user/list/**", "api/rentcar/reservation/cancel/**",
