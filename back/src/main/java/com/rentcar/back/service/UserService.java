@@ -7,7 +7,6 @@ import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
 import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
-import com.rentcar.back.dto.response.user.GetFindIdResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
@@ -31,7 +30,6 @@ public interface UserService {
 
     ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (String userId);
 
-    ResponseEntity<? super GetFindIdResponseDto> getFindId(String userEmail);
 
 }
 
