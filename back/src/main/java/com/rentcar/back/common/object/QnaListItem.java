@@ -18,6 +18,7 @@ public class QnaListItem {
     private Integer viewCount;
     private String category;
     private boolean publicState;
+    private String imageUrl;
 
     private QnaListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(qnaBoardEntity.getWriteDatetime());
@@ -32,7 +33,8 @@ public class QnaListItem {
         this.writeDatetime = writeDatetime;
         this.viewCount = qnaBoardEntity.getViewCount();
         this.category = qnaBoardEntity.getCategory();
-        this.publicState = true;
+        this.publicState = qnaBoardEntity.getPublicState();
+        this.imageUrl = qnaBoardEntity.getImageUrl();
     }
 
     public static List<QnaListItem> getList(List<QnaBoardEntity> qnaBoardEntities) throws Exception {
