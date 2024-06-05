@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import com.rentcar.back.dto.request.auth.FindIdRequestDto;
 import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
-import com.rentcar.back.dto.request.company.PutCompanyRequestDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
+import com.rentcar.back.dto.request.user.PutEmailModifyRequestDto;
+import com.rentcar.back.dto.request.user.PutPwModifyRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -68,6 +68,14 @@ public class UserEntity {
 
     public void findPassword(FindPwResetRequestDto dto){
         this.userPassword = dto.getUserPassword();
+    }
+
+    public void findModify(PutPwModifyRequestDto dto){
+        this.userPassword = dto.getUserPassword();
+    }
+
+    public void emailModify(PutEmailModifyRequestDto dto){
+        this.userEmail = dto.getUserEmail();
     }
 
 

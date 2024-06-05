@@ -6,12 +6,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
+import com.rentcar.back.dto.request.user.PutEmailModifyRequestDto;
+import com.rentcar.back.dto.request.user.PutPwModifyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
@@ -47,20 +52,36 @@ public class UserController {
         return response;
     }
 
-    @PatchMapping("/information/modify")
-    public ResponseEntity<ResponseDto> myInfoModify (
-        @RequestBody @Valid PatchUserRequestDto requestBody,
+    @PutMapping("/information/password-modify")
+    public ResponseEntity<ResponseDto> putPasswordModify(
+        @RequestBody @Valid PutPwModifyRequestDto requestBody,
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<ResponseDto> response = userService.myInfoModify(requestBody, userId);
+        ResponseEntity<ResponseDto> response = userService.putPasswordModify(requestBody, userId);
+        return response;
+    }
+
+    // 이메일 인증 확인
+    @PostMapping("information/email-auth")
+    public ResponseEntity<ResponseDto> emailAuth(
+            @RequestBody @Valid EmailAuthRequestDto requestBody) {
+        ResponseEntity<ResponseDto> response = userService.emailAuth(requestBody);
+        return response;
+    }
+
+    @PutMapping("/information/email-modify")
+    public ResponseEntity<ResponseDto> putEmailModify(
+        @RequestBody @Valid PutEmailModifyRequestDto requestBody,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.putEmailModify(requestBody, userId);
         return response;
     }
 
     @DeleteMapping("/information/{userId}")
     public ResponseEntity<ResponseDto> deleteMyInfo (
-        @PathVariable("userId") String userId
-        //, @AuthenticationPrincipal String userId
-        // 토큰 없어도 되겠죠?
+        // @PathVariable("userId") String userId
+        @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = userService.deleteMyInfo(userId);
         return response;
