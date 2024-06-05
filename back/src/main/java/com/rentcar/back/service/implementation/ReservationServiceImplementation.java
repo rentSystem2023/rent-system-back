@@ -16,6 +16,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseD
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
 import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.CarRepository;
@@ -193,6 +194,21 @@ public class ReservationServiceImplementation implements ReservationService {
             return ResponseDto.databaseError();
         }
     }
+
+    // 예약 검색 리스트 불러오기
+    @Override
+	public ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList(Integer searchWord) {
+
+        try {
+            
+            List<GetAllUserReservationResultSet> reservationEntity = reservationRepository.findByReservationCodeOrderByReservationCode(searchWord);
+            return GetSearchReservationListResponseDto.success(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+	}
 
     // 예약 목록 리스트 삭제하기
     @Override
