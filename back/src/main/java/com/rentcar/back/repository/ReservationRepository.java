@@ -84,6 +84,28 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     , nativeQuery = true)
     List<GetAllUserReservationResultSet> getAllUserReservationList();
 
+
+    // 예약 검색 리스트 불러오기(관리자)
+    @Query(value = 
+        "SELECT " +
+        "R.reservation_code as reservationCode, " +
+        "CO.rent_company as rentCompany, " +
+        "CA.car_name as carName, " +
+        "CC.car_number as carNumber, " +
+        "R.reservation_start as reservationStart, " +
+        "R.reservation_end as reservationEnd, " +
+        "R.user_id as userId, " +
+        "U.nick_name as nickName, " +
+        "R.reservation_state as reservationState " +
+        "FROM reservation R " +
+        "INNER JOIN user U ON R.user_id = U.user_id " +
+        "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
+        "INNER JOIN car CA ON CC.car_code = CA.car_code " +
+        "INNER JOIN company CO ON CC.company_code = CO.company_code " +
+        "WHERE R.reservation_code = :reservationCode"
+    , nativeQuery = true)
+    List<GetAllUserReservationResultSet> findByReservationCodeOrderByReservationCode(@Param("reservationCode") Integer ReservationCode);
+
     @Query(value = 
         "SELECT " +
         "C.car_name AS carName, " +
@@ -190,6 +212,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, 
         @Param("carName") String carName, @Param("rentCompany") String rentCompany
     );
+
 
 
 

@@ -13,6 +13,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseD
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
 
 
 
@@ -38,6 +39,9 @@ public interface ReservationService {
 
         // 전체 예약 목록 리스트 불러오기
         ResponseEntity<? super GetReservationUserListResponseDto> getReservationUserList(String userId);
+
+        // 예약 검색 리스트 불러오기
+        ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList(Integer searchWord);
 
         // 예약 목록 리스트 삭제하기
         ResponseEntity<ResponseDto> deleteReservationList (int reservationCode, String userId);
