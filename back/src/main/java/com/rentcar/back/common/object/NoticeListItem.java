@@ -14,6 +14,7 @@ public class NoticeListItem {
     private String title;
     private String writeDatetime;
     private Integer viewCount;
+    private String writerId;
 
     private NoticeListItem(NoticeBoardEntity noticeBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(noticeBoardEntity.getWriteDatetime());
@@ -22,6 +23,7 @@ public class NoticeListItem {
         this.title = noticeBoardEntity.getTitle();
         this.writeDatetime = writeDatetime;
         this.viewCount = noticeBoardEntity.getViewCount();
+        this.writerId =noticeBoardEntity.getWriterId();
     }
 
     public static List<NoticeListItem> getList(List<NoticeBoardEntity> noticeBoardEntities) throws Exception {
