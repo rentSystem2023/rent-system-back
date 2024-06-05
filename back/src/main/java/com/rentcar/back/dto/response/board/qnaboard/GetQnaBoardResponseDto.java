@@ -23,6 +23,7 @@ public class GetQnaBoardResponseDto extends ResponseDto {
     private String comment;
     private String imageUrl;
     private Boolean publicState;
+    private String category;
 
     private GetQnaBoardResponseDto (QnaBoardEntity qnaBoardEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -38,6 +39,7 @@ public class GetQnaBoardResponseDto extends ResponseDto {
         this.comment = qnaBoardEntities.getComment();
         this.imageUrl = qnaBoardEntities.getImageUrl();
         this.publicState = qnaBoardEntities.getPublicState();
+        this.category = qnaBoardEntities.getCategory();
     }
 
     public static ResponseEntity<GetQnaBoardResponseDto> success(QnaBoardEntity qnaBoardEntities) throws Exception {
