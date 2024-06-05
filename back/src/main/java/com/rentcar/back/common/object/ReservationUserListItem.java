@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationUserListItem {
-    private String reservaionCode;
+    private Integer reservationCode;
     private String rentCompany;
     private String carName;
     private String carNumber;
@@ -20,7 +20,7 @@ public class ReservationUserListItem {
     private String reservationState;
 
     public ReservationUserListItem (GetAllUserReservationResultSet resultSet) throws Exception {
-        this.reservaionCode = resultSet.getReservaionCode();
+        this.reservationCode = resultSet.getReservationCode();
         this.rentCompany = resultSet.getRentCompany();
         this.carName = resultSet.getCarName();
         this.carNumber = resultSet.getCarNumber();

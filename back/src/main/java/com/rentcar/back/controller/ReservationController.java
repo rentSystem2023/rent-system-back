@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
@@ -22,6 +23,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseD
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
 import com.rentcar.back.service.ReservationService;
 
 import jakarta.validation.Valid;
@@ -100,6 +102,15 @@ public class ReservationController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetReservationUserListResponseDto> response = reservationService.getReservationUserList(userId);
+        return response;
+    }
+
+    // 예약 검색 리스트 불러오기(관리자)
+    @GetMapping("/list/search")
+    public ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList (
+        @RequestParam("word") Integer searchWord 
+    ) {
+        ResponseEntity<? super GetSearchReservationListResponseDto> response = reservationService.getSearchReservationList(searchWord);
         return response;
     }
 
