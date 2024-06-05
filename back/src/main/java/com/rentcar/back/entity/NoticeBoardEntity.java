@@ -45,7 +45,7 @@ public class NoticeBoardEntity {
         this.writerId = userId;
         this.writeDatetime = writeDatetime;
         this.viewCount = 0;
-
+        this.imageUrl = dto.getImageUrl(); 
     }
 
     // 조회수 증가
