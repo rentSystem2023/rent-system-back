@@ -65,5 +65,8 @@ public class QnaBoardEntity {
     public void update(PutQnaBoardRequsetDto dto) {
         this.title = dto.getTitle();
         this.contents = dto.getContents();
+        this.category = dto.getCategory();
+        this.contents = dto.getContents();
+        this.imageUrl = dto.getImageUrl();
     }
 }
