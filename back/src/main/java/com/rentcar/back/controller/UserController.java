@@ -18,6 +18,7 @@ import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.request.user.PutEmailModifyRequestDto;
 import com.rentcar.back.dto.request.user.PutPwModifyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
+import com.rentcar.back.dto.response.company.GetCompanyListResponseDto;
 import com.rentcar.back.dto.response.user.GetMyInfoResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
@@ -87,42 +88,7 @@ public class UserController {
         return response;
     }
 
-    // 관리자의 회원목록 리스트
-    @GetMapping("/list")
-    public ResponseEntity<? super GetUserListResponseDto> getUserList (
-        @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<? super GetUserListResponseDto> response = userService.getUserList(userId);
-        return response;
-    }
-
-    @DeleteMapping("/list/{userId}")
-    public ResponseEntity<ResponseDto> deleteUserList (
-        @PathVariable("userId") String userId
-        //, @AuthenticationPrincipal String userId
-        // 토큰 없어도 되겠죠?
-    ) {
-        ResponseEntity<ResponseDto> response = userService.deleteUserList(userId);
-        return response;
-    }
-
-
-    @GetMapping("/list/search")
-    public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
-        @RequestParam("word") String searchWord
-    ) {
-        ResponseEntity<? super GetSearchUserListResponseDto> response = userService.getSearchUserList(searchWord);
-        return response;
-    }
-
-    // 회원관리 상세보기
-    @GetMapping("/list/{userId}/")
-    public ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (
-        @PathVariable("userId") String userId
-    ) {
-        ResponseEntity<? super GetUserDetailListResponseDto> response = userService.getUserDetailList(userId);
-        return response;
-    }
     
+    // 
 
 }
