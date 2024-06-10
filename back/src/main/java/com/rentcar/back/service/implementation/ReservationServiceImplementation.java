@@ -1,6 +1,7 @@
 package com.rentcar.back.service.implementation;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -200,8 +201,9 @@ public class ReservationServiceImplementation implements ReservationService {
 	public ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList(Integer searchWord) {
 
         try {
-            
-            List<GetAllUserReservationResultSet> reservationEntity = reservationRepository.findByReservationCodeOrderByReservationCode(searchWord);
+            List<GetAllUserReservationResultSet> reservationEntity = new ArrayList<>();
+            if (searchWord == null) reservationEntity = reservationRepository.getAllUserReservationList();
+            else reservationEntity = reservationRepository.findByReservationCodeOrderByReservationCode(searchWord);
             return GetSearchReservationListResponseDto.success(reservationEntity);
 
         } catch (Exception exception) {
