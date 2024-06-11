@@ -93,7 +93,7 @@ public class NoticeBoardController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = noticeBoardService.deleteNoticeBoard(registNumber, userId);
-        return response;
+        return response;  
     }
 
 }
