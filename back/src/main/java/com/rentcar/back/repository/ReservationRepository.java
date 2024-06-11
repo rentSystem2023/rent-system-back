@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationPriceResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
@@ -83,6 +84,26 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "INNER JOIN company CO ON CC.company_code = CO.company_code"
     , nativeQuery = true)
     List<GetAllUserReservationResultSet> getAllUserReservationList();
+
+    // 예약 상세 불러오기(관리자)
+    @Query(value = 
+        "SELECT " +
+        "R.reservation_code as reservationCode, " +
+        "CO.rent_company as rentCompany, " +
+        "CA.car_name as carName, " +
+        "CC.car_number as carNumber, " +
+        "R.reservation_start as reservationStart, " +
+        "R.reservation_end as reservationEnd, " +
+        "R.user_id as userId, " +
+        "R.reservation_state as reservationState " +
+        "FROM reservation R " +
+        "INNER JOIN user U ON R.user_id = U.user_id " +
+        "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
+        "INNER JOIN car CA ON CC.car_code = CA.car_code " +
+        "INNER JOIN company CO ON CC.company_code = CO.company_code " +
+        "WHERE R.reservation_code = :reservationCode"
+    , nativeQuery = true)
+    GetReservationDetailResultSet getReservationDetail(@Param ("reservationCode") Integer reservaitonCode);
 
 
     // 예약 검색 리스트 불러오기(관리자)
