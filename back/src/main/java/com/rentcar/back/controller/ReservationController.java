@@ -108,9 +108,9 @@ public class ReservationController {
     // 예약 검색 리스트 불러오기(관리자)
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList (
-        @RequestParam("word") Integer searchWord 
+        @RequestParam(value="word", required=false) Integer word 
     ) {
-        ResponseEntity<? super GetSearchReservationListResponseDto> response = reservationService.getSearchReservationList(searchWord);
+        ResponseEntity<? super GetSearchReservationListResponseDto> response = reservationService.getSearchReservationList(word);
         return response;
     }
 
@@ -154,7 +154,7 @@ public class ReservationController {
         return response;
     }
     
-    // 차량 예약 상세 검색 결과 불러오기
+    // (보험별)차량 예약 상세 검색 결과 불러오기
     @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}/{carName}/{rentCompany}")
     public ResponseEntity<? super GetSearchReservationDetailListResponseDto> getSearchReservationDetailList (
         @PathVariable ("address") String address,
