@@ -23,13 +23,11 @@ public class QnaListItem {
     private QnaListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(qnaBoardEntity.getWriteDatetime());
 
-        String writerId = qnaBoardEntity.getWriterId();
-        writerId = writerId.substring(0, 1) + "*".repeat(writerId.length() - 1);
-        
+
         this.receptionNumber = qnaBoardEntity.getReceptionNumber();
         this.status = qnaBoardEntity.getStatus();
         this.title = qnaBoardEntity.getTitle();
-        this.writerId = writerId;
+        this.writerId = qnaBoardEntity.getWriterId();
         this.writeDatetime = writeDatetime;
         this.viewCount = qnaBoardEntity.getViewCount();
         this.category = qnaBoardEntity.getCategory();
