@@ -17,6 +17,7 @@ import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
@@ -96,12 +97,21 @@ public class ReservationController {
         return response;
     }
 
-    // 전체 예약 목록 리스트 불러오기
+    // 전체 예약 목록 리스트 불러오기(관리자)
     @GetMapping("/list")
     public ResponseEntity<? super GetReservationUserListResponseDto> GetReservationUserList (
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetReservationUserListResponseDto> response = reservationService.getReservationUserList(userId);
+        return response;
+    }
+
+    // 예약 상세 불러오기(관리자)
+    @GetMapping("/{reservationCode}")
+    public ResponseEntity<? super GetReservationDetailResponseDto> GetReservationDetail (
+        @PathVariable ("reservationCode") int reservationCode
+    ) {
+        ResponseEntity<? super GetReservationDetailResponseDto> response = reservationService.getReservationDetail(reservationCode);
         return response;
     }
 
