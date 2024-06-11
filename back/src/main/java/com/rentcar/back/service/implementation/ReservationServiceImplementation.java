@@ -11,6 +11,7 @@ import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
@@ -26,6 +27,7 @@ import com.rentcar.back.repository.CompanyRepository;
 import com.rentcar.back.repository.ReservationRepository;
 import com.rentcar.back.repository.UserRepository;
 import com.rentcar.back.repository.resultSet.GetAllUserReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationPriceResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
@@ -189,6 +191,25 @@ public class ReservationServiceImplementation implements ReservationService {
             List<GetAllUserReservationResultSet> reservationEntity = reservationRepository.getAllUserReservationList();
 
             return GetReservationUserListResponseDto.success(reservationEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    // 예약 상세 불러오기
+    @Override
+    public ResponseEntity<? super GetReservationDetailResponseDto> getReservationDetail(Integer ReservationCode) {
+
+        try {
+
+            // 존재하는 예약인지 확인
+            ReservationEntity reservationEntity = reservationRepository.findByReservationCode(ReservationCode);
+            if (reservationEntity == null) return ResponseDto.noExistReservation();
+
+            GetReservationDetailResultSet reservationDetail = reservationRepository.getReservationDetail(ReservationCode);
+            return  GetReservationDetailResponseDto.success(reservationDetail);
 
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -7,6 +7,7 @@ import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
@@ -37,13 +38,16 @@ public interface ReservationService {
         // 예약 취소 신청 승인 하기
         ResponseEntity<ResponseDto> deleteReservation (int reservationCode, String userId);
 
-        // 전체 예약 목록 리스트 불러오기
+        // 전체 예약 목록 리스트 불러오기(관리자)
         ResponseEntity<? super GetReservationUserListResponseDto> getReservationUserList(String userId);
 
-        // 예약 검색 리스트 불러오기
+        //예약 상세 불러오기(관리자)
+        ResponseEntity<? super GetReservationDetailResponseDto> getReservationDetail(Integer ReservationCode);
+
+        // 예약 검색 리스트 불러오기(관리자)
         ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList(Integer searchWord);
 
-        // 예약 목록 리스트 삭제하기
+        // 예약 목록 리스트 삭제하기(관리자)
         ResponseEntity<ResponseDto> deleteReservationList (int reservationCode, String userId);
 
         // 인기 차량 리스트 불러오기
