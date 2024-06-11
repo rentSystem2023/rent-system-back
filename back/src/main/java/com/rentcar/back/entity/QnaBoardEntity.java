@@ -68,5 +68,6 @@ public class QnaBoardEntity {
         this.category = dto.getCategory();
         this.contents = dto.getContents();
         this.imageUrl = dto.getImageUrl();
+        this.publicState = dto.getPublicState();
     }
 }
