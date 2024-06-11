@@ -125,7 +125,7 @@ public class ReservationController {
     }
 
     // 예약 목록 리스트 삭제하기
-    @DeleteMapping("/list/{reservationCode}")
+    @DeleteMapping("/{reservationCode}")
     public ResponseEntity<ResponseDto> DeleteReservtionList (
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationCode") int reservationCode
@@ -142,11 +142,11 @@ public class ReservationController {
     }
 
     // 차량 검색 결과 불러오기
-    @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}")
+    @GetMapping("/search")
     public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList (
-        @PathVariable ("address") String address,
-        @PathVariable ("reservationStart") String reservationStart, 
-        @PathVariable ("reservationEnd") String reservationEnd
+        @RequestParam ("address") String address,
+        @RequestParam ("reservationStart") String reservationStart, 
+        @RequestParam ("reservationEnd") String reservationEnd
     ) { 
         ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(address, reservationStart, reservationEnd);
         return response;
