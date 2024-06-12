@@ -14,7 +14,7 @@ public class ReservationCarPriceListItem {
     private String fuelType;
     private String rentCompany;
     private Integer reservationCount;
-    private String carYear;
+    private String address;
     private Integer normalPrice;
     private Integer luxuryPrice;
     private Integer superPrice;
@@ -26,7 +26,7 @@ public class ReservationCarPriceListItem {
         this.fuelType = resultSet.getFuelType();
         this.rentCompany = resultSet.getRentCompany();
         this.reservationCount = resultSet.getReservationCount();
-        this.carYear = resultSet.getCarYear();
+        this.address = resultSet.getAddress();
         this.normalPrice = resultSet.getNormalPrice();
         this.luxuryPrice = resultSet.getLuxuryPrice();
         this.superPrice = resultSet.getSuperPrice();

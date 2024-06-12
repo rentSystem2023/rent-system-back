@@ -160,7 +160,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "C.car_image_url AS carImageUrl, " +
         "C.fuel_type AS fuelType, " +
         "C.reservation_count AS reservationCount, " +
-        "C.car_year AS carYear, " +
+        "CM.address, " +
         "CC.normal_price AS normalPrice, " +
         "CC.luxury_price AS luxuryPrice, " +
         "CC.super_price AS superPrice, " +
