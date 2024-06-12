@@ -54,12 +54,18 @@ public class UserEntity {
     }
     
     public UserEntity (String userId, String nickName, String userPassword, String userEmail, String userRole, String joinPath) {
+
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        String joinDate = simpleDateFormat.format(now);
+        
         this.userId = userId;
         this.nickName = nickName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userRole = userRole;
         this.joinPath = joinPath;
+        this.joinDate = joinDate;
     }
 
     public void update(PatchUserRequestDto dto){
