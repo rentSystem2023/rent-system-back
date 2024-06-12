@@ -21,6 +21,7 @@ import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceLis
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
 import com.rentcar.back.entity.CarEntity;
+import com.rentcar.back.entity.CompanyCarEntity;
 import com.rentcar.back.entity.ReservationEntity;
 import com.rentcar.back.repository.CarRepository;
 import com.rentcar.back.repository.CompanyCarRepository;
@@ -48,30 +49,38 @@ public class ReservationServiceImplementation implements ReservationService {
     private final CarRepository carRepository;
     private final CompanyRepository companyRepository;
 
-        // 예약하기
-        @Override
-        public ResponseEntity<ResponseDto> postReservationBoard(PostReservationRequestDto dto, String userId) {
-        
-            try {
-                boolean isExistUser = userRepository.existsById(userId);
-                if (!isExistUser) return ResponseDto.authenticationFailed();
-        
-                Integer companyCarCode = dto.getCompanyCarCode();
-                boolean isExistCompanyCar = companyCarRepository.existsByCompanyCarCode(companyCarCode);
-    
-                if (!isExistCompanyCar) return ResponseDto.noExistVehicle();
-    
-                ReservationEntity reservationEntity = new ReservationEntity(dto, userId);
-                reservationRepository.save(reservationEntity);
-    
-                return ResponseDto.success();
-        
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                return ResponseDto.databaseError();
-            }
-        }
+    // 예약하기
+    @Override
+    public ResponseEntity<ResponseDto> postReservationBoard(PostReservationRequestDto dto, String userId) {
 
+        try {
+            boolean isExistUser = userRepository.existsById(userId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            Integer companyCarCode = dto.getCompanyCarCode();
+            boolean isExistCompanyCar = companyCarRepository.existsByCompanyCarCode(companyCarCode);
+            if (!isExistCompanyCar) return ResponseDto.noExistVehicle();
+
+            ReservationEntity reservationEntity = new ReservationEntity(dto, userId);
+            reservationRepository.save(reservationEntity);
+
+            // 예약 횟수 증가
+            CompanyCarEntity companyCarEntity = companyCarRepository.findByCompanyCarCode(companyCarCode);
+            if (companyCarEntity != null) {
+                CarEntity carEntity = carRepository.findByCarCode(companyCarEntity.getCarCode());
+                if (carEntity != null) {
+                    carEntity.setReservationCount(carEntity.getReservationCount() + 1);
+                    carRepository.save(carEntity);
+                }
+            }
+
+            return ResponseDto.success();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
     // 내 예약 내역 보기
     @Override
     public ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId) {
