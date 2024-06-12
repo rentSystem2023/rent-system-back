@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -176,6 +177,33 @@ public class ReservationServiceImplementation implements ReservationService {
             return ResponseDto.databaseError();
         }
         
+        return ResponseDto.success();
+    }
+
+    // 예약 신청 승인하기
+    @Override
+    public ResponseEntity<ResponseDto> patchReservationApprove(PatchReservationApproveRequestDto dto, int reservationCode) {
+        
+        try {
+
+            // 존재하는 예약인지 확인
+            ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
+            if (reservationEntity == null) return ResponseDto.noExistReservation();
+
+            // 예약상태가 watingForReservation 상태인지 확인
+            String reservationState = reservationEntity.getReservationState();
+            boolean isWaiting = "waitingForReservation".equals(reservationState);
+            if (!isWaiting) return ResponseDto.noWatingState();
+
+            reservationEntity.update(dto);
+
+            reservationRepository.save(reservationEntity);
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
         return ResponseDto.success();
     }
 

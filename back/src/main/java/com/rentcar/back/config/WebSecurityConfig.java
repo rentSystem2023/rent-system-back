@@ -66,7 +66,7 @@ public class WebSecurityConfig {
                                                 .hasRole("USER")
                                                 .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
                                                 "/api/rentcar/notice/*/delete", "/api/rentcar/company/**", "/api/rentcar/user/list/**", "/api/rentcar/reservation/cancel/**",
-                                                "/api/rentcar/reservation/list/**", "/api/rentcar/reservation/*").hasRole("ADMIN")
+                                                "/api/rentcar/reservation/list/**", "/api/rentcar/reservation/*", "/api/rentcar/reservation/*/approve").hasRole("ADMIN")
                                                 .anyRequest().authenticated())
                                                 
                                 .oauth2Login(oauth2 -> oauth2

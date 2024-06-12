@@ -61,9 +61,15 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
     
-    // 존재하지 않는 예약내역
+    // 예약 취소 상태가 아님
     public static ResponseEntity<ResponseDto> noCancelState() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_CANCEL_STATE, ResponseMessage.NO_CANCEL_STATE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    // 예약 대기 상태가 아님
+    public static ResponseEntity<ResponseDto> noWatingState() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_WATING_STATE, ResponseMessage.NO_WATING_STATE);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
