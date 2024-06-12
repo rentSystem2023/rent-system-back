@@ -164,11 +164,11 @@ public class ReservationController {
     }
 
     // 보험별(업체) 가격 검색 결과 불러오기
-    @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}/{carName}")
+    @GetMapping("/search/{carName}")
     public ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> getSearchReservationCarPriceList (
-        @PathVariable ("address") String address,
-        @PathVariable ("reservationStart") String reservationStart, 
-        @PathVariable ("reservationEnd") String reservationEnd,
+        @RequestParam ("address") String address,
+        @RequestParam ("reservationStart") String reservationStart, 
+        @RequestParam ("reservationEnd") String reservationEnd,
         @PathVariable ("carName") String carName
     ) {
         ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> response = reservationService.getSearchReservationCarPriceList(address, reservationStart, reservationEnd, carName);
