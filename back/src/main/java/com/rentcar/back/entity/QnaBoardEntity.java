@@ -70,4 +70,5 @@ public class QnaBoardEntity {
         this.imageUrl = dto.getImageUrl();
         this.publicState = dto.getPublicState();
     }
+    
 }

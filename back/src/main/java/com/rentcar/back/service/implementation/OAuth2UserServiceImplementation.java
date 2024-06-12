@@ -41,6 +41,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
         String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex);
 
         boolean isExistsUser = userRepository.existsByUserId(userId);
+        
         if (!isExistsUser) {
             String userEmail = id + "@" + oauthClientName.toLowerCase() + ".com";
             String password = passwordEncoder.encode(id);
@@ -68,10 +69,6 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             Map<String, String> response = (Map<String, String>) oAuth2User.getAttributes().get("response");
             id = response.get("id");
         }
-        if (oauthClientName.equals("GOOGLE")) {
-            String StringId = (String) oAuth2User.getAttributes().get("sub");
-            id = StringId;
-        }
         return id;
     }
 
@@ -86,10 +83,6 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
         if (oauthClientName.equals("NAVER")) {
             Map<String, String> response = (Map<String, String>) oAuth2User.getAttributes().get("response");
             nickName = response.get("nickname");
-        }
-        if (oauthClientName.equals("GOOGLE")) {
-            String StringNickName = (String) oAuth2User.getAttributes().get("name");
-            nickName = StringNickName;
         }
         return nickName;
     }
