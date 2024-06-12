@@ -124,7 +124,6 @@ public class QnaBoardController {
     ) {
         ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> response = qnaBoardService.getSearchQnaBoardMyList(word);
         return response;
-    
 
     }
 }
