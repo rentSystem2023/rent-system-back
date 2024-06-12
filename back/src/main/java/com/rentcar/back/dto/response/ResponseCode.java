@@ -21,6 +21,7 @@ public interface ResponseCode {
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_RESERVATION = "NR";
     String NO_CANCEL_STATE = "NS";
+    String NO_WATING_STATE = "NW";
     String NO_EXIST_VEHICLE = "NV";
     String NO_EXIST_COMPANY = "NC";
     String NO_EXIST_ADDRESS = "NA";
