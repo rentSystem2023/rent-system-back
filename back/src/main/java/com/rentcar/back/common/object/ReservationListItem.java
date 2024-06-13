@@ -10,18 +10,24 @@ import lombok.Getter;
 
 @Getter
 public class ReservationListItem {
+    private String reservationState;
     private String carImageUrl;
     private String nickName;
     private String reservationDate;
     private String reservationCode;
+    private String reservationStart;
+    private String reservationEnd;
     private String rentCompany;
 
     public ReservationListItem (GetUserReservationResultSet resultSet) throws Exception {
         String reservationDate = ChangeDateFormatUtil.registYYMMDD(resultSet.getReservationDate());
+        this.reservationState = resultSet.getReservationState();
         this.carImageUrl = resultSet.getCarImageUrl();
         this.nickName = resultSet.getNickName();
         this.reservationDate = reservationDate;
         this.reservationCode = resultSet.getReservationCode();
+        this.reservationStart = resultSet.getReservationStart();
+        this.reservationEnd = resultSet.getReservationEnd();
         this.rentCompany = resultSet.getRentCompany();
     }
 
