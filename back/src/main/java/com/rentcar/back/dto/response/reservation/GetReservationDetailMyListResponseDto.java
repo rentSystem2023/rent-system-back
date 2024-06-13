@@ -23,6 +23,8 @@ public class GetReservationDetailMyListResponseDto extends ResponseDto {
     private String rentCompany;
     private String companyTelnumber;
     private String address;
+    private String reservationState;
+    private String carName;
 
     private GetReservationDetailMyListResponseDto (GetUserDetatilReservationResultSet resultSet) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -37,6 +39,8 @@ public class GetReservationDetailMyListResponseDto extends ResponseDto {
         this.rentCompany = resultSet.getrentCompany();
         this.companyTelnumber = resultSet.getcompanyTelnumber();
         this.address = resultSet.getaddress();
+        this.reservationState = resultSet.getReservationState();
+        this.carName = resultSet.getCarName();
     }
 
     public static ResponseEntity<GetReservationDetailMyListResponseDto> success (GetUserDetatilReservationResultSet resultSet) throws Exception {
