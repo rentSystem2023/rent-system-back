@@ -12,4 +12,6 @@ public interface GetUserDetatilReservationResultSet {
     String getrentCompany();
     String getcompanyTelnumber();
     String getaddress();
+    String getReservationState();
+    String getCarName();
 }

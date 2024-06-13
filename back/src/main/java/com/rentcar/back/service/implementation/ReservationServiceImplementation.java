@@ -114,7 +114,7 @@ public class ReservationServiceImplementation implements ReservationService {
             boolean isUser = userId.equals(reservationId);
             if (!isUser) return ResponseDto.authorizationFailed();
 
-            GetUserDetatilReservationResultSet reservationDetail = reservationRepository.getUserDetailReservationList(userId);
+            GetUserDetatilReservationResultSet reservationDetail = reservationRepository.getUserDetailReservationList(userId, reservationCode);
             return GetReservationDetailMyListResponseDto.success(reservationDetail);
 
         } catch (Exception exception) {
@@ -246,7 +246,7 @@ public class ReservationServiceImplementation implements ReservationService {
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
             GetReservationDetailResultSet reservationDetail = reservationRepository.getReservationDetail(ReservationCode);
-            return  GetReservationDetailResponseDto.success(reservationDetail);
+            return GetReservationDetailResponseDto.success(reservationDetail);
 
         } catch (Exception exception) {
             exception.printStackTrace();
