@@ -24,8 +24,11 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "SELECT " +
         "CA.car_image_url as carImageUrl, " +
         "U.nick_name as nickName, " +
+        "R.reservation_state as reservationState, " +
         "R.reservation_date as reservationDate, " +
         "R.reservation_code as reservationCode, " +
+        "R.reservation_start as reservationStart, " +
+        "R.reservation_end as reservationEnd, " +
         "CO.rent_company as rentCompany " +
         "FROM reservation R " +
         "INNER JOIN user U " +
@@ -47,6 +50,8 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "R.insurance_type as insuranceType, " +
         "R.reservation_start as reservationStart, " +
         "R.reservation_end as reservationEnd, " +
+        "R.reservation_state as reservationState, " +
+        "CA.car_name as carName, " +
         "CA.car_oil as carOil, " +
         "CA.grade, " +
         "CC.car_number as carNumber, " +
@@ -58,9 +63,10 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
         "INNER JOIN car CA ON CC.car_code = CA.car_code " +
         "INNER JOIN company CO ON CC.company_code = CO.company_code " +
-        "WHERE R.user_Id = :userId"
+        "WHERE R.user_Id = :userId " +
+        "AND R.reservation_code = :reservationCode"
     , nativeQuery = true)
-    GetUserDetatilReservationResultSet getUserDetailReservationList(@Param("userId") String userId);
+    GetUserDetatilReservationResultSet getUserDetailReservationList(@Param("userId") String userId, @Param("reservationCode") Integer reservationCode);
 
     ReservationEntity findByReservationCode (Integer reservationCode);
 
