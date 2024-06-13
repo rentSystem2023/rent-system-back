@@ -176,11 +176,11 @@ public class ReservationController {
     }
     
     // (보험별)차량 예약 상세 검색 결과 불러오기
-    @GetMapping("/search/{address}/{reservationStart}/{reservationEnd}/{carName}/{rentCompany}")
+    @GetMapping("/search/{carName}/{rentCompany}")
     public ResponseEntity<? super GetSearchReservationDetailListResponseDto> getSearchReservationDetailList (
-        @PathVariable ("address") String address,
-        @PathVariable ("reservationStart") String reservationStart, 
-        @PathVariable ("reservationEnd") String reservationEnd,
+        @RequestParam ("address") String address,
+        @RequestParam ("reservationStart") String reservationStart, 
+        @RequestParam ("reservationEnd") String reservationEnd,
         @PathVariable ("carName") String carName,
         @PathVariable ("rentCompany") String rentCompany
     ) {
