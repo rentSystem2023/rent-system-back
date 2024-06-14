@@ -295,7 +295,7 @@ public class ReservationServiceImplementation implements ReservationService {
         
         try {
 
-            List<CarEntity> carEntity = carRepository.findTop3ByOrderByReservationCountDesc();
+            List<CarEntity> carEntity = carRepository.findTop4ByOrderByReservationCountDesc();
 
             return GetReservationPopularListResponseDto.success(carEntity);
 

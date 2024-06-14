@@ -11,11 +11,15 @@ import lombok.Getter;
 public class PopularCarListItem {
     private String carImageUrl;
     private String carName;
+    private Integer reservationCount;
+    private String carRentCompany;
 
     private PopularCarListItem(CarEntity carEntity) throws Exception {
         
         this.carImageUrl = carEntity.getCarImageUrl();
         this.carName = carEntity.getCarName();
+        this.reservationCount = carEntity.getReservationCount();
+        this.carRentCompany = carEntity.getCarRentCompany();
     }
 
     public static List<PopularCarListItem> getList(List<CarEntity> carentities) throws Exception {
