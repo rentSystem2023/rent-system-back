@@ -9,7 +9,7 @@ import com.rentcar.back.entity.CarEntity;
 
 public interface CarRepository extends JpaRepository<CarEntity, Integer> {
     
-    List<CarEntity> findTop3ByOrderByReservationCountDesc();
+    List<CarEntity> findTop4ByOrderByReservationCountDesc();
     CarEntity findByCarCode(Integer carCode);
     boolean existsByCarName(String carName);
 }
