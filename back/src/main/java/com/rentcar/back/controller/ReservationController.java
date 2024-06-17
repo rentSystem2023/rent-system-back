@@ -20,7 +20,6 @@ import com.rentcar.back.dto.response.reservation.GetReservationCancelListRespons
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationPopularCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
@@ -146,17 +145,17 @@ public class ReservationController {
         return response;
     }
 
-    // 인기 차량 리스트 불러오기
+    // // 인기 차량 리스트 불러오기
+    // @GetMapping("/popular")
+    // public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList () {
+    //     ResponseEntity<? super GetReservationPopularListResponseDto> response = reservationService.getReservationPopularList();
+    //     return response;
+    // }
+
+    // 인기 차량 리스트 불러오기2
     @GetMapping("/popular")
     public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList () {
         ResponseEntity<? super GetReservationPopularListResponseDto> response = reservationService.getReservationPopularList();
-        return response;
-    }
-
-    // 인기 차량 리스트 불러오기2
-    @GetMapping("/popular2")
-    public ResponseEntity<? super GetReservationPopularCarListResponseDto> GetReservationPopularCarList () {
-        ResponseEntity<? super GetReservationPopularCarListResponseDto> response = reservationService.getReservationPopularCarList();
         return response;
     }
 
