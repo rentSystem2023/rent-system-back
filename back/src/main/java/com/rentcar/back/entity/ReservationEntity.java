@@ -46,7 +46,7 @@ public ReservationEntity(PostReservationRequestDto dto, String userId) {
         String reservationDate = simpleDateFormat.format(now);
         this.insuranceType = dto.getInsuranceType();
         this.reservationDate = reservationDate;
-        this.reservationState = "WaitingForReservation";
+        this.reservationState = "reservationComplete";
         this.reservationStart = dto.getReservationStart();
         this.reservationEnd = dto.getReservationEnd();
         this.userId = userId;
@@ -56,7 +56,8 @@ public ReservationEntity(PostReservationRequestDto dto, String userId) {
 
     // 예약 취소(예약상태 변경)
     public void update(PatchReservationRequestDto dto) {         
-        this.reservationState = dto.getReservationState();
+        // this.reservationState = dto.getReservationState();
+        this.reservationState = "cancel";
     }
 
     // 예약 승인(예약상태 변경)
