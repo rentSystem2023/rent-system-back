@@ -154,45 +154,80 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "AND company_code IN ( " +
         "SELECT company_code " +
         "FROM company " +
-        "WHERE address = :address " +
         ") "
     , nativeQuery = true)
     List<GetSearchReservationResultSet> getSearchReservationList
-    (@Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
+    (@Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
 
+    // 원본
+    // @Query(value =
+    //     "SELECT " +
+    //     "C.car_name AS carName, " +
+    //     "C.car_image_url AS carImageUrl, " +
+    //     "C.fuel_type AS fuelType, " +
+    //     "C.reservation_count AS reservationCount, " +
+    //     "CM.address, " +
+    //     "CC.normal_price AS normalPrice, " +
+    //     "CC.luxury_price AS luxuryPrice, " +
+    //     "CC.super_price AS superPrice, " +
+    //     "CM.rent_company AS rentCompany " +
+    //     "FROM company_car CC " +
+    //     "LEFT JOIN car C ON CC.car_code = C.car_code " +
+    //     "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
+    //     "WHERE company_car_code NOT IN ( " +
+    //     "SELECT company_car_code FROM reservation " +
+    //     "WHERE " +
+    //     "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
+    //     "OR " +
+    //     "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
+    //     "OR " +
+    //     "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
+    //     ") " +
+    //     "AND CC.company_code IN ( " +
+    //     "SELECT company_code " +
+    //     "FROM company " +
+    //     "WHERE address = :address " +
+    //     ") " +
+    //     "AND C.car_name = :carName"
+    // , nativeQuery=true)
+    // List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
+    //     @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
+    // );
+
+    // 수정 그룹바이 함(프론트 확인필요)
     @Query(value =
-        "SELECT " +
-        "C.car_name AS carName, " +
-        "C.car_image_url AS carImageUrl, " +
-        "C.fuel_type AS fuelType, " +
-        "C.reservation_count AS reservationCount, " +
-        "CM.address, " +
-        "CC.normal_price AS normalPrice, " +
-        "CC.luxury_price AS luxuryPrice, " +
-        "CC.super_price AS superPrice, " +
-        "CM.rent_company AS rentCompany " +
-        "FROM company_car CC " +
-        "LEFT JOIN car C ON CC.car_code = C.car_code " +
-        "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
-        "WHERE company_car_code NOT IN ( " +
-        "SELECT company_car_code FROM reservation " +
-        "WHERE " +
-        "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
-        "OR " +
-        "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
-        "OR " +
-        "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
-        ") " +
-        "AND CC.company_code IN ( " +
-        "SELECT company_code " +
-        "FROM company " +
-        "WHERE address = :address " +
-        ") " +
-        "AND C.car_name = :carName"
-    , nativeQuery=true)
-    List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
-        @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
-    );
+    "SELECT " +
+    "C.car_name AS carName, " +
+    "MAX(C.car_image_url) AS carImageUrl, " +
+    "MAX(C.fuel_type) AS fuelType, " +
+    "MAX(C.car_year) AS carYear, " +
+    "CM.address, " +
+    "MAX(CC.normal_price) AS normalPrice, " +
+    "MAX(CC.luxury_price) AS luxuryPrice, " +
+    "MAX(CC.super_price) AS superPrice, " +
+    "CM.rent_company AS rentCompany " +
+    "FROM company_car CC " +
+    "LEFT JOIN car C ON CC.car_code = C.car_code " +
+    "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
+    "WHERE company_car_code NOT IN ( " +
+    "SELECT company_car_code FROM reservation " +
+    "WHERE " +
+    "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
+    "OR " +
+    "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
+    "OR " +
+    "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
+    ") " +
+    "AND CC.company_code IN ( " +
+    "SELECT company_code " +
+    "FROM company " +
+    ") " +
+    "AND C.car_name = :carName " +
+    "GROUP BY C.car_name, CM.address, CM.rent_company"
+, nativeQuery=true)
+List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
+    @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
+);
 
     @Query(value = 
         "SELECT " +
@@ -230,13 +265,13 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "AND CC.company_code IN ( " +
         "SELECT company_code " +
         "FROM company " +
-        "WHERE address = :address " +
         ") " +
         "AND C.car_name = :carName " +
-        "AND CM.rent_company = :rentCompany"
+        "AND CM.rent_company = :rentCompany " +
+        "LIMIT 1"
     , nativeQuery=true)
     GetSearchReservationDetailResultSet getSearchReservationDetailList (
-        @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, 
+        @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, 
         @Param("carName") String carName, @Param("rentCompany") String rentCompany
     );
 

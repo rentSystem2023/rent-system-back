@@ -5,7 +5,7 @@ public interface GetSearchReservationPriceResultSet {
     String getCarImageUrl();
     String getFuelType();
     String getRentCompany();
-    Integer getReservationCount();
+    String getCarYear();
     String getAddress();
     Integer getNormalPrice();
     Integer getLuxuryPrice();
