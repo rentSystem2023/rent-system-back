@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
+import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -89,12 +90,12 @@ public class ReservationController {
     }
 
     // 예약 취소 신청 승인하기
-    @DeleteMapping("/cancel/{reservationCode}")
-    public ResponseEntity<ResponseDto> DeleteReservation (
-        @AuthenticationPrincipal String userId,
-        @PathVariable ("reservationCode") int reservationCode
+    @PatchMapping("/cancel/{reservationCode}")
+    public ResponseEntity<ResponseDto> PatchReservationCancel (
+        @PathVariable ("reservationCode") int reservationCode,
+        @RequestBody @Valid PatchReservationCancelRequestDto requestBody
     ) {
-        ResponseEntity<ResponseDto> response = reservationService.deleteReservation(reservationCode, userId);
+        ResponseEntity<ResponseDto> response = reservationService.patchReservationCancel(requestBody, reservationCode);
         return response;
     }
 
