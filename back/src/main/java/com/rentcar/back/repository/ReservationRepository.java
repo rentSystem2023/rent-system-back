@@ -194,7 +194,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     //     @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
     // );
 
-    // 수정 그룹바이 함(프론트 확인필요)
+    // 수정 그룹바이 함(프론트 확인필요) 검색2번페이지
     @Query(value =
     "SELECT " +
     "C.car_name AS carName, " +
