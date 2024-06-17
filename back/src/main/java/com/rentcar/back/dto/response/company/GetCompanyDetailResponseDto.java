@@ -17,6 +17,7 @@ public class GetCompanyDetailResponseDto extends ResponseDto {
     private String address;
     private String owner;
     private String companyTelnumber;
+    private String registDate;
     private String companyRule;
 
     private GetCompanyDetailResponseDto (CompanyEntity companyEntities) throws Exception {
@@ -27,6 +28,7 @@ public class GetCompanyDetailResponseDto extends ResponseDto {
         this.address = companyEntities.getAddress();
         this.owner = companyEntities.getOwner();
         this.companyTelnumber = companyEntities.getCompanyTelnumber();
+        this.registDate = companyEntities.getRegistDate();     
         this.companyRule = companyEntities.getCompanyRule();
     }
 
