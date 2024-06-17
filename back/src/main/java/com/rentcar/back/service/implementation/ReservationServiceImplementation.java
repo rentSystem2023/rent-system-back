@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
+import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -139,8 +140,6 @@ public class ReservationServiceImplementation implements ReservationService {
             boolean isUser = userId.equals(reservationId);
             if (!isUser) return ResponseDto.authorizationFailed();
 
-            reservationEntity.update(dto);
-
             reservationRepository.save(reservationEntity);
 
         } catch (Exception exception) {
@@ -167,7 +166,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
     // 예약 취소 신청 승인하기
     @Override
-    public ResponseEntity<ResponseDto> deleteReservation(int reservationCode, String userId) {
+    public ResponseEntity<ResponseDto> patchReservationCancel(PatchReservationCancelRequestDto dto, int reservationCode) {
 
         try {
             
@@ -180,7 +179,9 @@ public class ReservationServiceImplementation implements ReservationService {
             boolean isCancel = "cancel".equals(reservationState);
             if (!isCancel) return ResponseDto.noCancelState();
 
-            reservationRepository.delete(reservationEntity);
+            reservationEntity.update(dto);
+
+            reservationRepository.save(reservationEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();;
