@@ -14,7 +14,6 @@ import com.rentcar.back.dto.response.reservation.GetReservationCancelListRespons
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationPopularCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
@@ -291,30 +290,31 @@ public class ReservationServiceImplementation implements ReservationService {
         return ResponseDto.success();
     }
 
+    // // 인기 차량 리스트 불러오기
+    // @Override
+    // public ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList() {
+        
+    //     try {
+
+    //         List<CarEntity> carEntity = carRepository.findTop4ByOrderByReservationCountDesc();
+
+    //         return GetReservationPopularListResponseDto.success(carEntity);
+
+    //     } catch (Exception exception) {
+    //         exception.printStackTrace();
+    //         return ResponseDto.databaseError();
+    //     }
+    // }
+
     // 인기 차량 리스트 불러오기
     @Override
     public ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList() {
-        
-        try {
-
-            List<CarEntity> carEntity = carRepository.findTop4ByOrderByReservationCountDesc();
-
-            return GetReservationPopularListResponseDto.success(carEntity);
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-    }
-
-    @Override
-    public ResponseEntity<? super GetReservationPopularCarListResponseDto> getReservationPopularCarList() {
 
         try {
 
             List<GetPopularCarResultSet> resultSet = carRepository.findTop4ByTotalReservationCount();
 
-            return GetReservationPopularCarListResponseDto.success(resultSet);
+            return GetReservationPopularListResponseDto.success(resultSet);
 
         } catch (Exception exception) {
             exception.printStackTrace();

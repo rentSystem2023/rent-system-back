@@ -10,7 +10,6 @@ import com.rentcar.back.dto.response.reservation.GetReservationCancelListRespons
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationPopularCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
@@ -58,9 +57,8 @@ public interface ReservationService {
         // 인기 차량 리스트 불러오기
         ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList();
 
-        // 인기 차량 리스트 불러오기2
-
-        ResponseEntity<? super GetReservationPopularCarListResponseDto> getReservationPopularCarList();
+        // // 인기 차량 리스트 불러오기2
+        // ResponseEntity<? super GetReservationPopularCarListResponseDto> getReservationPopularCarList();
 
         // 차량 검색 결과 불러오기
         ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String reservationStart, String reservationEnd);

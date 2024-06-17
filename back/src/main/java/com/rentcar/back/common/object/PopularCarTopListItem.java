@@ -7,6 +7,7 @@ import com.rentcar.back.repository.resultSet.GetPopularCarResultSet;
 
 import lombok.Getter;
 
+// 삭제예정
 @Getter
 public class PopularCarTopListItem {
     private String carImageUrl;
