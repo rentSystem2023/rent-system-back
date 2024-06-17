@@ -14,4 +14,5 @@ public interface GetUserDetatilReservationResultSet {
     String getaddress();
     String getReservationState();
     String getCarName();
+    Integer getInsurancePrice();
 }
