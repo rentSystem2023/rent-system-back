@@ -20,6 +20,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationCancelListRespons
 import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationPopularCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
@@ -152,39 +153,43 @@ public class ReservationController {
         return response;
     }
 
+    // 인기 차량 리스트 불러오기2
+    @GetMapping("/popular2")
+    public ResponseEntity<? super GetReservationPopularCarListResponseDto> GetReservationPopularCarList () {
+        ResponseEntity<? super GetReservationPopularCarListResponseDto> response = reservationService.getReservationPopularCarList();
+        return response;
+    }
+
     // 차량 검색 결과 불러오기
     @GetMapping("/search")
     public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList (
-        @RequestParam ("address") String address,
         @RequestParam ("reservationStart") String reservationStart, 
         @RequestParam ("reservationEnd") String reservationEnd
     ) { 
-        ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(address, reservationStart, reservationEnd);
+        ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(reservationStart, reservationEnd);
         return response;
     }
 
     // 보험별(업체) 가격 검색 결과 불러오기
     @GetMapping("/search/{carName}")
     public ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> getSearchReservationCarPriceList (
-        @RequestParam ("address") String address,
         @RequestParam ("reservationStart") String reservationStart, 
         @RequestParam ("reservationEnd") String reservationEnd,
         @PathVariable ("carName") String carName
     ) {
-        ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> response = reservationService.getSearchReservationCarPriceList(address, reservationStart, reservationEnd, carName);
+        ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> response = reservationService.getSearchReservationCarPriceList(reservationStart, reservationEnd, carName);
         return response;
     }
     
     // (보험별)차량 예약 상세 검색 결과 불러오기
     @GetMapping("/search/{carName}/{rentCompany}")
     public ResponseEntity<? super GetSearchReservationDetailListResponseDto> getSearchReservationDetailList (
-        @RequestParam ("address") String address,
         @RequestParam ("reservationStart") String reservationStart, 
         @RequestParam ("reservationEnd") String reservationEnd,
         @PathVariable ("carName") String carName,
         @PathVariable ("rentCompany") String rentCompany
     ) {
-        ResponseEntity<? super GetSearchReservationDetailListResponseDto> response = reservationService.getSearchReservationDetailList(address, reservationStart, reservationEnd, carName, rentCompany);
+        ResponseEntity<? super GetSearchReservationDetailListResponseDto> response = reservationService.getSearchReservationDetailList(reservationStart, reservationEnd, carName, rentCompany);
         return response;
     }
 }
