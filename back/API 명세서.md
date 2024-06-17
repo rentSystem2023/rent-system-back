@@ -193,6 +193,89 @@ contentType: application/json;charset=UTF-8
 
 ***
 
+#### - 닉네임 중복 확인  
+  
+##### 설명
+
+클라이언트로부터 닉네임을 입력받아 해당하는 닉네임이 이미 사용중인 닉네임인지 확인합니다. 중복되지 않은 닉네임이면 성공처리를 합니다. 만약 중복되는 닉네임이라면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/id-check**  
+
+##### Request
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| nickname | String | 중복 확인 할 사용자의 닉네임 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/nickname-check" \
+ -d "NickName=service123" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (중복된 닉네임)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "DN",
+  "message": "Duplicatied NickName."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
 #### - 이메일 인증  
   
 ##### 설명
@@ -380,7 +463,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 아이디, 비밀번호, 이메일, 인증번호 입력받아 회원가입 처리를 합니다. 정상적으로 회원가입이 완료되면 성공처리를 합니다. 만약 중복된 아이디, 중복된 이메일, 인증번호 불일치가 발생하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 아이디, 닉네임, 비밀번호, 이메일, 인증번호 입력받아 회원가입 처리를 합니다. 정상적으로 회원가입이 완료되면 성공처리를 합니다. 만약 중복된 아이디, 중복된 닉네임, 중복된 이메일, 인증번호 불일치가 발생하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/sign-up**  
@@ -455,6 +538,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (중복된 닉네임)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "DN",
+  "message": "Duplicatied Nickname."
+}
+```
+
 **응답 : 실패 (중복된 이메일)**
 ```bash
 HTTP/1.1 400 Bad Request
@@ -485,6 +578,246 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+***
+
+#### - 아이디 찾기  
+  
+##### 설명
+
+클라이언트로부터 이메일을 입력받아 해당하는 이메일이 데이테베이스에 있는 아이디인지 확인합니다. 데이터베이스에 해당하는 이메일이 있으면 성공처리를 합니다. 만약 존재하지 않는 이메일이면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/find-id**  
+
+##### Request
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userEmail | String | 사용자의 이메일 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/find-id" \
+ -d "userEmail=service123@naver.com" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| userId | String | 사용자의 아이디 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "userId": "service123"
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스에 이메일이 존재하지 않음)**
+```bash
+HTTP/1.1 401 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+#### - 비밀번호 찾기
+  
+##### 설명
+
+클라이언트로부터 아이디와 이메일을 입력받아 해당하는 아이디와 이메일이 데이터베이스에 존재하는지 확인합니다. 아이디와 이메일이 존재하면 성공처리를 합니다. 만약 아이디 또는 이메일이 존재하지 않으면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+
+- method : **POST**  
+- URL : **/find-password**
+
+##### Request
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userId | String | 사용자의 아이디 | O |
+| userEmail | String | 사용자의 이메일 | O |
+
+###### Example
+
+```bash
+curl -v -X POST "http://localhost:4000/api/rentcar/auth/find-password" \
+ -d "userId=service123" 
+ -d "userEmail=service123@naver.com" 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스에 아이디 또는 이메일이 존재하지 않음)**
+```bash
+HTTP/1.1 401 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+#### - 비밀번호 재설정  
+  
+##### 설명
+
+클라이언트로부터 비밀번호를 입력받아 기존의 비밀번호를 변경합니다. 변경에 성공하면 성공처리를 합니다. 만약 변경에 실패하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+
+- method : **PUT**  
+- URL : **/find-password/{userId}**  
+
+##### Request
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userPassword | String | 사용자의 비밀번호 | O |
+
+###### Example
+
+```bash
+curl -v -X PUT "http://localhost:4000/api/rentcar/auth/find-password/${userId}" \
+ -d "userPassword={userPassword}" \
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Varidation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
 
 ***
 
@@ -696,15 +1029,15 @@ contentType: application/json;charset=UTF-8
 ***
 
 
-#### - 내 정보 수정
+#### - 내 정보 비밀번호 수정
 
 ##### 설명
 
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 사용자의 이름, 아이디, 비밀번호, 전화번호, 이메일을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 비밀번호를 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PATCH**
-- URL : **/information/modify**
+- method : **PUT**
+- URL : **/information/password-modify**
 
 ##### Request
 
@@ -719,16 +1052,14 @@ contentType: application/json;charset=UTF-8
 | name | type | description | required |
 |---|:---:|:---:|:---:|
 | userPassword | String | 사용자의 비밀번호 | O |
-| userEmail | String | 사용자의 이메일 | O |
 
 
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4000/api/rentCar/user/information/modify" \
+curl -v -X PUT "http://localhost:4000/api/rentCar/user/information/password-modify" \
  -H "Authorization: Bearer {JWT}" \
  -d "userPassword={userPassword}" \
- -d "userEmail={userEmail}" \ 
 ```
 
 ##### Response
@@ -818,6 +1149,136 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+#### - 내 정보 이메일 수정
+
+##### 설명
+
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 이메일을 입력받고 수정에 성공하면 성공처리를 합니다. 만약 수정에 실패하면 실패처리 됩니다. 존재하지 않는 내 정보, 중복된 이메일, 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+
+- method : **PUT**
+- URL : **/information/email-modify**
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Request Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| userEmail | String | 사용자의 이메일 | O |
+
+
+###### Example
+
+```bash
+curl -v -X PATCH "http://localhost:4000/api/rentCar/user/information/email-modify" \
+ -H "Authorization: Bearer {JWT}" \
+ -d "userEmail={userEmail}" \ 
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success."
+}
+```
+
+**응답 : 실패 (존재하지 않는 내 정보)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NI",
+  "message": "No Exist Information."
+}
+```
+
+**응답 : 실패 (중복된 이메일)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "DE",
+  "message": "Duplicatied Email."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
 ***
 
 #### - 탈퇴하기
@@ -846,7 +1307,7 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X DELETE "http://localhost:4000/api/rentCar/user/information/modify" \
+curl -v -X DELETE "http://localhost:4000/api/rentCar/user/information" \
  -H "Authorization: Bearer {JWT}"
 ```
 
