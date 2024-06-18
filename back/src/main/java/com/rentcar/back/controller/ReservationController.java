@@ -91,7 +91,7 @@ public class ReservationController {
 
     // 예약 취소 신청 승인하기
     @PatchMapping("/cancel/{reservationCode}")
-    public ResponseEntity<ResponseDto> PatchReservationCancel (
+    public ResponseEntity<ResponseDto> patchReservationCancelApprove (
         @PathVariable ("reservationCode") int reservationCode,
         @RequestBody @Valid PatchReservationCancelRequestDto requestBody
     ) {
