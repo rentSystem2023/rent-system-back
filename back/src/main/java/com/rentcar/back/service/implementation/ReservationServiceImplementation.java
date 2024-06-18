@@ -140,6 +140,8 @@ public class ReservationServiceImplementation implements ReservationService {
             boolean isUser = userId.equals(reservationId);
             if (!isUser) return ResponseDto.authorizationFailed();
 
+            reservationEntity.update(dto);
+
             reservationRepository.save(reservationEntity);
 
         } catch (Exception exception) {
