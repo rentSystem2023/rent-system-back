@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
 import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
+import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 
 import jakarta.persistence.Entity;
@@ -53,6 +54,10 @@ public ReservationEntity(PostReservationRequestDto dto, String userId) {
         this.companyCarCode = dto.getCompanyCarCode();
     }
 
+    // 예약 취소(예약상태 변경)
+    public void update(PatchReservationRequestDto dto) {         
+        this.reservationState = dto.getReservationState();
+    }
 
     // 예약 취소 승인(예약상태 변경)
     public void update(PatchReservationCancelRequestDto dto) {         
