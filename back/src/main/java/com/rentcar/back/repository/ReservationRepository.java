@@ -248,6 +248,7 @@ List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
         "CC.normal_price AS normalPrice, " +
         "CC.luxury_price AS luxuryPrice, " +
         "CC.super_price AS superPrice, " +
+        "CC.company_car_code AS companyCarCode, " +
         "CM.rent_company AS rentCompany, " +
         "CM.address, " +
         "CM.company_telnumber AS companyTelnumber, " +

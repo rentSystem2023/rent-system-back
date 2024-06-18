@@ -23,6 +23,7 @@ public class GetSearchReservationDetailListResponseDto extends ResponseDto {
     private Integer normalPrice;
     private Integer luxuryPrice;
     private Integer superPrice;
+    private Integer companyCarCode;
     private String rentCompany;
     private String address;
     private String companyTelnumber;
@@ -45,6 +46,7 @@ public class GetSearchReservationDetailListResponseDto extends ResponseDto {
         this.normalPrice = resultSet.getNormalPrice();
         this.luxuryPrice = resultSet.getLuxuryPrice();
         this.superPrice = resultSet.getSuperPrice();
+        this.companyCarCode = resultSet.getCompanyCarCode();
         this.rentCompany = resultSet.getRentCompany();
         this.address = resultSet.getAddress();
         this.companyTelnumber = resultSet.getCompanyTelnumber();
