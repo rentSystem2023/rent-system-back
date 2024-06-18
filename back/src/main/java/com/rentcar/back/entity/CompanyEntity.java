@@ -31,6 +31,8 @@ public class CompanyEntity {
     private String owner;
     private String registDate;
     private String companyRule;
+    private String companyLat;
+    private String companyLng;
 
     public CompanyEntity(PostCompanyRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
