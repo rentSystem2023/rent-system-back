@@ -12,6 +12,7 @@ public interface GetSearchReservationDetailResultSet {
     Integer getNormalPrice();
     Integer getLuxuryPrice();
     Integer getSuperPrice();
+    Integer getCompanyCarCode();
     String getRentCompany();
     String getAddress();
     String getCompanyTelnumber();
