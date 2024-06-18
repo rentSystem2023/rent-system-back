@@ -29,6 +29,8 @@ public class GetSearchReservationDetailListResponseDto extends ResponseDto {
     private String companyRule;
     private String reservationStart;
     private String reservationEnd;
+    private Double companyLat;
+    private Double companyLng;
 
     private GetSearchReservationDetailListResponseDto (GetSearchReservationDetailResultSet resultSet) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -49,6 +51,8 @@ public class GetSearchReservationDetailListResponseDto extends ResponseDto {
         this.companyRule = resultSet.getCompanyRule();
         this.reservationStart = resultSet.getReservationStart();
         this.reservationEnd = resultSet.getReservationEnd();
+        this.companyLat = resultSet.getCompanyLat();
+        this.companyLng = resultSet.getCompanyLng();
     }
 
     public static ResponseEntity<GetSearchReservationDetailListResponseDto> success (GetSearchReservationDetailResultSet resultSet) throws Exception {

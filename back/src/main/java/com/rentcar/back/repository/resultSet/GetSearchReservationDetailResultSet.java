@@ -18,4 +18,6 @@ public interface GetSearchReservationDetailResultSet {
     String getCompanyRule();
     String getReservationStart();
     String getReservationEnd();
+    Double getCompanyLat();
+    Double getCompanyLng();
 }

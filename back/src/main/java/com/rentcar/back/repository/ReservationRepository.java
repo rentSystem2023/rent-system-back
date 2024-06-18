@@ -252,6 +252,8 @@ List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
         "CM.address, " +
         "CM.company_telnumber AS companyTelnumber, " +
         "CM.company_rule AS companyRule, " +
+        "CM.company_lat As companyLat, " +
+        "CM.company_lng AS companyLng, " +
         "R.reservation_start AS reservationStart, " +
         "R.reservation_end AS reservationEnd " +
         "FROM company_car CC " +

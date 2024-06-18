@@ -111,5 +111,20 @@ class AuthorizationFailedEntryPoint implements AuthenticationEntryPoint {
                 response.getWriter().write("{ \"code\":\"AF\",\"message\":\"Authorization Failed\" }");
 
         }
-
+        @Bean
+        protected CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.addAllowedOrigin("*"); // 모든 출처 허용
+            configuration.addAllowedHeader("*");
+            configuration.addAllowedMethod("*");
+            
+            // Kakao Maps API 도메인 추가
+            configuration.addAllowedOrigin("https://dapi.kakao.com");
+            
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", configuration);
+            
+            return source;
+        }
 }
+
