@@ -13,6 +13,9 @@ import com.rentcar.back.entity.QnaBoardEntity;
 public interface QnaBoardRepository extends JpaRepository <QnaBoardEntity, Integer> {
     
     List<QnaBoardEntity> findByOrderByReceptionNumberDesc();
+
+    List<QnaBoardEntity> findByWriterIdOrderByReceptionNumberDesc(String writerId);
+
     // Contains / Containing / IsContaining = LIKE '%word%'
     // StartingWith => LIKE 'word%'
     // EndingWith => LIKE '%word'

@@ -1,10 +1,12 @@
 package com.rentcar.back.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rentcar.back.common.object.QnaMyListItem;
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
@@ -196,10 +198,11 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
 
     // 나의 Q&A 리스트 불러오기
     @Override
-    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList() {
+    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList(String writerId) {
         try {
 
-            List<QnaBoardEntity> qnaBoardEntities = qnaBoardRepository.findByOrderByReceptionNumberDesc();
+            List<QnaBoardEntity> qnaBoardEntities = qnaBoardRepository.findByWriterIdOrderByReceptionNumberDesc(writerId);
+            
             return GetQnaBoardMyListResponseDto.success(qnaBoardEntities);
 
         } catch (Exception exception) {

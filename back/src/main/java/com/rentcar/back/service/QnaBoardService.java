@@ -29,7 +29,7 @@ public interface QnaBoardService {
     ResponseEntity<ResponseDto> deleteQnaBoard(int receptionNumber, String userId);
 
     //QnA MyList
-    ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList();
+    ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList(String userId);
 
     //QnA search
     ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchQnaBoardMyList(String searchWord);
