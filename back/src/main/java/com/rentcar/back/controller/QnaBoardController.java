@@ -111,8 +111,10 @@ public class QnaBoardController {
 
     // 나의 Q&A 리스트 불러오기
     @GetMapping("/mylist")
-    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList () {
-        ResponseEntity<? super GetQnaBoardMyListResponseDto> response = qnaBoardService.getQnaBoardMyList();
+    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList (
+        @AuthenticationPrincipal String writerId
+    ) {
+        ResponseEntity<? super GetQnaBoardMyListResponseDto> response = qnaBoardService.getQnaBoardMyList(writerId);
         return response;
     }
 
