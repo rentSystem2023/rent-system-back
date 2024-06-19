@@ -14,5 +14,4 @@ public class PutEmailModifyRequestDto {
     String userEmail;
     @NotBlank
     String authNumber;
-
 }
