@@ -22,7 +22,7 @@ public class KaKaopayUtil {
     @Value("${kakao-pay.cancel-url}") private String kakaoPayCancleUrl;
     
 
-     public KakaoReady prepareKakaoPayment(PostReservationRequestDto dto, int reservationCode) {
+    public KakaoReady prepareKakaoPayment(PostReservationRequestDto dto, int reservationCode) {
 
         String orderId = UUID.randomUUID().toString();
 

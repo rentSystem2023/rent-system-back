@@ -9,10 +9,12 @@ import lombok.Getter;
 
 @Getter
 public class UserListItem {
+
     private String userId;
     private String nickName;
     private String userEmail;
     private String joinDate;
+    private String userRole;
 
     private UserListItem(UserEntity userEntity) throws Exception {
 
@@ -20,9 +22,12 @@ public class UserListItem {
         this.nickName = userEntity.getNickName();
         this.userEmail = userEntity.getUserEmail();
         this.joinDate = userEntity.getJoinDate();
+        this.userRole = userEntity.getUserRole();
+
     }
 
     public static List<UserListItem> getList(List<UserEntity> userEntities) throws Exception {
+        
         List<UserListItem> userList = new ArrayList<>();
 
         for (UserEntity userEntity : userEntities) {

@@ -75,7 +75,7 @@ public class WebSecurityConfig {
                                                                 "/api/rentcar/notice/regist",
                                                                 "/api/rentcar/notice/*/modify",
                                                                 "/api/rentcar/notice/*/delete",
-                                                                "/api/rentcar/company/**", "/api/rentcar/user/list/**",
+                                                                "/api/rentcar/company/**", "/api/rentcar/admin/list/**",
                                                                 "/api/rentcar/reservation/cancel/**",
                                                                 "/api/rentcar/reservation/list/**",
                                                                 "/api/rentcar/reservation/*",

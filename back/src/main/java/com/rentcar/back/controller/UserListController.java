@@ -6,7 +6,7 @@ import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.user.GetSearchUserListResponseDto;
 import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.response.user.GetUserListResponseDto;
-import com.rentcar.back.service.UserService;
+import com.rentcar.back.service.UserListService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/rentcar/user")
+@RequestMapping("/api/rentcar/admin")
 @RequiredArgsConstructor
 public class UserListController {
 
-    private final UserService userService;
+    private final UserListService userListService;
 
     // 관리자의 회원목록 리스트
     @GetMapping("/list")
     public ResponseEntity<? super GetUserListResponseDto> getUserList (
         @AuthenticationPrincipal String userId
     ){
-        ResponseEntity<? super GetUserListResponseDto> response = userService.getUserList(userId);
+        ResponseEntity<? super GetUserListResponseDto> response = userListService.getUserList(userId);
         return response;
     }
 
@@ -39,7 +39,7 @@ public class UserListController {
     public ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (
         @PathVariable("userId") String userId
     ) {
-        ResponseEntity<? super GetUserDetailListResponseDto> response = userService.getUserDetailList(userId);
+        ResponseEntity<? super GetUserDetailListResponseDto> response = userListService.getUserDetailList(userId);
         return response;
     }
 
@@ -48,7 +48,7 @@ public class UserListController {
     public ResponseEntity<ResponseDto> deleteUserList (
         @PathVariable("userId") String userId
     ) {
-        ResponseEntity<ResponseDto> response = userService.deleteUserList(userId);
+        ResponseEntity<ResponseDto> response = userListService.deleteUserList(userId);
         return response;
     }
 
@@ -57,7 +57,7 @@ public class UserListController {
     public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
         @RequestParam("word") String searchWord
     ) {
-        ResponseEntity<? super GetSearchUserListResponseDto> response = userService.getSearchUserList(searchWord);
+        ResponseEntity<? super GetSearchUserListResponseDto> response = userListService.getSearchUserList(searchWord);
         return response;
     }
     

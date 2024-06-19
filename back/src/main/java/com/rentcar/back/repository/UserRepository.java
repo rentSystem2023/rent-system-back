@@ -34,6 +34,4 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
 
     List<UserEntity> findByUserIdContainsOrderByJoinDateDesc(String userId);
 
-
-
 }
