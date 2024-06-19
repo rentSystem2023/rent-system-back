@@ -67,7 +67,7 @@ public class WebSecurityConfig {
                                                                 "/api/rentcar/user/information",
                                                                 "/api/rentcar/user/information/password-modify",
                                                                 "/api/rentcar/user/information/email-modify",
-                                                                "/api/rentcar/user/information/**",
+                                                                "/api/rentcar/user/information/**", "api/rentcar/qna/mylist",
                                                                 "/file/**",
                                                                 "/api/rentcar/reservation/regist").hasRole("USER")
                                                 // 괸라자만 접근 가능(ADMIN)
