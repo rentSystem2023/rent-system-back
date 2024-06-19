@@ -19,5 +19,5 @@ public interface UserListService {
     ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList(String searchWord);
 
     // 관리자페이지 회원 관리 회원 상세 보기
-    ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList(String userId);
+    ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList(String userId); 
 }  

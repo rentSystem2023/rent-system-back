@@ -15,4 +15,4 @@ public interface NoticeBoardRepository extends JpaRepository <NoticeBoardEntity,
     List<NoticeBoardEntity> findByTitleContainsOrderByRegistNumberDesc(String title);
 
     NoticeBoardEntity findByRegistNumber(Integer registNumber);
-}
+} 

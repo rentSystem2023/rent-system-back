@@ -122,7 +122,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "INNER JOIN company CO ON CC.company_code = CO.company_code " +
         "WHERE R.reservation_code = :reservationCode"
     , nativeQuery = true)
-    GetReservationDetailResultSet getReservationDetail(@Param ("reservationCode") Integer reservaitonCode);
+    GetReservationDetailResultSet getReservationDetail(@Param ("reservationCode") Integer reservaitonCode); 
 
 
     // 예약 검색 리스트 불러오기(관리자)

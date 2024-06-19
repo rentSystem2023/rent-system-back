@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 
-public class NoticeBoardServiceImplementation implements NoticeBoardService {
+public class NoticeBoardServiceImplementation implements NoticeBoardService { 
 
     private final NoticeBoardRepository noticeBoardRepository;
     private final UserRepository userRepository;

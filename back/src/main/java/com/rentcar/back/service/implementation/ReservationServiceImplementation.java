@@ -24,7 +24,7 @@ import com.rentcar.back.dto.response.reservation.GetReservationDetailMyListRespo
 import com.rentcar.back.dto.response.reservation.GetReservationDetailResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationMyListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationPopularListResponseDto;
-import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto;
+import com.rentcar.back.dto.response.reservation.GetReservationUserListResponseDto; 
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;

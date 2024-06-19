@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FindPwResetRequestDto {
+public class FindPasswordResetRequestDto {
 
     @NotNull
     @Pattern(regexp =PatternUtil.PW_PATTERN)

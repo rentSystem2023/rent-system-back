@@ -9,8 +9,8 @@ import com.rentcar.back.common.util.EmailAuthNumberUtil;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.FindIdRequestDto;
-import com.rentcar.back.dto.request.auth.FindPwRequestDto;
-import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordResetRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
 import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
@@ -61,7 +61,7 @@ public class AuthServiceImplementation implements AuthService {
 
         try {
             String nickName = dto.getNickName();
-            boolean existedUser = userRepository.existsByNickName(nickName);
+            boolean existedUser = userRepository.existsByNickName(nickName); 
             if (existedUser)
                 return ResponseDto.duplicatedNickName();
 
@@ -220,7 +220,7 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> findPassword(FindPwRequestDto dto) {
+    public ResponseEntity<ResponseDto> findPassword(FindPasswordRequestDto dto) {
 
         try {
 
@@ -240,7 +240,7 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> findPasswordReset(FindPwResetRequestDto dto, String userId) {
+    public ResponseEntity<ResponseDto> findPasswordReset(FindPasswordResetRequestDto dto, String userId) {
 
         try {
 

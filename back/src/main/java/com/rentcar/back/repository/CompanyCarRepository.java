@@ -11,6 +11,6 @@ public interface CompanyCarRepository extends JpaRepository<CompanyCarEntity, In
     
     boolean existsByCompanyCarCode(Integer companyCarCode);
 
-    CompanyCarEntity findByCompanyCarCode(Integer companyCarCode);
+    CompanyCarEntity findByCompanyCarCode(Integer companyCarCode); 
 }
 

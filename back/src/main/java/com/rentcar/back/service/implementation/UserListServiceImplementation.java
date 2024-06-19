@@ -76,7 +76,7 @@ public class UserListServiceImplementation implements UserListService{
             UserEntity userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.noExistUser();
 
-            return GetUserDetailListResponseDto.success(userEntity);
+            return GetUserDetailListResponseDto.success(userEntity); 
         }catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.databaseError();

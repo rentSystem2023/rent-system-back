@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.FindIdRequestDto;
-import com.rentcar.back.dto.request.auth.FindPwRequestDto;
-import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordResetRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
 import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
@@ -99,7 +99,7 @@ public class AuthController {
     // 아이디 찾기
     @PostMapping("/find-password")
     public ResponseEntity<ResponseDto> findPassword(
-            @RequestBody @Valid FindPwRequestDto requestBody
+            @RequestBody @Valid FindPasswordRequestDto requestBody
     ){
         ResponseEntity<ResponseDto> response = authService.findPassword(requestBody);
         return response;
@@ -108,7 +108,7 @@ public class AuthController {
     // 비밀번호 찾기
     @PutMapping("/find-password/{userId}")
     public ResponseEntity<ResponseDto> findPasswordReset(
-            @RequestBody @Valid FindPwResetRequestDto requestBody,
+            @RequestBody @Valid FindPasswordResetRequestDto requestBody,
             @PathVariable("userId") String userId
     ){
         ResponseEntity<ResponseDto> response = authService.findPasswordReset(requestBody, userId);
