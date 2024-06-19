@@ -1,5 +1,7 @@
 package com.rentcar.back.dto.request.auth;
 
+import com.rentcar.back.common.util.PatternUtil;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -12,7 +14,7 @@ import lombok.Setter;
 public class FindPwResetRequestDto {
     
     @NotNull
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}$")
+    @Pattern(regexp =PatternUtil.PW_PATTERN)
     private String userPassword;
 
 }

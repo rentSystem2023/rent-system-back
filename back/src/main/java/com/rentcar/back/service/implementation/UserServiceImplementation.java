@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.common.util.EmailAuthNumberUtil;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
-import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.request.user.PutEmailModifyRequestDto;
 import com.rentcar.back.dto.request.user.PutPwModifyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
@@ -33,7 +32,6 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImplementation implements UserService{
 
     private final UserRepository userRepository;
-    // 패스워드 암호화를 하기 위해 password 인코더
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final MailProvider mailProvider;
     private final EmailAuthNumberRepository emailAuthNumberRepository;
@@ -110,35 +108,32 @@ public class UserServiceImplementation implements UserService{
         
         try {
 
-            // 레포지토리에서 existByUserEmail 작업 해주고
             String userEmail = dto.getUserEmail();
             boolean existedEmail = userRepository.existsByUserEmail(userEmail);
-            // 존재한다면
+
             if (existedEmail)
                 return ResponseDto.duplicatedEmail();
 
             String authNumber = EmailAuthNumberUtil.createCodeNumber();
 
-            // 바로 위에서 받은 인증번호 저장하려면 엔터티를 만들어 줘야 함
             EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, authNumber);
 
-            // 그 다음 save 작업 해줘야 함 그러기 위해서는 public 선언해주고 emailAuthNumberEntity 저장
             emailAuthNumberRepository.save(emailAuthNumberEntity);
 
             mailProvider.mailAuthSend(userEmail, authNumber);
 
         } catch (MessagingException exception) {
             exception.printStackTrace();
-            return ResponseDto.mailSendFailed(); // 예외 에러 반환
+            return ResponseDto.mailSendFailed(); 
 
         }
 
         catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseDto.databaseError(); // 예외 에러 반환
+            return ResponseDto.databaseError(); 
         }
 
-        return ResponseDto.success(); // 성공 반환
+        return ResponseDto.success(); 
 
     }
 
@@ -149,11 +144,8 @@ public class UserServiceImplementation implements UserService{
             String userEmail = dto.getUserEmail();
             String userNumber = dto.getAuthNumber();
 
-            // 데이터베이스의 email_auth_number 테이블에서 해당하는 userEmail과 authNumber를 모두 가지고 있는 데이터가
-            // 있는지 확인
             boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, userNumber);
             
-            // 해당하는 데이터가 없다면 'AF' 응답 처리
             if (!isMatched)
                 return ResponseDto.authenticationFailed();
 
@@ -162,8 +154,6 @@ public class UserServiceImplementation implements UserService{
             userEntity.emailModify(dto);
 
             userRepository.save(userEntity);
-
-            // EmailAuthNumberEntity emailAuthNumberEntity = emailAuthNumberRepository.findByEmail(email);
 
             return ResponseDto.success();
 

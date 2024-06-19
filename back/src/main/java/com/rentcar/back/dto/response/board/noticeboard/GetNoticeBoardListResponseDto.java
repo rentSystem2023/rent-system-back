@@ -13,8 +13,6 @@ import com.rentcar.back.entity.NoticeBoardEntity;
 
 import lombok.Getter;
 
-// 데이터베이스에서 전체 리스트 조회 -> List<BoardEntity> -> List<BoardListItem> 바꾸는작업
-
 @Getter
 public class GetNoticeBoardListResponseDto extends ResponseDto {
     

@@ -22,5 +22,4 @@ public class PostCompanyRequestDto {
     @NotBlank
     private String companyTelnumber;
     private String companyRule;
-    
 }

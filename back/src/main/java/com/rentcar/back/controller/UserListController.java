@@ -13,13 +13,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
-// 컨트롤러의 메서드에서 인증 접근 주체의 정보를 가져옴
 @RestController
 @RequestMapping("/api/rentcar/user/list")
 @RequiredArgsConstructor
@@ -45,6 +43,7 @@ public class UserListController {
         return response;
     }
 
+    // 회원 삭제하기
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResponseDto> deleteUserList (
         @PathVariable("userId") String userId
@@ -53,7 +52,7 @@ public class UserListController {
         return response;
     }
 
-
+    // 회원 검색하기
     @GetMapping("/search")
     public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
         @RequestParam("word") String searchWord

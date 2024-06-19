@@ -15,22 +15,34 @@ import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardMyListRespo
 
 
 public interface QnaBoardService {
-    
-    ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId);
-    ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, int receptionNumber);
+
+    // 문의사항 리스트 보기
     ResponseEntity<? super GetQnaBoardListResponseDto> getQnaBoardList();
+
+    // 문의사항 작성하기    
+    ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId);
+
+    // 문의사항 댓글 달기
+    ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, int receptionNumber);
+
+    // 문의사항 리스트 검색하기
     ResponseEntity<? super GetSearchQnaBoardListResponseDto> getSearchQnaBoardList(String searchWord);
+
+    // 문의사항 보기
     ResponseEntity<? super GetQnaBoardResponseDto> getQnaBoard(int receptionNumber);
 
+    // 문의사항 수정하기
     ResponseEntity<ResponseDto> putQnaBoard(PutQnaBoardRequsetDto dto, int receptionNumber, String userId);
 
+    // 문의사항 조회수 증가
     ResponseEntity<ResponseDto> increaseViewCount(int receptionNumber);
 
+    // 문의사항 삭제하기
     ResponseEntity<ResponseDto> deleteQnaBoard(int receptionNumber, String userId);
 
     //QnA MyList
     ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList(String userId);
 
-    //QnA search
+    // 문의사항 나의 리스트 검색하기
     ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchQnaBoardMyList(String searchWord);
 }

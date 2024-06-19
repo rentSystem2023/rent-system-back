@@ -27,17 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-/*
-▶ Spring Web Security 설정
-Basic 인증 미사용
-CSRF 정책 미사용
-Session 생성 정책 미사용
-CORS 정책 (모든 출처 - 모든 메서드 - 모든 패턴 허용)
-
-JwtAuthenticationFilter 추가 (UsernamePasswordAuthenticationFilter 이전에 추가)
-*/
-
-// 등록, 수정, web security 설정 지원
 @Configurable
 @Configuration
 @EnableWebSecurity
@@ -57,19 +46,41 @@ public class WebSecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/", "/api/rentcar/auth/**", "/oauth2/callback/*", "/api/rentcar/notice/list/**", 
-                                                "/api/rentcar/qna/list/**", "/api/rentcar/*/*/increase-view-count", "/api/rentcar/reservation/mylist",
-                                                "/api/rentcar/reservation/search", "/api/rentcar/reservation/popular", "/api/rentcar/reservation/search/**","/upload","/file/**","/api/rentcar/auth/find-id/*",
-                                                "/api/rentcar/auth/find-password/*", "/api/rentcar/auth/find-password/**").permitAll()
-                                                .requestMatchers("/api/rentcar/qna/regist", "/api/rentcar/qna/*/modify", "/api/rentcar/qna/*/delete", "/api/rentcar/user/information", 
-                                                "/api/rentcar/user/information/password-modify", "/api/rentcar/user/information/email-modify", "/api/rentcar/user/information/**","/file/**",
-                                                "/api/rentcar/reservation/regist")
-                                                .hasRole("USER")
-                                                .requestMatchers("/api/rentcar/qna/*/comment", "/api/rentcar/notice/regist", "/api/rentcar/notice/*/modify", 
-                                                "/api/rentcar/notice/*/delete", "/api/rentcar/company/**", "/api/rentcar/user/list/**", "/api/rentcar/reservation/cancel/**",
-                                                "/api/rentcar/reservation/list/**", "/api/rentcar/reservation/*", "/api/rentcar/reservation/*/approve").hasRole("ADMIN")
-                                                .anyRequest().authenticated())
-                                                
+                                                // 모두 접근 가능
+                                                .requestMatchers("/", "/api/rentcar/auth/**",
+                                                                "/file/**", "/api/rentcar/auth/find-id/*",
+                                                                "/api/rentcar/auth/find-password/*",
+                                                                "/api/rentcar/auth/find-password/**",
+                                                                "/oauth2/callback/*",
+                                                                "/api/rentcar/notice/list/**",
+                                                                "/api/rentcar/qna/list/**",
+                                                                "/api/rentcar/*/*/increase-view-count",
+                                                                "/api/rentcar/reservation/mylist",
+                                                                "/api/rentcar/reservation/search",
+                                                                "/api/rentcar/reservation/popular",
+                                                                "/api/rentcar/reservation/search/**",
+                                                                "/upload").permitAll()
+                                                // 사용자만 접근 가능(USER)
+                                                .requestMatchers("/api/rentcar/qna/regist",
+                                                                "/api/rentcar/qna/*/modify",
+                                                                "/api/rentcar/qna/*/delete",
+                                                                "/api/rentcar/user/information",
+                                                                "/api/rentcar/user/information/password-modify",
+                                                                "/api/rentcar/user/information/email-modify",
+                                                                "/api/rentcar/user/information/**",
+                                                                "/file/**",
+                                                                "/api/rentcar/reservation/regist").hasRole("USER")
+                                                // 괸라자만 접근 가능(ADMIN)
+                                                .requestMatchers("/api/rentcar/qna/*/comment",
+                                                                "/api/rentcar/notice/regist",
+                                                                "/api/rentcar/notice/*/modify",
+                                                                "/api/rentcar/notice/*/delete",
+                                                                "/api/rentcar/company/**", "/api/rentcar/user/list/**",
+                                                                "/api/rentcar/reservation/cancel/**",
+                                                                "/api/rentcar/reservation/list/**",
+                                                                "/api/rentcar/reservation/*",
+                                                                "/api/rentcar/reservation/*/approve").hasRole("ADMIN").anyRequest().authenticated())
+
                                 .oauth2Login(oauth2 -> oauth2
                                                 .authorizationEndpoint(endpoint -> endpoint
                                                                 .baseUri("/api/rentcar/auth/oauth2"))
@@ -111,20 +122,21 @@ class AuthorizationFailedEntryPoint implements AuthenticationEntryPoint {
                 response.getWriter().write("{ \"code\":\"AF\",\"message\":\"Authorization Failed\" }");
 
         }
+        
+        // CORS 설정을 위한 Bean 등록
         @Bean
         protected CorsConfigurationSource corsConfigurationSource() {
-            CorsConfiguration configuration = new CorsConfiguration();
-            configuration.addAllowedOrigin("*"); // 모든 출처 허용
-            configuration.addAllowedHeader("*");
-            configuration.addAllowedMethod("*");
-            
-            // Kakao Maps API 도메인 추가
-            configuration.addAllowedOrigin("https://dapi.kakao.com");
-            
-            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-            source.registerCorsConfiguration("/**", configuration);
-            
-            return source;
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.addAllowedOrigin("*"); 
+                configuration.addAllowedHeader("*");
+                configuration.addAllowedMethod("*");
+
+                // Kakao Maps API 도메인 추가
+                configuration.addAllowedOrigin("https://dapi.kakao.com");
+
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+
+                return source;
         }
 }
-
