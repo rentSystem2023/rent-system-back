@@ -27,17 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-/*
-▶ Spring Web Security 설정
-Basic 인증 미사용
-CSRF 정책 미사용
-Session 생성 정책 미사용
-CORS 정책 (모든 출처 - 모든 메서드 - 모든 패턴 허용)
-
-JwtAuthenticationFilter 추가 (UsernamePasswordAuthenticationFilter 이전에 추가)
-*/
-
-// 등록, 수정, web security 설정 지원
 @Configurable
 @Configuration
 @EnableWebSecurity
