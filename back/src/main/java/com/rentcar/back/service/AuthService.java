@@ -18,8 +18,7 @@ import com.rentcar.back.dto.response.auth.SignInResponseDto;
 public interface AuthService {
     
     ResponseEntity<? super SignInResponseDto>signIn (SignInRequestDto dto);
-    //리스폰스객체를 반환
-    ResponseEntity<ResponseDto> idCheck (IdCheckRequestDto dto); // 여기까지 작성후 implementation 구현
+    ResponseEntity<ResponseDto> idCheck (IdCheckRequestDto dto);
     ResponseEntity<ResponseDto> nickNameCheck (NickNameCheckRequestDto dto);
     ResponseEntity<ResponseDto> emailAuth (EmailAuthRequestDto dto);
     ResponseEntity<ResponseDto> emailAuthCheck (EmailAuthCheckRequestDto dto);

@@ -23,6 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyEntity {
+    
     @Id
     private Integer companyCode;
     private String rentCompany;

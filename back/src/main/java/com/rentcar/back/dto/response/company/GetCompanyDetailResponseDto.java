@@ -12,6 +12,7 @@ import lombok.Getter;
 
 @Getter
 public class GetCompanyDetailResponseDto extends ResponseDto {
+    
     private Integer companyCode;
     private String rentCompany;
     private String address;

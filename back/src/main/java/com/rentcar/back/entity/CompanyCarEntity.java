@@ -16,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyCarEntity {
+    
     @Id
     private Integer companyCarCode;
     private String carNumber;

@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name="reservation")
-@Table(name="reservation") // 매핑되는 테이블의 이름은 user , 클래스명하고 테이블명이 다르기 때문에 지정
-@Getter // DB에서 받아오기 위한 작업
+@Table(name="reservation")
+@Getter 
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
