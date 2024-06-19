@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CompanyServiceImplementation implements CompanyService {
+public class CompanyServiceImplementation implements CompanyService { 
     
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;

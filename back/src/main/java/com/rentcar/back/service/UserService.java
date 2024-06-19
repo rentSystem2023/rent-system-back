@@ -27,6 +27,6 @@ public interface UserService {
     ResponseEntity<ResponseDto> putEmailModify (PutEmailModifyRequestDto dto, String userId);
 
     // 회원 탈퇴하기
-    ResponseEntity<ResponseDto> deleteMyInfo(String userId);
+    ResponseEntity<ResponseDto> deleteMyInfo(String userId); 
 }
 

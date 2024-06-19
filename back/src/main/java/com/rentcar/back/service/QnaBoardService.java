@@ -20,7 +20,7 @@ public interface QnaBoardService {
     ResponseEntity<? super GetQnaBoardListResponseDto> getQnaBoardList();
 
     // 문의사항 작성하기    
-    ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId);
+    ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId); 
 
     // 문의사항 댓글 달기
     ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, int receptionNumber);

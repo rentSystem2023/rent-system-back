@@ -29,4 +29,4 @@ public interface CarRepository extends JpaRepository<CarEntity, Integer> {
         "LIMIT 4"
     ,nativeQuery = true)
     List<GetPopularCarResultSet> findTop4ByTotalReservationCount();
-}
+} 

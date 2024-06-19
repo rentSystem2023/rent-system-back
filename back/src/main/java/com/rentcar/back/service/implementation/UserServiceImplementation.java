@@ -165,7 +165,7 @@ public class UserServiceImplementation implements UserService{
         try {
 
             UserEntity userEntity = userRepository.findByUserId(userId);
-            if (userEntity == null) return ResponseDto.noExistInfo();
+            if (userEntity == null) return ResponseDto.noExistInfo(); 
 
             userRepository.delete(userEntity);
 

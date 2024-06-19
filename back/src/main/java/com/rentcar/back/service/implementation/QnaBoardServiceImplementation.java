@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class QnaBoardServiceImplementation implements QnaBoardService {
+public class QnaBoardServiceImplementation implements QnaBoardService { 
 
     private final QnaBoardRepository qnaBoardRepository;
     private final UserRepository userRepository;

@@ -17,4 +17,4 @@ public interface QnaBoardRepository extends JpaRepository <QnaBoardEntity, Integ
     List<QnaBoardEntity> findByTitleContainsOrderByReceptionNumberDesc(String title);
 
     QnaBoardEntity findByReceptionNumber(Integer receptionNumber);
-} 
+}  
