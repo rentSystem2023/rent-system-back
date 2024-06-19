@@ -44,26 +44,26 @@ public class ReservationController {
     ResponseEntity<ResponseDto> postReservationBoard (
         @RequestBody @Valid PostReservationRequestDto requestBody, 
         @AuthenticationPrincipal String userId
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = reservationService.postReservationBoard(requestBody, userId);
         return response;
     }
 
-    // 내 예약 내역 보기
+    // 나의 예약 내역 보기
     @GetMapping("/mylist")
     public ResponseEntity<? super GetReservationMyListResponseDto> getReservationList (
         @AuthenticationPrincipal String userId
-    ) {
+    ){
         ResponseEntity<? super GetReservationMyListResponseDto> response = reservationService.getReservationMyList(userId);
         return response;
     }
 
-    // 내 예약 내역 상세보기
+    // 나의 예약 내역 상세보기
     @GetMapping("/mylist/{reservationCode}")
     public ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservaitonDetailList (
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationCode") int reservationCode
-    ) {
+    ){
         ResponseEntity<? super GetReservationDetailMyListResponseDto> response = reservationService.getReservationDetailMyList(reservationCode, userId);
         return response;
     }
@@ -74,7 +74,7 @@ public class ReservationController {
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationCode") int reservationCode,
         @RequestBody @Valid PatchReservationRequestDto requestBody 
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = reservationService.patchReservation(requestBody, reservationCode, userId);
         return response;
     }
@@ -84,7 +84,7 @@ public class ReservationController {
     public ResponseEntity<? super GetReservationCancelListResponseDto> GetReservationCancelList (
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationState") String reservationState
-    ) {
+    ){
         ResponseEntity<? super GetReservationCancelListResponseDto> response = reservationService.getReservationCancelList(userId, reservationState);
         return response;
     }
@@ -94,7 +94,7 @@ public class ReservationController {
     public ResponseEntity<ResponseDto> patchReservationCancelApprove (
         @PathVariable ("reservationCode") int reservationCode,
         @RequestBody @Valid PatchReservationCancelRequestDto requestBody
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = reservationService.patchReservationCancel(requestBody, reservationCode);
         return response;
     }
@@ -104,7 +104,7 @@ public class ReservationController {
     public ResponseEntity<ResponseDto> PatchReservationApprove (
         @PathVariable ("reservationCode") int reservationCode,
         @RequestBody @Valid PatchReservationApproveRequestDto requestBody
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = reservationService.patchReservationApprove(requestBody, reservationCode);
         return response;
     }
@@ -113,7 +113,7 @@ public class ReservationController {
     @GetMapping("/list")
     public ResponseEntity<? super GetReservationUserListResponseDto> GetReservationUserList (
         @AuthenticationPrincipal String userId
-    ) {
+    ){
         ResponseEntity<? super GetReservationUserListResponseDto> response = reservationService.getReservationUserList(userId);
         return response;
     }
@@ -122,7 +122,7 @@ public class ReservationController {
     @GetMapping("/{reservationCode}")
     public ResponseEntity<? super GetReservationDetailResponseDto> GetReservationDetail (
         @PathVariable ("reservationCode") int reservationCode
-    ) {
+    ){
         ResponseEntity<? super GetReservationDetailResponseDto> response = reservationService.getReservationDetail(reservationCode);
         return response;
     }
@@ -131,7 +131,7 @@ public class ReservationController {
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchReservationListResponseDto> getSearchReservationList (
         @RequestParam(value="word", required=false) Integer word 
-    ) {
+    ){
         ResponseEntity<? super GetSearchReservationListResponseDto> response = reservationService.getSearchReservationList(word);
         return response;
     }
@@ -141,21 +141,16 @@ public class ReservationController {
     public ResponseEntity<ResponseDto> DeleteReservtionList (
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationCode") int reservationCode
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = reservationService.deleteReservationList(reservationCode, userId);
         return response;
     }
 
-    // // 인기 차량 리스트 불러오기
-    // @GetMapping("/popular")
-    // public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList () {
-    //     ResponseEntity<? super GetReservationPopularListResponseDto> response = reservationService.getReservationPopularList();
-    //     return response;
-    // }
-
-    // 인기 차량 리스트 불러오기2
+    // 인기 차량 리스트 불러오기
     @GetMapping("/popular")
-    public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList () {
+    public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList (
+
+    ){
         ResponseEntity<? super GetReservationPopularListResponseDto> response = reservationService.getReservationPopularList();
         return response;
     }
@@ -165,7 +160,7 @@ public class ReservationController {
     public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList (
         @RequestParam ("reservationStart") String reservationStart, 
         @RequestParam ("reservationEnd") String reservationEnd
-    ) { 
+    ){ 
         ResponseEntity<? super GetSearchReservationCarListResponseDto> response = reservationService.getSearchReservationCarList(reservationStart, reservationEnd);
         return response;
     }
@@ -176,7 +171,7 @@ public class ReservationController {
         @RequestParam ("reservationStart") String reservationStart, 
         @RequestParam ("reservationEnd") String reservationEnd,
         @PathVariable ("carName") String carName
-    ) {
+    ){
         ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> response = reservationService.getSearchReservationCarPriceList(reservationStart, reservationEnd, carName);
         return response;
     }
@@ -188,7 +183,7 @@ public class ReservationController {
         @RequestParam ("reservationEnd") String reservationEnd,
         @PathVariable ("carName") String carName,
         @PathVariable ("rentCompany") String rentCompany
-    ) {
+    ){
         ResponseEntity<? super GetSearchReservationDetailListResponseDto> response = reservationService.getSearchReservationDetailList(reservationStart, reservationEnd, carName, rentCompany);
         return response;
     }
