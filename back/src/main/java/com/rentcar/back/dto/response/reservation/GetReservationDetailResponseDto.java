@@ -20,6 +20,8 @@ public class GetReservationDetailResponseDto extends ResponseDto {
     private String reservationEnd;
     private String userId;
     private String reservationState;
+    private String insuranceType;
+    private Integer insurancePrice;
 
     private GetReservationDetailResponseDto (GetReservationDetailResultSet resultSet) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -31,6 +33,8 @@ public class GetReservationDetailResponseDto extends ResponseDto {
         this.reservationEnd = resultSet.getReservationEnd();
         this.userId = resultSet.getUserId();
         this.reservationState = resultSet.getReservationState();
+        this.insuranceType = resultSet.getInsuranceType();
+        this.insurancePrice = resultSet.getInsurancePrice();
     }
 
     public static ResponseEntity<GetReservationDetailResponseDto> success (GetReservationDetailResultSet resultSet) throws Exception {
