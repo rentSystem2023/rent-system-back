@@ -20,12 +20,12 @@ public class GetSearchUserListResponseDto extends ResponseDto {
 
     private GetSearchUserListResponseDto(List<UserEntity> userEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+
         this.userList = UserListItem.getList(userEntities);
     }
 
     public static ResponseEntity<GetSearchUserListResponseDto> success (List<UserEntity> userEntities) throws Exception {
         GetSearchUserListResponseDto responseBody = new GetSearchUserListResponseDto(userEntities);
-        
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 

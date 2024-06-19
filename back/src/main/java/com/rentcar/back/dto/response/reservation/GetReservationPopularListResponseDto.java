@@ -20,6 +20,7 @@ public class GetReservationPopularListResponseDto extends ResponseDto {
 
     private GetReservationPopularListResponseDto(List<GetPopularCarResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.popularList = PopularCarListItem.getList(resultSets);
     }
 

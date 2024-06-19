@@ -1,6 +1,5 @@
 package com.rentcar.back.dto.response.board.qnaboard;
 
-import lombok.Getter;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.ResponseMessage;
 import com.rentcar.back.entity.QnaBoardEntity;
 
+import lombok.Getter;
 
 @Getter
 public class GetSearchQnaBoardMyListResponseDto extends ResponseDto {
@@ -19,6 +19,7 @@ public class GetSearchQnaBoardMyListResponseDto extends ResponseDto {
 
     private GetSearchQnaBoardMyListResponseDto (List<QnaBoardEntity> qnaBoardEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+
         this.qnaList = QnaMyListItem.getList(qnaBoardEntities);
     }
 

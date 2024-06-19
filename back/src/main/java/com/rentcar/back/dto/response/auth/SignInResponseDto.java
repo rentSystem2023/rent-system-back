@@ -25,5 +25,4 @@ public class SignInResponseDto extends ResponseDto {
         SignInResponseDto responseBody = new SignInResponseDto(accessToken);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

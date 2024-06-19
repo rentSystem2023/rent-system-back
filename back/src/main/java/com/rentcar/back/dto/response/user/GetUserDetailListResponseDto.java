@@ -20,6 +20,7 @@ public class GetUserDetailListResponseDto extends ResponseDto {
 
     private GetUserDetailListResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.userId = userEntity.getUserId();
         this.nickName = userEntity.getNickName();
         this.userEmail = userEntity.getUserEmail();

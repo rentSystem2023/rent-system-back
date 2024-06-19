@@ -20,6 +20,7 @@ public class GetCompanyListResponseDto extends ResponseDto {
 
     private GetCompanyListResponseDto(List<CompanyEntity> companyEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.companyList = CompanyListItem.getList(companyEntities);
     }
 
@@ -28,5 +29,4 @@ public class GetCompanyListResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 
     }
-
 }

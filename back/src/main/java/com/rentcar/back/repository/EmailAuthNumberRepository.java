@@ -11,5 +11,4 @@ public interface EmailAuthNumberRepository extends JpaRepository<EmailAuthNumber
     boolean existsByEmailAndAuthNumber (String email, String authNumber);
 
     EmailAuthNumberEntity findByEmail (String email);
-
 }

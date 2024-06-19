@@ -20,6 +20,7 @@ public class GetSearchQnaBoardListResponseDto extends ResponseDto{
 
     private GetSearchQnaBoardListResponseDto (List<QnaBoardEntity> qnaBoardEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.qnaList = QnaListItem.getList(qnaBoardEntities);
     }
 

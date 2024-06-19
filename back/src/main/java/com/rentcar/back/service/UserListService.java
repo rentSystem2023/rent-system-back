@@ -20,5 +20,4 @@ public interface UserListService {
 
     // 관리자페이지 회원 관리 회원 상세 보기
     ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList(String userId);
-
-}
+}  

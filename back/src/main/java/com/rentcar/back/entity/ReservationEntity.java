@@ -43,8 +43,8 @@ public class ReservationEntity {
 public ReservationEntity(PostReservationRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         String reservationDate = simpleDateFormat.format(now);
+
         this.insuranceType = dto.getInsuranceType();
         this.reservationDate = reservationDate;
         this.reservationState = "reservationComplete";
@@ -62,12 +62,10 @@ public ReservationEntity(PostReservationRequestDto dto, String userId) {
     // 예약 취소 승인(예약상태 변경)
     public void update(PatchReservationCancelRequestDto dto) {         
         this.reservationState = dto.getReservationState();
-        // this.reservationState = "cancelComplete";
     }
 
     // 예약 승인(예약상태 변경)
     public void update(PatchReservationApproveRequestDto dto) {         
         this.reservationState = dto.getReservationState();
     }
-
 }

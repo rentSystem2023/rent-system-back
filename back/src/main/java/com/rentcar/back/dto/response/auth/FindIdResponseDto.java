@@ -8,6 +8,9 @@ import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.ResponseMessage;
 import com.rentcar.back.entity.UserEntity;
 
+import lombok.Getter;
+
+@Getter
 public class FindIdResponseDto extends ResponseDto {
     
     private String userId;

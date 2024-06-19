@@ -23,6 +23,7 @@ public class GetMyInfoResponseDto extends ResponseDto {
 
     private GetMyInfoResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+
         this.userId = userEntity.getUserId();
         this.userPassword = userEntity.getUserPassword();
         this.nickName = userEntity.getNickName();
@@ -36,5 +37,4 @@ public class GetMyInfoResponseDto extends ResponseDto {
         GetMyInfoResponseDto responseBody = new GetMyInfoResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

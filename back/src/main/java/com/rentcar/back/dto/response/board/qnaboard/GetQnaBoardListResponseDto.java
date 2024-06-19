@@ -20,6 +20,7 @@ public class GetQnaBoardListResponseDto extends ResponseDto {
 
     private GetQnaBoardListResponseDto (List<QnaBoardEntity> qnaBoardEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.qnaList = QnaListItem.getList(qnaBoardEntities);
     }
 

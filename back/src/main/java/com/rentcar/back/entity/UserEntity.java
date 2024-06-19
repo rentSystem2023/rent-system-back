@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordResetRequestDto;
 import com.rentcar.back.dto.request.auth.SignUpRequestDto;
 import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.request.user.PutEmailModifyRequestDto;
@@ -70,7 +70,7 @@ public class UserEntity {
         this.nickName = dto.getNickName();
     }
 
-    public void findPassword(FindPwResetRequestDto dto){
+    public void findPassword(FindPasswordResetRequestDto dto){
         this.userPassword = dto.getUserPassword();
     }
 
@@ -81,7 +81,5 @@ public class UserEntity {
     public void emailModify(PutEmailModifyRequestDto dto){
         this.userEmail = dto.getUserEmail();
     }
-
-
 }
 

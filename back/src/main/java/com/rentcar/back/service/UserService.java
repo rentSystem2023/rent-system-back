@@ -28,6 +28,5 @@ public interface UserService {
 
     // 회원 탈퇴하기
     ResponseEntity<ResponseDto> deleteMyInfo(String userId);
-
 }
 
