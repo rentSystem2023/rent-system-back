@@ -107,7 +107,14 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "R.reservation_start as reservationStart, " +
         "R.reservation_end as reservationEnd, " +
         "R.user_id as userId, " +
-        "R.reservation_state as reservationState " +
+        "R.reservation_state as reservationState, " +
+        "R.insurance_type AS insuranceType, " +
+        "CASE " +
+        "WHEN R.insurance_type = 'normal' THEN CC.normal_price * DATEDIFF(R.reservation_end, R.reservation_start) " +
+        "WHEN R.insurance_type = 'luxury' THEN CC.luxury_price * DATEDIFF(R.reservation_end, R.reservation_start) " +
+        "WHEN R.insurance_type = 'super' THEN CC.super_price * DATEDIFF(R.reservation_end, R.reservation_start) " +
+        "ELSE NULL " +
+        "END AS insurancePrice " +
         "FROM reservation R " +
         "INNER JOIN user U ON R.user_id = U.user_id " +
         "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +

@@ -9,4 +9,6 @@ public interface GetReservationDetailResultSet {
     String getReservationEnd();
     String getUserId();
     String getReservationState();
+    String getInsuranceType();
+    Integer getInsurancePrice();
 }
