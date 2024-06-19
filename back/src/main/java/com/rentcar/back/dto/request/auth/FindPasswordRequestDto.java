@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FindPwRequestDto {
+public class FindPasswordRequestDto {
     
     @NotNull
     private String userId;
