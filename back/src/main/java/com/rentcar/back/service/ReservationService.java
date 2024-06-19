@@ -59,9 +59,6 @@ public interface ReservationService {
         // 인기 차량 리스트 불러오기
         ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList();
 
-        // // 인기 차량 리스트 불러오기2
-        // ResponseEntity<? super GetReservationPopularCarListResponseDto> getReservationPopularCarList();
-
         // 차량 검색 결과 불러오기
         ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String reservationStart, String reservationEnd);
 

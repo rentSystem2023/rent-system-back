@@ -18,22 +18,22 @@ public class NoticeListItem {
 
     private NoticeListItem(NoticeBoardEntity noticeBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(noticeBoardEntity.getWriteDatetime());
-        
+
         this.registNumber = noticeBoardEntity.getRegistNumber();
         this.title = noticeBoardEntity.getTitle();
         this.writeDatetime = writeDatetime;
         this.viewCount = noticeBoardEntity.getViewCount();
-        this.writerId =noticeBoardEntity.getWriterId();
+        this.writerId = noticeBoardEntity.getWriterId();
     }
 
     public static List<NoticeListItem> getList(List<NoticeBoardEntity> noticeBoardEntities) throws Exception {
-       List<NoticeListItem> noticeList = new ArrayList<>();
-       
-       for (NoticeBoardEntity noticeBoardEntity: noticeBoardEntities) {
+        List<NoticeListItem> noticeList = new ArrayList<>();
+
+        for (NoticeBoardEntity noticeBoardEntity : noticeBoardEntities) {
             NoticeListItem noticeListItem = new NoticeListItem(noticeBoardEntity);
             noticeList.add(noticeListItem);
-       }
+        }
 
-       return noticeList;
+        return noticeList;
     }
 }

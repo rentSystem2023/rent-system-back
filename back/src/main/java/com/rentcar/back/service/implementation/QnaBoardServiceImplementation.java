@@ -30,15 +30,14 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
     private final QnaBoardRepository qnaBoardRepository;
     private final UserRepository userRepository;
 
-// Q&A 작성하기
+// 문의사항 작성하기
 @Override
 public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId) {
     try {
-        // 사용자 존재 여부 확인
+
         boolean isExistUser = userRepository.existsById(userId);
         if (!isExistUser) return ResponseDto.authenticationFailed();
 
-        // Q&A 게시글 생성 및 저장
         QnaBoardEntity qnaBoardEntity = new QnaBoardEntity(dto, userId);
         qnaBoardRepository.save(qnaBoardEntity);
 
@@ -49,7 +48,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
 
     return ResponseDto.success();
 }
-    // Q&A 전체 게시물 리스트 불러오기
+    // 문의사항 전체 게시물 리스트 불러오기
     @Override
     public ResponseEntity<? super GetQnaBoardListResponseDto> getQnaBoardList() {
 
@@ -65,7 +64,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         
     }
 
-    // Q&A 검색 게시물 리스트 불러오기
+    // 문의사항 검색 게시물 리스트 불러오기
     @Override
     public ResponseEntity<? super GetSearchQnaBoardListResponseDto> getSearchQnaBoardList(String searchWord) {
 
@@ -80,7 +79,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         }
     }
 
-    // Q&A 게시물 불러오기
+    // 문의사항 게시물 불러오기
     @Override
     public ResponseEntity<? super GetQnaBoardResponseDto> getQnaBoard(int receptionNumber) {
 
@@ -97,7 +96,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         }
     }
 
-    // Q&A 게시물 조회수 증가
+    // 문의사항 게시물 조회수 증가
     @Override
     public ResponseEntity<ResponseDto> increaseViewCount(int receptionNumber) {
 
@@ -117,7 +116,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         return ResponseDto.success();
     }
 
-    // Q&A 답글 작성
+    // 문의사항 답글 작성
     @Override
     public ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, int receptionNumber) {
 
@@ -143,7 +142,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         return ResponseDto.success();
     }
 
-    // Q&A 게시물 삭제하기
+    // 문의사항 게시물 삭제하기
     @Override
     public ResponseEntity<ResponseDto> deleteQnaBoard(int receptionNumber, String userId) {
         
@@ -166,7 +165,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         return ResponseDto.success();
     }
 
-    // Q&A 수정하기
+    // 문의사항 수정하기
     @Override
     public ResponseEntity<ResponseDto> putQnaBoard(PutQnaBoardRequsetDto dto, int receptionNumber, String userId) {
 
@@ -196,7 +195,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
     }
 
 
-    // 나의 Q&A 리스트 불러오기
+    // 나의 문의사항 리스트 불러오기
     @Override
     public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList(String writerId) {
         try {
@@ -212,7 +211,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
         
     }
 
-    // 나의 Q&A 검색 리스트 찾기
+    // 나의 문의사항 검색 리스트 찾기
     @Override
     public ResponseEntity<? super  GetSearchQnaBoardMyListResponseDto> getSearchQnaBoardMyList(String searchWord) {
         

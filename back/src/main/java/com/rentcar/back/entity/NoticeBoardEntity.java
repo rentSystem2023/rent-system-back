@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name="noticeBoard")
-@Table(name="noticeBoard")
+@Table(name="notice_board")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -178,7 +178,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
             // 예약상태가 cancel 상태인지 확인
             String reservationState = reservationEntity.getReservationState();
-            boolean isCancel = "cancel".equals(reservationState);
+            boolean isCancel = "watingCancel".equals(reservationState);
             if (!isCancel) return ResponseDto.noCancelState();
 
             reservationEntity.update(dto);
@@ -186,7 +186,7 @@ public class ReservationServiceImplementation implements ReservationService {
             reservationRepository.save(reservationEntity);
 
         } catch (Exception exception) {
-            exception.printStackTrace();;
+            exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         

@@ -22,18 +22,18 @@ public class ImageContorller {
 
     private final TestService testService;
 
+    // 파일 업로드
     @PostMapping("/upload")
     public String upload(
-        @RequestParam("file") MultipartFile file
-    ){
+            @RequestParam("file") MultipartFile file) {
         String url = testService.upload(file);
         return url;
     }
- 
-    @GetMapping(value="/file/{fileName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+
+    // 파일 다운로드
+    @GetMapping(value = "/file/{fileName}", produces = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
     public Resource getFile(
-        @PathVariable("fileName") String fileName
-    ){
+            @PathVariable("fileName") String fileName) {
         Resource resource = testService.getFile(fileName);
         return resource;
     }

@@ -12,6 +12,7 @@ import com.rentcar.back.dto.response.ResponseMessage;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 
 import lombok.Getter;
+
 @Getter
 public class GetReservationMyListResponseDto extends ResponseDto {
 

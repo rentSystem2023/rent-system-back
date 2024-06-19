@@ -23,7 +23,6 @@ public class QnaListItem {
     private QnaListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(qnaBoardEntity.getWriteDatetime());
 
-
         this.receptionNumber = qnaBoardEntity.getReceptionNumber();
         this.status = qnaBoardEntity.getStatus();
         this.title = qnaBoardEntity.getTitle();
@@ -37,8 +36,8 @@ public class QnaListItem {
 
     public static List<QnaListItem> getList(List<QnaBoardEntity> qnaBoardEntities) throws Exception {
         List<QnaListItem> qnaList = new ArrayList<>();
-    
-        for (QnaBoardEntity qnaBoardEntity: qnaBoardEntities) {
+
+        for (QnaBoardEntity qnaBoardEntity : qnaBoardEntities) {
             QnaListItem boardListItem = new QnaListItem(qnaBoardEntity);
             qnaList.add(boardListItem);
         }
