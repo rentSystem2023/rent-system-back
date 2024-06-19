@@ -20,6 +20,7 @@ public class GetSearchReservationCarListResponseDto extends ResponseDto {
 
     private GetSearchReservationCarListResponseDto(List<GetSearchReservationResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.reservationCarList = ReservationCarListItem.getList(resultSets);
     }
     public static ResponseEntity<GetSearchReservationCarListResponseDto> success (List<GetSearchReservationResultSet> resultSets) throws Exception {

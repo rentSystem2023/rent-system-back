@@ -20,6 +20,7 @@ public class GetSearchCompanyListResponseDto extends ResponseDto{
 
     private GetSearchCompanyListResponseDto (List<CompanyEntity> CompanyEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.companyList = CompanyListItem.getList(CompanyEntities);
     }
 

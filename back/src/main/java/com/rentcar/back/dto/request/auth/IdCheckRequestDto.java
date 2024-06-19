@@ -11,5 +11,4 @@ public class IdCheckRequestDto {
 
     @NotBlank
     private String userId;
-
 }

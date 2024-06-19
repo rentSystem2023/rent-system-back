@@ -54,7 +54,7 @@ public class NoticeBoardEntity {
     }
 
     // 게시물 수정
-    public void update(PutNoticeBoardRequestDto dto) {         
+    public void update(PutNoticeBoardRequestDto dto) {        
         this.title = dto.getTitle();
         this.contents = dto.getContents();
         this.imageUrl = dto.getImageUrl();

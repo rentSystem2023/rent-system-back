@@ -12,6 +12,7 @@ import lombok.Getter;
 
 @Getter
 public class GetSearchReservationDetailListResponseDto extends ResponseDto {
+    
     private String carName;
     private String carImageUrl;
     private String carYear;
@@ -35,6 +36,7 @@ public class GetSearchReservationDetailListResponseDto extends ResponseDto {
 
     private GetSearchReservationDetailListResponseDto (GetSearchReservationDetailResultSet resultSet) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+
         this.carName = resultSet.getCarName();
         this.carImageUrl = resultSet.getCarImageUrl();
         this.carYear = resultSet.getCarYear();

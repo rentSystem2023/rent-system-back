@@ -20,6 +20,7 @@ public class GetNoticeBoardListResponseDto extends ResponseDto {
 
     private GetNoticeBoardListResponseDto (List<NoticeBoardEntity> NoticeBoardEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.noticeList = NoticeListItem.getList(NoticeBoardEntities);
     }
 

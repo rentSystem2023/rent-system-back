@@ -14,12 +14,12 @@ import lombok.Getter;
 @Getter
 public class GetSignInUserResponseDto extends ResponseDto{
 
-
     private String userId;
     private String userRole;
 
     private GetSignInUserResponseDto(UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+
         this.userId = userEntity.getUserId();
         this.userRole = userEntity.getUserRole();
 

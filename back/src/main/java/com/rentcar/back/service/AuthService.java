@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import com.rentcar.back.dto.request.auth.EmailAuthCheckRequestDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
 import com.rentcar.back.dto.request.auth.FindIdRequestDto;
-import com.rentcar.back.dto.request.auth.FindPwRequestDto;
-import com.rentcar.back.dto.request.auth.FindPwResetRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordRequestDto;
+import com.rentcar.back.dto.request.auth.FindPasswordResetRequestDto;
 import com.rentcar.back.dto.request.auth.IdCheckRequestDto;
 import com.rentcar.back.dto.request.auth.NickNameCheckRequestDto;
 import com.rentcar.back.dto.request.auth.SignInRequestDto;
@@ -39,11 +39,8 @@ public interface AuthService {
     ResponseEntity<? super FindIdResponseDto> FindId (FindIdRequestDto dto);
 
     // 비밀번호 찾기
-    ResponseEntity<ResponseDto> findPassword (FindPwRequestDto dto);
+    ResponseEntity<ResponseDto> findPassword (FindPasswordRequestDto dto);
 
     // 비밀번호 변경
-    ResponseEntity<ResponseDto> findPasswordReset (FindPwResetRequestDto dto, String userId);
-
-
-    
+    ResponseEntity<ResponseDto> findPasswordReset (FindPasswordResetRequestDto dto, String userId);
 }

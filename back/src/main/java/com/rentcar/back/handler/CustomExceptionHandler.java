@@ -29,5 +29,4 @@ public class CustomExceptionHandler {
         exception.printStackTrace();
         return ResponseDto.notFound();
     }
-
 }

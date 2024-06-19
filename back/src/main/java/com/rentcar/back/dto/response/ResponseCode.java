@@ -12,6 +12,7 @@ package com.rentcar.back.dto.response;
 
 // Response의 공통된 code 값
 public interface ResponseCode {
+    
     String SUCCESS = "SU";
     String VALIDATION_FAILED = "VF";
     String DUPLICATED_ID = "DI";

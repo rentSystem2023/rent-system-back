@@ -21,6 +21,7 @@ public class GetReservationCancelListResponseDto extends ResponseDto {
 
     private GetReservationCancelListResponseDto(List<ReservationEntity> reservationEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.reservationCancelList = ReservationCancelListItem.getList(reservationEntities);
     }
 

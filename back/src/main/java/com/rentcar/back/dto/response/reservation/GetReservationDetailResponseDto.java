@@ -12,6 +12,7 @@ import lombok.Getter;
 
 @Getter
 public class GetReservationDetailResponseDto extends ResponseDto {
+    
     private Integer reservationCode;
     private String rentCompany;
     private String carName;
@@ -25,6 +26,7 @@ public class GetReservationDetailResponseDto extends ResponseDto {
 
     private GetReservationDetailResponseDto (GetReservationDetailResultSet resultSet) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+
         this.reservationCode = resultSet.getReservationCode();
         this.rentCompany = resultSet.getRentCompany();
         this.carName = resultSet.getCarName();

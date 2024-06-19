@@ -20,6 +20,7 @@ public class GetReservationUserListResponseDto extends ResponseDto {
 
     private GetReservationUserListResponseDto(List<GetAllUserReservationResultSet> resultSets) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.reservationUserList = ReservationUserListItem.getList(resultSets);
     }
     public static ResponseEntity<GetReservationUserListResponseDto> success (List<GetAllUserReservationResultSet> resultSets) throws Exception {

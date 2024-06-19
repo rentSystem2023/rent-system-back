@@ -12,6 +12,7 @@ package com.rentcar.back.dto.response;
 
 // Response의 공통된 message 값
 public interface ResponseMessage {
+    
     String SUCCESS = "Success.";
     String VALIDATION_FAILED = "Validation Failed.";
     String DUPLICATED_ID = "Duplicated Id.";

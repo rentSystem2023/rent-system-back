@@ -17,6 +17,7 @@ public class PostReservatioResponseDto extends ResponseDto {
 
     private PostReservatioResponseDto (KakaoReady kakaoReady) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.redirectUrl = kakaoReady.getNext_redirect_pc_url();
     }
 

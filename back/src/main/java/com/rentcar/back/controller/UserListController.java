@@ -60,5 +60,4 @@ public class UserListController {
         ResponseEntity<? super GetSearchUserListResponseDto> response = userListService.getSearchUserList(searchWord);
         return response;
     }
-    
 }
