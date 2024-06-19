@@ -40,8 +40,8 @@ public interface QnaBoardService {
     // 문의사항 삭제하기
     ResponseEntity<ResponseDto> deleteQnaBoard(int receptionNumber, String userId);
 
-    // 문의사항 나의 리스트 보기
-    ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList();
+    //QnA MyList
+    ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList(String userId);
 
     // 문의사항 나의 리스트 검색하기
     ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchQnaBoardMyList(String searchWord);
