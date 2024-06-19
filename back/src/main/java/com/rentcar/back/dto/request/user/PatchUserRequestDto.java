@@ -14,5 +14,4 @@ public class PatchUserRequestDto {
     private String userPassword;
     @NotBlank
     private String nickName;
-
 }
