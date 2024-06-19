@@ -9,9 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-
-// 예약 하기
 public class PostReservationRequestDto  {
+
     @NotBlank
     private String insuranceType;
     @NotBlank
@@ -20,7 +19,6 @@ public class PostReservationRequestDto  {
     private String reservationEnd;
     @NotNull
     private Integer companyCarCode;
-
 }
 
 

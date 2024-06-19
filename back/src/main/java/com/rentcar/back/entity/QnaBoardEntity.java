@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "qnaBoard")
-@Table(name = "qnaBoard")
+@Table(name = "qna_board")
 @Getter
 @Setter
 @NoArgsConstructor

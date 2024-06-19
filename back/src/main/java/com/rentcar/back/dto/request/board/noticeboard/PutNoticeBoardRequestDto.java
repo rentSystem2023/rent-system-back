@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PutNoticeBoardRequestDto {
+    
     @NotBlank
     private String title;
     @NotBlank
