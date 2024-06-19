@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.rentcar.back.dto.response.user.GetSignInUserResponseDto;
 import com.rentcar.back.dto.response.user.GetUserDetailListResponseDto;
 import com.rentcar.back.dto.request.auth.EmailAuthRequestDto;
-import com.rentcar.back.dto.request.user.PatchUserRequestDto;
 import com.rentcar.back.dto.request.user.PutEmailModifyRequestDto;
 import com.rentcar.back.dto.request.user.PutPwModifyRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;

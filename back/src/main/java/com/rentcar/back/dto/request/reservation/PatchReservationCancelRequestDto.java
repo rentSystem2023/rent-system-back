@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PatchReservationCancelRequestDto {
+    
     @NotBlank
     private String reservationState;
 }
