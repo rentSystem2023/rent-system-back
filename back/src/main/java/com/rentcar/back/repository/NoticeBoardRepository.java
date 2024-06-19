@@ -11,7 +11,9 @@ import com.rentcar.back.entity.NoticeBoardEntity;
 public interface NoticeBoardRepository extends JpaRepository <NoticeBoardEntity, Integer> {
     
     List<NoticeBoardEntity> findByOrderByRegistNumberDesc();
+
     List<NoticeBoardEntity> findByTitleContainsOrderByRegistNumberDesc(String title);
+    
     NoticeBoardEntity findByRegistNumber(Integer registNumber);
 
 

@@ -12,11 +12,13 @@ import java.util.List;
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer> {
     
     List<CompanyEntity> findByOrderByRegistDateDesc();
+
     CompanyEntity findByCompanyCode(Integer companyCode);
 
     List<CompanyEntity> findByRentCompanyContainsOrderByRegistDateDesc(String rentCompany);
 
     boolean existsByAddress(String address);
+    
     boolean existsByRentCompany(String rentCompany);
 }
 
