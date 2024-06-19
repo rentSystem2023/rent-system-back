@@ -11,7 +11,9 @@ import com.rentcar.back.entity.QnaBoardEntity;
 public interface QnaBoardRepository extends JpaRepository <QnaBoardEntity, Integer> {
     
     List<QnaBoardEntity> findByOrderByReceptionNumberDesc();
+
     List<QnaBoardEntity> findByTitleContainsOrderByReceptionNumberDesc(String title);
+    
     QnaBoardEntity findByReceptionNumber(Integer receptionNumber);
 
 

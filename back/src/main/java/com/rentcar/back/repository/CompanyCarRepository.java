@@ -7,7 +7,9 @@ import com.rentcar.back.entity.CompanyCarEntity;
 
 
 public interface CompanyCarRepository extends JpaRepository<CompanyCarEntity, Integer> {
+    
     boolean existsByCompanyCarCode(Integer companyCarCode);
+    
     CompanyCarEntity findByCompanyCarCode(Integer companyCarCode);
 }
 
