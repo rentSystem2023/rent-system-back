@@ -1,11 +1,19 @@
 package com.rentcar.back.service.implementation;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.rentcar.back.common.object.KakaoReady;
+import com.rentcar.back.common.util.KaKaopayUtil;
 import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
 import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
 import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
@@ -21,6 +29,7 @@ import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResp
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
+import com.rentcar.back.dto.response.reservation.PostReservatioResponseDto;
 import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.CompanyCarEntity;
 import com.rentcar.back.entity.ReservationEntity;
@@ -51,9 +60,11 @@ public class ReservationServiceImplementation implements ReservationService {
     private final CarRepository carRepository;
     private final CompanyRepository companyRepository;
 
+    private final KaKaopayUtil kaKaopayUtil;
+
     // 예약하기
     @Override
-    public ResponseEntity<ResponseDto> postReservationBoard(PostReservationRequestDto dto, String userId) {
+    public ResponseEntity<? super PostReservatioResponseDto> postReservation(PostReservationRequestDto dto, String userId) {
 
         try {
             boolean isExistUser = userRepository.existsById(userId);
@@ -76,7 +87,10 @@ public class ReservationServiceImplementation implements ReservationService {
                 }
             }
 
-            return ResponseDto.success();
+            Integer reservationCode = reservationEntity.getReservationCode();
+            KakaoReady kakaoReady =  kaKaopayUtil.prepareKakaoPayment(dto, reservationCode);
+
+            return PostReservatioResponseDto.success(kakaoReady);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -387,6 +401,5 @@ public class ReservationServiceImplementation implements ReservationService {
             return ResponseDto.databaseError();
         }
     }
-
 
 }
