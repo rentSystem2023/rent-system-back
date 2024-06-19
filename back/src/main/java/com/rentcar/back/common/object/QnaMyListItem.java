@@ -15,19 +15,19 @@ public class QnaMyListItem {
     private Boolean status;
     private String title;
     private String writerId;
+    private String category;
     private String writeDatetime;
     private Integer viewCount;
 
     private QnaMyListItem(QnaBoardEntity qnaBoardEntity) throws Exception {
+        
         String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(qnaBoardEntity.getWriteDatetime());
-
-        String writerId = qnaBoardEntity.getWriterId();
-        writerId = writerId.substring(0, 1) + "*".repeat(writerId.length() - 1);
 
         this.receptionNumber = qnaBoardEntity.getReceptionNumber();
         this.status = qnaBoardEntity.getStatus();
         this.title = qnaBoardEntity.getTitle();
-        this.writerId = writerId;
+        this.writerId = qnaBoardEntity.getWriterId();
+        this.category = qnaBoardEntity.getCategory();
         this.writeDatetime = writeDatetime;
         this.viewCount = qnaBoardEntity.getViewCount();
     }

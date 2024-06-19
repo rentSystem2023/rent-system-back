@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/rentcar/user/list")
+@RequestMapping("/api/rentcar/user")
 @RequiredArgsConstructor
 public class UserListController {
 
     private final UserService userService;
 
     // 관리자의 회원목록 리스트
-    @GetMapping("/")
+    @GetMapping("/list")
     public ResponseEntity<? super GetUserListResponseDto> getUserList (
         @AuthenticationPrincipal String userId
     ){
@@ -35,7 +35,7 @@ public class UserListController {
     }
 
     // 회원관리 상세보기
-    @GetMapping("/{userId}")
+    @GetMapping("/list/{userId}")
     public ResponseEntity<? super GetUserDetailListResponseDto> getUserDetailList (
         @PathVariable("userId") String userId
     ) {
@@ -44,7 +44,7 @@ public class UserListController {
     }
 
     // 회원 삭제하기
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/list/{userId}")
     public ResponseEntity<ResponseDto> deleteUserList (
         @PathVariable("userId") String userId
     ) {
@@ -53,7 +53,7 @@ public class UserListController {
     }
 
     // 회원 검색하기
-    @GetMapping("/search")
+    @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
         @RequestParam("word") String searchWord
     ) {

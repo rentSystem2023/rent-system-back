@@ -14,9 +14,6 @@ public interface QnaBoardRepository extends JpaRepository <QnaBoardEntity, Integ
 
     List<QnaBoardEntity> findByWriterIdOrderByReceptionNumberDesc(String writerId);
 
-    // Contains / Containing / IsContaining = LIKE '%word%'
-    // StartingWith => LIKE 'word%'
-    // EndingWith => LIKE '%word'
     List<QnaBoardEntity> findByTitleContainsOrderByReceptionNumberDesc(String title);
     
     QnaBoardEntity findByReceptionNumber(Integer receptionNumber);
