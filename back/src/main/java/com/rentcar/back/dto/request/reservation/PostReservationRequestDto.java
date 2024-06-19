@@ -19,6 +19,8 @@ public class PostReservationRequestDto  {
     private String reservationEnd;
     @NotNull
     private Integer companyCarCode;
+    @NotNull
+    private Integer price;
 }
 
 

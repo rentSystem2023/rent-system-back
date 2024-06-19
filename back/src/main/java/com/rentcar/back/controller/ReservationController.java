@@ -27,6 +27,7 @@ import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResp
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
+import com.rentcar.back.dto.response.reservation.PostReservatioResponseDto;
 import com.rentcar.back.service.ReservationService;
 
 import jakarta.validation.Valid;
@@ -41,11 +42,11 @@ public class ReservationController {
 
     // 예약 하기
     @PostMapping("/regist")
-    ResponseEntity<ResponseDto> postReservationBoard (
+    ResponseEntity<? super PostReservatioResponseDto> postReservation (
         @RequestBody @Valid PostReservationRequestDto requestBody, 
         @AuthenticationPrincipal String userId
     ){
-        ResponseEntity<ResponseDto> response = reservationService.postReservationBoard(requestBody, userId);
+        ResponseEntity<? super PostReservatioResponseDto> response = reservationService.postReservation(requestBody, userId);
         return response;
     }
 
