@@ -27,60 +27,62 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/rentcar/company")
 @RequiredArgsConstructor
 public class CompanyController {
-    
+
     private final CompanyService companyService;
 
-    // companyList 불러오기
+    // 업체리스트 불러오기
     @GetMapping("/list")
-    public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList () {
+    public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList(
+    ){
         ResponseEntity<? super GetCompanyListResponseDto> response = companyService.getCompanyList();
         return response;
     }
 
-    // company 상세 불러오기
+    // 업체 상세 정보 불러오기
     @GetMapping("/list/{companyCode}")
-    public ResponseEntity<? super GetCompanyDetailResponseDto> getCompanyDetail (
-        @PathVariable("companyCode") int companyCode
-    ) {
+    public ResponseEntity<? super GetCompanyDetailResponseDto> getCompanyDetail(
+            @PathVariable("companyCode") int companyCode
+    ){
         ResponseEntity<? super GetCompanyDetailResponseDto> response = companyService.getCompanyDetail(companyCode);
         return response;
     }
 
-    // company 검색 불러오기
+    // 업체 검색하기
     @GetMapping("/list/search")
-    public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList (
-        @RequestParam("word") String searchWord
-    ) {
-        ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService.getSearchCompanyList(searchWord);
+    public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList(
+            @RequestParam("word") String searchWord
+    ){
+        ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService
+                .getSearchCompanyList(searchWord);
         return response;
     }
 
-    // company 등록하기
+    // 업체 등록하기
     @PostMapping("/regist")
-    ResponseEntity<ResponseDto> postCompany (
-        @RequestBody @Valid PostCompanyRequestDto requestBody,
-        @AuthenticationPrincipal String userId
-    ) {
+    ResponseEntity<ResponseDto> postCompany(
+            @RequestBody @Valid PostCompanyRequestDto requestBody,
+            @AuthenticationPrincipal String userId
+    ){
         ResponseEntity<ResponseDto> response = companyService.postCompany(requestBody, userId);
         return response;
     }
 
-    // company 수정하기
+    // 업체 수정하기
     @PutMapping("/{companyCode}")
-    ResponseEntity<ResponseDto> putCompany (
-        @RequestBody @Valid PutCompanyRequestDto requestBody,
-        @PathVariable("companyCode") int companyCode,
-        @AuthenticationPrincipal String userId
-    ) {
+    ResponseEntity<ResponseDto> putCompany(
+            @RequestBody @Valid PutCompanyRequestDto requestBody,
+            @PathVariable("companyCode") int companyCode,
+            @AuthenticationPrincipal String userId
+    ){
         ResponseEntity<ResponseDto> response = companyService.putCompany(requestBody, companyCode, userId);
         return response;
     }
-    
-    // company 삭제하기
+
+    // 업체 삭제하기
     @DeleteMapping("/{companyCode}")
     public ResponseEntity<ResponseDto> deleteCompany(
-        @PathVariable("companyCode") int companyCode,
-        @AuthenticationPrincipal String userId
+            @PathVariable("companyCode") int companyCode,
+            @AuthenticationPrincipal String userId
     ){
         ResponseEntity<ResponseDto> response = companyService.deleteCompany(companyCode, userId);
         return response;

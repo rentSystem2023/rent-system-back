@@ -15,22 +15,22 @@ public class UserListItem {
     private String joinDate;
 
     private UserListItem(UserEntity userEntity) throws Exception {
-        
+
         this.userId = userEntity.getUserId();
         this.nickName = userEntity.getNickName();
         this.userEmail = userEntity.getUserEmail();
         this.joinDate = userEntity.getJoinDate();
     }
 
-    public static List<UserListItem> getList (List<UserEntity> userEntities) throws Exception {
+    public static List<UserListItem> getList(List<UserEntity> userEntities) throws Exception {
         List<UserListItem> userList = new ArrayList<>();
 
-        for (UserEntity userEntity: userEntities) {
+        for (UserEntity userEntity : userEntities) {
             UserListItem userListItem = new UserListItem(userEntity);
             userList.add(userListItem);
         }
         return userList;
-    
+
     }
 
 }

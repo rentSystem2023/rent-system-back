@@ -1,6 +1,6 @@
 package com.rentcar.back.controller;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,34 +25,36 @@ import com.rentcar.back.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-// Auth 모듈 컨트롤러 : /api/rentcar/auth
-@RestController // JSON 형태의 리스폰스를 반환하려고 할 때 사용
+@RestController
 @RequestMapping("/api/rentcar/auth")
-@RequiredArgsConstructor // AuthService 의존성 주입을 위해 작업
+@RequiredArgsConstructor
 public class AuthController {
 
-    // AuthService 의존성
     private final AuthService authService;
 
+    // 로그인
     @PostMapping("/sign-in")
-    // responsedto , signinresponsedto 둘다 들어올 수 있음 <>
     public ResponseEntity<? super SignInResponseDto> signIn(
-        @RequestBody @Valid SignInRequestDto requestBody
+            @RequestBody @Valid SignInRequestDto requestBody
     ){
         ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
         return response;
     }
 
+    // 아이디 중복 확인
     @PostMapping("/id-check")
-    public ResponseEntity<ResponseDto> idCheck( // 클라이언트에게 응답을 보낼때 사용하는 ResponseEntity<ResponseDto>
-            @RequestBody @Valid IdCheckRequestDto requestBody) { // valid 유효성검사하는 기본 패키지
+    public ResponseEntity<ResponseDto> idCheck(
+            @RequestBody @Valid IdCheckRequestDto requestBody
+    ){
         ResponseEntity<ResponseDto> response = authService.idCheck(requestBody);
         return response;
     }
 
+    // 닉네임 중복 확인
     @PostMapping("/nickname-check")
     public ResponseEntity<ResponseDto> nickNameCheck(
-            @RequestBody @Valid NickNameCheckRequestDto requestBody) {
+            @RequestBody @Valid NickNameCheckRequestDto requestBody
+    ){
         ResponseEntity<ResponseDto> response = authService.nickNameCheck(requestBody);
         return response;
     }
@@ -60,26 +62,27 @@ public class AuthController {
     // 이메일 인증
     @PostMapping("/email-auth")
     public ResponseEntity<ResponseDto> emailAuth(
-            @RequestBody @Valid EmailAuthRequestDto requestBody) {
+            @RequestBody @Valid EmailAuthRequestDto requestBody
+    ){
         ResponseEntity<ResponseDto> response = authService.emailAuth(requestBody);
         return response;
     }
 
     // 이메일 인증 확인
     @PostMapping("/email-auth-check")
-    // body의 형태가 responseDto
     public ResponseEntity<ResponseDto> emailAuthCheck(
-            // @RequestBody로 받기 위해 ,valid = 유효성 검사
-            @RequestBody @Valid EmailAuthCheckRequestDto requestBody) {
+            @RequestBody @Valid EmailAuthCheckRequestDto requestBody
+    ){
         ResponseEntity<ResponseDto> response = authService.emailAuthCheck(requestBody);
         return response;
     }
 
-    // 회원가입 (API명세서 보고 매핑 작성)
+    // 회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<ResponseDto> signUp(
             // @RequestBody로 받기 위해 ,valid = 유효성 검사
-            @RequestBody @Valid SignUpRequestDto requestBody) {
+            @RequestBody @Valid SignUpRequestDto requestBody
+    ){
         ResponseEntity<ResponseDto> response = authService.SignUp(requestBody);
         return response;
     }
@@ -87,8 +90,8 @@ public class AuthController {
     // 아이디 찾기
     @PostMapping("/find-id")
     public ResponseEntity<? super FindIdResponseDto> findId(
-        @RequestBody @Valid FindIdRequestDto requestBody
-    ) {
+            @RequestBody @Valid FindIdRequestDto requestBody
+    ){
         ResponseEntity<? super FindIdResponseDto> response = authService.FindId(requestBody);
         return response;
     }
@@ -96,20 +99,20 @@ public class AuthController {
     // 아이디 찾기
     @PostMapping("/find-password")
     public ResponseEntity<ResponseDto> findPassword(
-        @RequestBody @Valid FindPwRequestDto requestBody
-    ) {
+            @RequestBody @Valid FindPwRequestDto requestBody
+    ){
         ResponseEntity<ResponseDto> response = authService.findPassword(requestBody);
         return response;
     }
 
+    // 비밀번호 찾기
     @PutMapping("/find-password/{userId}")
     public ResponseEntity<ResponseDto> findPasswordReset(
-        @RequestBody @Valid FindPwResetRequestDto requestBody,
-        @PathVariable("userId") String userId
-    ) {
+            @RequestBody @Valid FindPwResetRequestDto requestBody,
+            @PathVariable("userId") String userId
+    ){
         ResponseEntity<ResponseDto> response = authService.findPasswordReset(requestBody, userId);
         return response;
     }
-
 
 }

@@ -32,15 +32,14 @@ public class QnaMyListItem {
         this.viewCount = qnaBoardEntity.getViewCount();
     }
 
-
-    public static List<QnaMyListItem> getList(List<QnaBoardEntity>qnaBoardEntities) throws Exception {
+    public static List<QnaMyListItem> getList(List<QnaBoardEntity> qnaBoardEntities) throws Exception {
         List<QnaMyListItem> qnaMyList = new ArrayList<>();
-        
-        for (QnaBoardEntity qnaBoardEntity: qnaBoardEntities) {
+
+        for (QnaBoardEntity qnaBoardEntity : qnaBoardEntities) {
             QnaMyListItem boardListItem = new QnaMyListItem(qnaBoardEntity);
             qnaMyList.add(boardListItem);
         }
 
         return qnaMyList;
-}
+    }
 }
