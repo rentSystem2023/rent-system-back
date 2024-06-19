@@ -36,7 +36,7 @@ public class NoticeBoardController {
     ResponseEntity<ResponseDto> postNoticeBoard (
         @RequestBody @Valid PostNoticeBoardRequestDto requestBody, 
         @AuthenticationPrincipal String userId
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = noticeBoardService.postNoticeBoard(requestBody, userId);
         return response;
     }
@@ -52,7 +52,7 @@ public class NoticeBoardController {
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchNoticeBoardListResponseDto> getSearchNoticeBoardList (
         @RequestParam("word") String word
-    ) {
+    ){
         ResponseEntity<? super GetSearchNoticeBoardListResponseDto> response = noticeBoardService.getSearchNoticeBoardList(word);
         return response;
     }   
@@ -61,7 +61,7 @@ public class NoticeBoardController {
     @GetMapping("/list/{registNumber}")
     public ResponseEntity<? super GetNoticeBoardResponseDto> getNoticeBoard (
         @PathVariable("registNumber") int registNumber
-    ) {
+    ){
         ResponseEntity<? super GetNoticeBoardResponseDto> response = noticeBoardService.getNoticeBoard(registNumber);
         return response;
     }
@@ -72,7 +72,7 @@ public class NoticeBoardController {
         @RequestBody @Valid PutNoticeBoardRequestDto requestBody,
         @PathVariable("registNumber") int registNumber,
         @AuthenticationPrincipal String userId
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = noticeBoardService.putNoticeBoard(requestBody, registNumber, userId);
         return response;
     }
@@ -81,7 +81,7 @@ public class NoticeBoardController {
     @PatchMapping("/{registNumber}/increase-view-count")
     public ResponseEntity<ResponseDto> increaseViewCount (
         @PathVariable("registNumber") int registNumber
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = noticeBoardService.increaseViewCount(registNumber);
         return response;
     }
@@ -91,7 +91,7 @@ public class NoticeBoardController {
     public ResponseEntity<ResponseDto> deleteNoticeBoard (
         @PathVariable("registNumber") int registNumber,
         @AuthenticationPrincipal String userId
-    ) {
+    ){
         ResponseEntity<ResponseDto> response = noticeBoardService.deleteNoticeBoard(registNumber, userId);
         return response;  
     }

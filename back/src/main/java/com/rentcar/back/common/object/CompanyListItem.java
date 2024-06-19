@@ -2,7 +2,6 @@ package com.rentcar.back.common.object;
 
 import com.rentcar.back.common.util.ChangeDateFormatUtil;
 import com.rentcar.back.entity.CompanyEntity;
-import com.rentcar.back.entity.QnaBoardEntity;
 
 import lombok.Getter;
 
@@ -21,7 +20,7 @@ public class CompanyListItem {
 
     private CompanyListItem(CompanyEntity companyEntity) throws Exception {
         String registDate = ChangeDateFormatUtil.registYYMMDD(companyEntity.getRegistDate());
-        
+
         this.companyCode = companyEntity.getCompanyCode();
         this.rentCompany = companyEntity.getRentCompany();
         this.address = companyEntity.getAddress();
@@ -29,13 +28,12 @@ public class CompanyListItem {
         this.companyTelnumber = companyEntity.getCompanyTelnumber();
         this.registDate = registDate;
         this.companyRule = companyEntity.getCompanyRule();
-
     }
 
     public static List<CompanyListItem> getList(List<CompanyEntity> companyEntities) throws Exception {
         List<CompanyListItem> companyList = new ArrayList<>();
-    
-        for (CompanyEntity companyEntity: companyEntities) {
+
+        for (CompanyEntity companyEntity : companyEntities) {
             CompanyListItem companyListItem = new CompanyListItem(companyEntity);
             companyList.add(companyListItem);
         }

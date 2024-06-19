@@ -19,7 +19,7 @@ public class ReservationListItem {
     private String reservationEnd;
     private String rentCompany;
 
-    public ReservationListItem (GetUserReservationResultSet resultSet) throws Exception {
+    public ReservationListItem(GetUserReservationResultSet resultSet) throws Exception {
         String reservationDate = ChangeDateFormatUtil.registYYMMDD(resultSet.getReservationDate());
         this.reservationState = resultSet.getReservationState();
         this.carImageUrl = resultSet.getCarImageUrl();
@@ -31,9 +31,9 @@ public class ReservationListItem {
         this.rentCompany = resultSet.getRentCompany();
     }
 
-    public static List<ReservationListItem> getList (List<GetUserReservationResultSet> resultSets) throws Exception {
+    public static List<ReservationListItem> getList(List<GetUserReservationResultSet> resultSets) throws Exception {
         List<ReservationListItem> reservationList = new ArrayList<>();
-        for (GetUserReservationResultSet resultSet: resultSets) {
+        for (GetUserReservationResultSet resultSet : resultSets) {
             ReservationListItem item = new ReservationListItem(resultSet);
             reservationList.add(item);
         }

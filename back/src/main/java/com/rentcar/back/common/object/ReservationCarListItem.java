@@ -15,8 +15,8 @@ public class ReservationCarListItem {
     private Integer luxuryPrice;
     private Integer superPrice;
 
-    public ReservationCarListItem (GetSearchReservationResultSet resultSet) throws Exception {
-        
+    public ReservationCarListItem(GetSearchReservationResultSet resultSet) throws Exception {
+
         this.carName = resultSet.getCarName();
         this.carImageUrl = resultSet.getCarImageUrl();
         this.normalPrice = resultSet.getNormalPrice();
@@ -24,9 +24,9 @@ public class ReservationCarListItem {
         this.superPrice = resultSet.getSuperPrice();
     }
 
-    public static List<ReservationCarListItem> getList (List<GetSearchReservationResultSet> resultSets) throws Exception {
+    public static List<ReservationCarListItem> getList(List<GetSearchReservationResultSet> resultSets)throws Exception {
         List<ReservationCarListItem> reservationCarList = new ArrayList<>();
-        for (GetSearchReservationResultSet resultSet: resultSets) {
+        for (GetSearchReservationResultSet resultSet : resultSets) {
             ReservationCarListItem item = new ReservationCarListItem(resultSet);
             reservationCarList.add(item);
         }

@@ -19,7 +19,7 @@ public class ReservationUserListItem {
     private String nickName;
     private String reservationState;
 
-    public ReservationUserListItem (GetAllUserReservationResultSet resultSet) throws Exception {
+    public ReservationUserListItem(GetAllUserReservationResultSet resultSet) throws Exception {
         this.reservationCode = resultSet.getReservationCode();
         this.rentCompany = resultSet.getRentCompany();
         this.carName = resultSet.getCarName();
@@ -31,15 +31,14 @@ public class ReservationUserListItem {
         this.reservationState = resultSet.getReservationState();
     }
 
-    public static List<ReservationUserListItem> getList (List<GetAllUserReservationResultSet> resultSets) throws Exception {
+    public static List<ReservationUserListItem> getList(List<GetAllUserReservationResultSet> resultSets)throws Exception {
         List<ReservationUserListItem> reservationUserList = new ArrayList<>();
-        for (GetAllUserReservationResultSet resultSet: resultSets) {
+        for (GetAllUserReservationResultSet resultSet : resultSets) {
             ReservationUserListItem item = new ReservationUserListItem(resultSet);
             reservationUserList.add(item);
         }
-        
+
         return reservationUserList;
     }
 
 }
-
