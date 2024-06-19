@@ -43,6 +43,7 @@ public class UserListController {
         return response;
     }
 
+    // 회원 삭제하기
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResponseDto> deleteUserList (
         @PathVariable("userId") String userId
