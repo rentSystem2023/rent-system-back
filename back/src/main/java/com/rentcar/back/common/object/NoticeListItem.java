@@ -10,6 +10,7 @@ import lombok.Getter;
 
 @Getter
 public class NoticeListItem {
+    
     private Integer registNumber;
     private String title;
     private String writeDatetime;

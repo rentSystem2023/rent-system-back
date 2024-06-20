@@ -19,8 +19,6 @@ import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListR
 import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
 import com.rentcar.back.dto.response.reservation.PostReservatioResponseDto;
 
-
-
 public interface ReservationService {
 
         // 나의 예약 리스트 보기

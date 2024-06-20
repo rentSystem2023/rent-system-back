@@ -10,6 +10,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationListItem {
+    
     private String reservationState;
     private String carImageUrl;
     private String nickName;

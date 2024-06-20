@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 @Getter
 public class CompanyListItem {
+    
     private Integer companyCode;
     private String rentCompany;
     private String address;

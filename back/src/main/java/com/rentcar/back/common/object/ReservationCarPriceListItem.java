@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationCarPriceListItem {
+    
     private String carName;
     private String carImageUrl;
     private String fuelType;

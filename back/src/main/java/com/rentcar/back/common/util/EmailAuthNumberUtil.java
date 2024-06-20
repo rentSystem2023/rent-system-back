@@ -2,8 +2,6 @@ package com.rentcar.back.common.util;
 
 import java.util.Random;
 
-// 이메일 인증 번호 유틸리티 클래스
-
 public class EmailAuthNumberUtil {
 
     public static String createNumber() {
