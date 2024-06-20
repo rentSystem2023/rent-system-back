@@ -96,7 +96,8 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "INNER JOIN user U ON R.user_id = U.user_id " +
         "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
         "INNER JOIN car CA ON CC.car_code = CA.car_code " +
-        "INNER JOIN company CO ON CC.company_code = CO.company_code"
+        "INNER JOIN company CO ON CC.company_code = CO.company_code " +
+        "ORDER BY R.reservation_code DESC"
     , nativeQuery = true)
     List<GetAllUserReservationResultSet> getAllUserReservationList();
 
