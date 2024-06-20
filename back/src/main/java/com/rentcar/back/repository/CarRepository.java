@@ -12,7 +12,7 @@ import com.rentcar.back.repository.resultSet.GetPopularCarResultSet;
 @Repository
 public interface CarRepository extends JpaRepository<CarEntity, Integer> {
     
-    List<CarEntity> findTop8ByOrderByReservationCountDesc();
+    List<CarEntity> findTop12ByOrderByReservationCountDesc();
 
     CarEntity findByCarCode(Integer carCode);
 
@@ -26,7 +26,7 @@ public interface CarRepository extends JpaRepository<CarEntity, Integer> {
         "FROM car " +
         "GROUP BY car_name, car_image_url " +
         "ORDER BY totalReservationCount DESC " +
-        "LIMIT 8"
+        "LIMIT 12"
     ,nativeQuery = true)
-    List<GetPopularCarResultSet> findTop8ByTotalReservationCount();
+    List<GetPopularCarResultSet> findTop12ByTotalReservationCount();
 } 
