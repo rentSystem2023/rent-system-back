@@ -74,7 +74,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
@@ -98,7 +98,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -114,7 +114,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 아이디를 입력받아 해당하는 아이디가 이미 사용중인 아이디인지 확인합니다. 중복되지 않은 아이디이면 성공처리를 합니다. 만약 중복되는 아이디라면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 아이디를 입력받아 해당하는 아이디가 이미 사용중인 아이디인지 확인합니다. 중복되지 않은 아이디이면 성공처리를 합니다. 만약 중복되는 아이디라면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/id-check**  
@@ -167,7 +167,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
@@ -177,11 +177,11 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "DI",
-  "message": "Duplicatied Id."
+  "message": "Duplicated Id."
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -197,7 +197,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 이메일을 입력받아 해당하는 이메일이 이미 사용중인 이메일인지 확인하고 사용하고 있지 않은 이메일이라면 4자리의 인증코드를 해당 이메일로 전송합니다. 이메일 전송이 성공적으로 종료되었으면 성공처리를 합니다. 만약 중복된 이메일이거나 이메일 전송에 실패했으면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 이메일을 입력받아 해당하는 이메일이 이미 사용중인 이메일인지 확인하고 사용하고 있지 않은 이메일이라면 4자리의 인증코드를 해당 이메일로 전송합니다. 이메일 전송이 성공적으로 종료되었으면 성공처리를 합니다. 만약 중복된 이메일이거나 이메일 전송에 실패했으면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/email-auth**  
@@ -255,7 +255,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
@@ -265,7 +265,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "DE",
-  "message": "Duplicatied Email."
+  "message": "Duplicated Email."
 }
 ```
 
@@ -279,7 +279,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -295,7 +295,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 이메일과 인증 번호를 입력받아 해당하는 이메일에 전송한 인증번호와 일치하는지 확인합니다. 일치한다면 성공처리를 합니다. 만약 일치하지 않는다면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 이메일과 인증 번호를 입력받아 해당하는 이메일에 전송한 인증번호와 일치하는지 확인합니다. 일치한다면 성공처리를 합니다. 만약 일치하지 않는다면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/email-auth-check**  
@@ -350,7 +350,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
@@ -364,7 +364,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -380,7 +380,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 아이디, 비밀번호, 이메일, 인증번호 입력받아 회원가입 처리를 합니다. 정상적으로 회원가입이 완료되면 성공처리를 합니다. 만약 중복된 아이디, 중복된 이메일, 인증번호 불일치가 발생하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 아이디, 비밀번호, 이메일, 인증번호 입력받아 회원가입 처리를 합니다. 정상적으로 회원가입이 완료되면 성공처리를 합니다. 만약 중복된 아이디, 중복된 이메일, 인증번호 불일치가 발생하면 실패처리를 합니다. 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/sign-up**  
@@ -441,7 +441,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
@@ -451,7 +451,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "DI",
-  "message": "Duplicatied Id."
+  "message": "Duplicated Id."
 }
 ```
 
@@ -461,7 +461,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "DE",
-  "message": "Duplicatied Email."
+  "message": "Duplicated Email."
 }
 ```
 
@@ -475,7 +475,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -495,7 +495,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 이메일을 입력받아 해당하는 이메일이 존재하는 이메일인지 확인하고 존재하는 이메일이면 그에 해당하는 아이디를 반환합니다. 아이디 반환이 성공적으로 반환되면 성공처리를 합니다. 만약 존재하지 않는 이메일일 경우 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 이메일을 입력받아 해당하는 이메일이 존재하는 이메일인지 확인하고 존재하는 이메일이면 그에 해당하는 아이디를 반환합니다. 아이디 반환이 성공적으로 반환되면 성공처리를 합니다. 만약 존재하지 않는 이메일일 경우 실패처리를 합니다. 인증 실패, 서버 에러, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/find-id**  
@@ -555,17 +555,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
-```bash
-HTTP/1.1 500 Internal Server Error
-contentType: application/json;charset=UTF-8
-{
-  "code": "DBE",
-  "message": "Database Error."
+  "message": "Validation Failed."
 }
 ```
 
@@ -579,13 +569,43 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (아이디 찾기 인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
 ***
 
 #### - 비밀번호 찾기
   
 ##### 설명
 
-클라이언트로부터 아이디와 이메일을 입력받아 해당하는 아이디와 이메일이 데이터베이스에 존재하는지 확인합니다. 아이디와 이메일이 존재하면 성공처리를 합니다. 만약 아이디 또는 이메일이 존재하지 않으면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 아이디와 이메일을 입력받아 해당하는 아이디와 이메일이 데이터베이스에 존재하는지 확인합니다. 아이디와 이메일이 존재하면 성공처리를 합니다. 만약 아이디 또는 이메일이 존재하지 않으면 실패처리를 합니다. 인증 실패, 서버에러, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/find-password**
@@ -640,11 +660,11 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
-**응답 : 실패 (아이디 또는 이메일이 존재하지 않음)**
+**응답 : 실패 (비밀번호 찾기 인증 실패)**
 ```bash
 HTTP/1.1 401 Bad Request
 contentType: application/json;charset=UTF-8
@@ -654,7 +674,27 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (존재하지 않는 아이디)**
+```bash
+HTTP/1.1 401 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NUI",
+  "message": "No Exist User Id."
+}
+```
+
+**응답 : 실패 (존재하지 않는 이메일)**
+```bash
+HTTP/1.1 401 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NE",
+  "message": "No Exist Email."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -669,7 +709,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 비밀번호를 입력받아 기존의 비밀번호를 변경합니다. 변경에 성공하면 성공처리를 합니다. 만약 변경에 실패하면 실패처리를 합니다. 데이터베이스 오류가 발생할 수 있습니다.
+클라이언트로부터 비밀번호를 입력받아 기존의 비밀번호를 변경합니다. 변경에 성공하면 성공처리를 합니다. 만약 변경에 실패하면 실패처리를 합니다. 인증 실패, 서버에러, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **PUT**  
 - URL : **/find-password/{userId}**  
@@ -722,11 +762,21 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "VF",
-  "message": "Varidation Failed."
+  "message": "Validation Failed."
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (비밀번호 재설정 인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -793,16 +843,6 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -813,7 +853,17 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -831,7 +881,7 @@ contentType: application/json;charset=UTF-8
 ##### 설명
 
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 로그인한 정보에 대한 내용을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 로그인한 정보에 대한 내용을 반환합니다. 만약 내 정보 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 서버 에러, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/information**  
@@ -897,13 +947,13 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인가 실패)**
+**응답 : 실패 (존재하지 않는 내 정보)**
 ```bash
-HTTP/1.1 403 Forbidden
+HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
-  "code": "AF",
-  "message": "Authorization Failed."
+  "code": "NI",
+  "message": "No Exist Information."
 }
 ```
 
@@ -917,17 +967,17 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터 유효성 검사 실패)**
+**응답 : 실패 (인가 실패)**
 ```bash
-HTTP/1.1 400 Bad Request
+HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
 {
-  "code": "VF",
-  "message": "Validation Failed."
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -998,6 +1048,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
 **응답 : 실패 (존재하지 않는 내 정보)**
 ```bash
 HTTP/1.1 400 Bad Request
@@ -1005,16 +1065,6 @@ contentType: application/json;charset=UTF-8
 {
   "code": "NI",
   "message": "No Exist Information."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
 }
 ```
 
@@ -1028,7 +1078,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -1038,17 +1088,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-contentType: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1118,6 +1158,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
 **응답 : 실패 (존재하지 않는 내 정보)**
 ```bash
 HTTP/1.1 400 Bad Request
@@ -1134,17 +1184,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "DE",
-  "message": "Duplicatied Email."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
+  "message": "Duplicated Email."
 }
 ```
 
@@ -1158,7 +1198,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -1168,17 +1208,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터 유효성 검사 실패)**
-```bash
-HTTP/1.1 400 Bad Request
-contentType: application/json;charset=UTF-8
-{
-  "code": "VF",
-  "message": "Validation Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1194,7 +1224,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 입력받고 요청을 보내면 해당하는 사용자 정보가 삭제됩니다. 만약 인가 실패, 인증 실패, 데이터베이스 에러 데이터 유효성 검사 실패가 발생하면 실패처리를 합니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 받고 요청을 보내면 해당하는 사용자 정보가 삭제됩니다. 만약 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패, 서버 에러가 발생하면 실패처리를 합니다.
 
 - method : **DELETE**  
 - URL : **/information/delete**  
@@ -1257,13 +1287,13 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인가 실패)**
+**응답 : 실패 (존재하지 않는 회원)**
 ```bash
-HTTP/1.1 403 Forbidden
+HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
-  "code": "AF",
-  "message": "Authorization Failed."
+  "code": "NU",
+  "message": "No Exist User."
 }
 ```
 
@@ -1277,7 +1307,17 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1380,17 +1420,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1406,7 +1436,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 회원 상세 페이지에서 회원 아이디, 닉네임, 이메일, 가입 날짜를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 회원 상세 페이지에서 회원 아이디, 닉네임, 이메일, 가입 날짜를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/list/{userId}**  
@@ -1472,6 +1502,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -1492,17 +1532,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1518,7 +1548,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 회원 목록의 순번을 입력받고 요청을 보내면 해당하는 회원 목록 리스트가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 회원 목록의 순번을 입력받고 요청을 보내면 해당하는 회원 목록 리스트가 삭제됩니다. 만약 삭제에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터 유효성 검사 실패, 데이터베이스 에러가 발생할 수 있습니다.
 
 - method : **DELETE**  
 - URL : **/list/{userId}**  
@@ -1571,6 +1601,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
 **응답 : 실패 (존재하지 않는 회원)**
 ```bash
 HTTP/1.1 400 Bad Request
@@ -1601,17 +1641,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1737,17 +1767,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1769,7 +1789,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약 내역을 반환합니다. 만약 존재하지 않는 예약일 경우 실패를 반환합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/mylist**  
@@ -1836,13 +1856,23 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인가 실패)**
+**응답 : 실패 (데이터 유효성 검사 실패)**
 ```bash
-HTTP/1.1 403 Forbidden
+HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
-  "code": "AF",
-  "message": "Authorization Failed."
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 예약)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Reservation."
 }
 ```
 
@@ -1856,17 +1886,17 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터 유효성 검사 실패)**
+**응답 : 실패 (인가 실패)**
 ```bash
-HTTP/1.1 400 Bad Request
+HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
 {
-  "code": "VF",
-  "message": "Varidation Failed."
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -1882,7 +1912,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 예약 상세 내역을 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 예약 상세 내역을 반환합니다. 만약 존재하지 않는 예약일 경우 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/mylist/{reservationCode}**  
@@ -1956,6 +1986,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
 **응답 : 실패 (존재하지 않는 예약내역)**
 ```bash
 HTTP/1.1 400 Bad Request
@@ -1963,16 +2003,6 @@ contentType: application/json;charset=UTF-8
 {
   "code": "NR",
   "message": "No Exist Reservation."
-}
-```
-
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
 }
 ```
 
@@ -1986,17 +2016,17 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터 유효성 검사 실패)**
+**응답 : 실패 (인가 실패)**
 ```bash
-HTTP/1.1 400 Bad Request
+HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
 {
-  "code": "VF",
-  "message": "Varidation Failed."
+  "code": "AF",
+  "message": "Authorization Failed."
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2087,16 +2117,6 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (인가 실패)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -2107,7 +2127,17 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2123,7 +2153,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 만약 예약 존재하지 않을 경우 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/list**  
@@ -2197,6 +2227,26 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 예약내역)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Reservation."
+}
+```
+
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -2217,17 +2267,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2243,7 +2283,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 작성일 기준 내림차순으로 예약목록 리스트를 반환합니다. 만약 존재하지 않는 예약일 경우 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/{reservationCode}**  
@@ -2313,6 +2353,26 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 예약내역)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NR",
+  "message": "No Exist Reservation."
+}
+```
+
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -2333,17 +2393,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2360,7 +2410,7 @@ contentType: application/json;charset=UTF-8
 ##### 설명
 
 클라이언트는 Request Header의 Authorization 필드에 Bearer 토큰을 포함하여 예약 목록의 순번을 입력하고 요청을 보내면 해당하는 예약 목록이 삭제됩니다.
- 만약 삭제에 실패하면 실패 처리를 합니다. 인가 실패나 데이터베이스 오류가 발생할 수 있습니다.
+ 만약 존재하지 않는 예약일 경우 실패 처리를 합니다. 인증 실패, 인가 실패 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **DELETE**  
 - URL : **/{reservationCode}**  
@@ -2408,6 +2458,16 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
 **응답 : 실패 (존재하지 않는 예약)**
 ```bash
 HTTP/1.1 400 Bad Request
@@ -2438,17 +2498,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2518,7 +2568,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2534,7 +2584,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 검색 카테고리(위치(주소), 예약 시작일, 예약 종료일)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 검색 카테고리(예약 시작일, 예약 종료일)를 입력받고 요청을 보내면 각 차량별 보험별 가격 검색 결과를 데이터베이스 순서대로 (차량 코드) 반환합니다. 존재하지 않는 차량일 경우 실패를 반환합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/search**  
@@ -2626,7 +2676,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2642,7 +2692,7 @@ contentType: application/json;charset=UTF-8
 
 ##### 설명
 
-클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 업체명을 내림차순으로 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 차량명과 이미지, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 업체별 가격 검색 결과를 업체명을 내림차순으로 반환합니다. 만약 존재하지 않는 차량일 경우 실패처리를 합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/search/{carName}**  
@@ -2749,7 +2799,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2765,7 +2815,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 차량명, 업체명, 예약수, 연식, 보험을 입력받고(클릭) 요청을 보내면 해당 차량의 상세 검색 결과를 반환합니다. 만약 존재하지 않는 차량일 경우 실패처리를 합니다. 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **GET**  
 - URL : **/search/{carName}/{rentCompany}**  
@@ -2876,7 +2926,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -2958,6 +3008,26 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
+**응답 : 실패 (데이터 유효성 검사 실패)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "VF",
+  "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 차량)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Vehicle."
+}
+```
+
 **응답 : 실패 (인증 실패)**
 ```bash
 HTTP/1.1 401 Unauthorized
@@ -2978,17 +3048,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
-```bash
-HTTP/1.1 403 Forbidden
-contentType: application/json;charset=UTF-8
-{
-  "code": "AF",
-  "message": "Authorization Failed."
-}
-```
-
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3068,7 +3128,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3156,7 +3216,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3232,7 +3292,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3315,7 +3375,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3413,7 +3473,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -3423,7 +3483,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3544,7 +3604,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -3554,7 +3614,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3653,7 +3713,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -3663,7 +3723,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3746,7 +3806,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3839,7 +3899,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -3939,7 +3999,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4037,7 +4097,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4119,7 +4179,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4228,7 +4288,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -4238,7 +4298,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4362,7 +4422,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -4372,7 +4432,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4497,7 +4557,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -4507,7 +4567,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4626,7 +4686,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4750,7 +4810,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4860,7 +4920,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -4870,7 +4930,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -4976,7 +5036,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -4986,7 +5046,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -5070,7 +5130,7 @@ HTTP/1.1 400 Bad Request
 contentType: application/json;charset=UTF-8
 {
   "code": "RC",
-  "message": "Registed Company."
+  "message": "Registration Company."
 }
 ```
 
@@ -5104,7 +5164,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -5114,7 +5174,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -5238,7 +5298,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -5248,7 +5308,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8
@@ -5357,7 +5417,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (권한 없음)**
+**응답 : 실패 (인가 실패)**
 ```bash
 HTTP/1.1 403 Forbidden
 contentType: application/json;charset=UTF-8
@@ -5367,7 +5427,7 @@ contentType: application/json;charset=UTF-8
 }
 ```
 
-**응답 : 실패 (데이터베이스 오류)**
+**응답 : 실패 (데이터베이스 에러)**
 ```bash
 HTTP/1.1 500 Internal Server Error
 contentType: application/json;charset=UTF-8

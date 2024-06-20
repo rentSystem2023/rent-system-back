@@ -80,7 +80,7 @@ public class CompanyServiceImplementation implements CompanyService {
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
             boolean isExistsCompanyCode = companyRepository.existsByCompanyCode(dto.getCompanyCode());
-            if (isExistsCompanyCode) return ResponseDto.registedCompany();
+            if (isExistsCompanyCode) return ResponseDto.registrationCompany();
             
             CompanyEntity companyEntity = new CompanyEntity(dto, userId);
             companyRepository.save(companyEntity);

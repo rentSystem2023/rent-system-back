@@ -50,6 +50,12 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    // 존재하지 않는 아이디
+    public static ResponseEntity<ResponseDto> noExistUserId() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_USER_ID, ResponseMessage.NO_EXIST_USER_ID);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    } 
+
     // 존재하지 않는 게시물
     public static ResponseEntity<ResponseDto> noExistBoard() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD, ResponseMessage.NO_EXIST_BOARD);
@@ -69,8 +75,8 @@ public class ResponseDto {
     }
 
     // 예약 대기 상태가 아님
-    public static ResponseEntity<ResponseDto> noWatingState() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_WATING_STATE, ResponseMessage.NO_WATING_STATE);
+    public static ResponseEntity<ResponseDto> noWaitingState() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_WAITING_STATE, ResponseMessage.NO_WAITING_STATE);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
@@ -96,9 +102,9 @@ public class ResponseDto {
 
     
     // 이미 등록된 업체
-    public static ResponseEntity<ResponseDto> registedCompany() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.REGISTED_COMPANY,
-                ResponseMessage.REGISTED_COMPANY);
+    public static ResponseEntity<ResponseDto> registrationCompany() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.REGISTRATION_COMPANY,
+                ResponseMessage.REGISTRATION_COMPANY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
     
