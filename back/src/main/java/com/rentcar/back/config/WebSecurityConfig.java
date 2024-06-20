@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -64,12 +65,10 @@ public class WebSecurityConfig {
                                                 .requestMatchers("/api/rentcar/qna/regist",
                                                                 "/api/rentcar/qna/*/modify",
                                                                 "/api/rentcar/qna/*/delete",
-                                                                "/api/rentcar/user/information",
-                                                                "/api/rentcar/user/information/password-modify",
-                                                                "/api/rentcar/user/information/email-modify",
-                                                                "/api/rentcar/user/information/**", "api/rentcar/qna/mylist",
-                                                                "/file/**",
+                                                                "/api/rentcar/user/information/*",
+                                                                "/api/rentcar/qna/mylist",
                                                                 "/api/rentcar/reservation/regist").hasRole("USER")
+                                                .requestMatchers(HttpMethod.GET, "/api/rentcar/user/information/").authenticated()
                                                 // 괸라자만 접근 가능(ADMIN)
                                                 .requestMatchers("/api/rentcar/qna/*/comment",
                                                                 "/api/rentcar/notice/regist",
@@ -79,7 +78,8 @@ public class WebSecurityConfig {
                                                                 "/api/rentcar/reservation/cancel/**",
                                                                 "/api/rentcar/reservation/list/**",
                                                                 "/api/rentcar/reservation/*",
-                                                                "/api/rentcar/reservation/*/approve").hasRole("ADMIN").anyRequest().authenticated())
+                                                                "/api/rentcar/reservation/*/approve").hasRole("ADMIN")
+                                                .anyRequest().authenticated())
 
                                 .oauth2Login(oauth2 -> oauth2
                                                 .authorizationEndpoint(endpoint -> endpoint
