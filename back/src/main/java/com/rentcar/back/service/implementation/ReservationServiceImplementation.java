@@ -279,7 +279,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
 
-            List<GetPopularCarResultSet> resultSet = carRepository.findTop4ByTotalReservationCount();
+            List<GetPopularCarResultSet> resultSet = carRepository.findTop8ByTotalReservationCount();
 
             return GetReservationPopularListResponseDto.success(resultSet);
 

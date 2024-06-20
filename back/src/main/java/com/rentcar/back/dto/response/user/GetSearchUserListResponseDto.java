@@ -12,8 +12,7 @@ import com.rentcar.back.dto.response.ResponseMessage;
 import com.rentcar.back.entity.UserEntity;
 
 import lombok.Getter;
-
-@Getter
+ @Getter
 public class GetSearchUserListResponseDto extends ResponseDto {
     
     private List<UserListItem> userList;
