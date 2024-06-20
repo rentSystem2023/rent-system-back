@@ -74,11 +74,11 @@ public class WebSecurityConfig {
                                                                 "/api/rentcar/notice/regist",
                                                                 "/api/rentcar/notice/*/modify",
                                                                 "/api/rentcar/notice/*/delete",
-                                                                "/api/rentcar/company/**", "/api/rentcar/admin/list/**",
+                                                                "/api/rentcar/company/**", 
+                                                                "/api/rentcar/admin/list/**",
                                                                 "/api/rentcar/reservation/cancel/**",
                                                                 "/api/rentcar/reservation/list/**",
-                                                                "/api/rentcar/reservation/*",
-                                                                "/api/rentcar/reservation/*/approve").hasRole("ADMIN")
+                                                                "/api/rentcar/reservation/*").hasRole("ADMIN")
                                                 .anyRequest().authenticated())
 
                                 .oauth2Login(oauth2 -> oauth2
