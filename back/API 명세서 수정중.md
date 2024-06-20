@@ -8,7 +8,7 @@
 
 <h2 style='background-color: rgba(55, 55, 55, 0.2); text-align: center'> Auth 모듈 </h2>  
   
-- url : /api/rentcar/auth  
+- url : /api/rentcar/auth  456456456456456456456
 
 ***
 
