@@ -11,18 +11,18 @@ import com.rentcar.back.dto.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-public class PostReservatioResponseDto extends ResponseDto {
+public class PostReservationResponseDto extends ResponseDto {
     
     private String redirectUrl;
 
-    private PostReservatioResponseDto (KakaoReady kakaoReady) {
+    private PostReservationResponseDto (KakaoReady kakaoReady) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         
         this.redirectUrl = kakaoReady.getNext_redirect_pc_url();
     }
 
-    public static ResponseEntity<PostReservatioResponseDto> success (KakaoReady kakaoReady) {
-        PostReservatioResponseDto responseBody = new PostReservatioResponseDto(kakaoReady);
+    public static ResponseEntity<PostReservationResponseDto> success (KakaoReady kakaoReady) {
+        PostReservationResponseDto responseBody = new PostReservationResponseDto(kakaoReady);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 

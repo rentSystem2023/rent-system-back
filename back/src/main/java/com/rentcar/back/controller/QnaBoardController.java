@@ -118,13 +118,4 @@ public class QnaBoardController {
         ResponseEntity<? super GetQnaBoardMyListResponseDto> response = qnaBoardService.getQnaBoardMyList(writerId);
         return response;
     }
-
-    // 나의 문의사항 검색 리스트 찾기
-    @GetMapping("/mylist/search")
-    public ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> getSearchBoardMyList (     
-        @RequestParam("word") String word
-    ){
-        ResponseEntity<? super GetSearchQnaBoardMyListResponseDto> response = qnaBoardService.getSearchQnaBoardMyList(word);
-        return response;
-    }
 }
