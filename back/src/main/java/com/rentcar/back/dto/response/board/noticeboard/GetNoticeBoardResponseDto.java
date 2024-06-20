@@ -13,6 +13,7 @@ import lombok.Getter;
 
 @Getter
 public class GetNoticeBoardResponseDto extends ResponseDto {
+    
     private Integer registNumber;
     private String title;
     private String writerId;

@@ -27,6 +27,5 @@ public class GetCompanyListResponseDto extends ResponseDto {
     public static ResponseEntity<GetCompanyListResponseDto> success (List<CompanyEntity> companyEntities) throws Exception {
         GetCompanyListResponseDto responseBody = new GetCompanyListResponseDto(companyEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
-
     }
 }
