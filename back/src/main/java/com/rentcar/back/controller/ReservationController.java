@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
-import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
-import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
+import com.rentcar.back.dto.request.reservation.PatchReservationStateRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
@@ -74,7 +72,7 @@ public class ReservationController {
     public ResponseEntity<ResponseDto> PatchReservationCancel (
         @AuthenticationPrincipal String userId,
         @PathVariable ("reservationCode") int reservationCode,
-        @RequestBody @Valid PatchReservationRequestDto requestBody 
+        @RequestBody @Valid PatchReservationStateRequestDto requestBody 
     ){
         ResponseEntity<ResponseDto> response = reservationService.patchReservation(requestBody, reservationCode, userId);
         return response;
@@ -94,19 +92,9 @@ public class ReservationController {
     @PatchMapping("/cancel/{reservationCode}")
     public ResponseEntity<ResponseDto> patchReservationCancelApprove (
         @PathVariable ("reservationCode") int reservationCode,
-        @RequestBody @Valid PatchReservationCancelRequestDto requestBody
+        @RequestBody @Valid PatchReservationStateRequestDto requestBody
     ){
         ResponseEntity<ResponseDto> response = reservationService.patchReservationCancel(requestBody, reservationCode);
-        return response;
-    }
-
-    // 예약 신청 승인하기
-    @PatchMapping("/{reservationCode}/approve")
-    public ResponseEntity<ResponseDto> PatchReservationApprove (
-        @PathVariable ("reservationCode") int reservationCode,
-        @RequestBody @Valid PatchReservationApproveRequestDto requestBody
-    ){
-        ResponseEntity<ResponseDto> response = reservationService.patchReservationApprove(requestBody, reservationCode);
         return response;
     }
 

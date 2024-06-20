@@ -1,22 +1,14 @@
 package com.rentcar.back.service.implementation;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.rentcar.back.common.object.KakaoReady;
 import com.rentcar.back.common.util.KaKaopayUtil;
-import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
-import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
-import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
+import com.rentcar.back.dto.request.reservation.PatchReservationStateRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.reservation.GetReservationCancelListResponseDto;
@@ -141,7 +133,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
     // 예약 취소하기
     @Override
-    public ResponseEntity<ResponseDto> patchReservation(PatchReservationRequestDto dto, int reservationCode, String userId) {
+    public ResponseEntity<ResponseDto> patchReservation(PatchReservationStateRequestDto dto, int reservationCode, String userId) {
 
         try {
 
@@ -182,7 +174,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
     // 예약 취소 신청 승인하기
     @Override
-    public ResponseEntity<ResponseDto> patchReservationCancel(PatchReservationCancelRequestDto dto, int reservationCode) {
+    public ResponseEntity<ResponseDto> patchReservationCancel(PatchReservationStateRequestDto dto, int reservationCode) {
 
         try {
             
@@ -207,34 +199,8 @@ public class ReservationServiceImplementation implements ReservationService {
         return ResponseDto.success();
     }
 
-    // 예약 신청 승인하기
-    @Override
-    public ResponseEntity<ResponseDto> patchReservationApprove(PatchReservationApproveRequestDto dto, int reservationCode) {
-        
-        try {
 
-            // 존재하는 예약인지 확인
-            ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
-            if (reservationEntity == null) return ResponseDto.noExistReservation();
-
-            // 예약상태가 watingForReservation 상태인지 확인
-            String reservationState = reservationEntity.getReservationState();
-            boolean isWaiting = "waitingForReservation".equals(reservationState);
-            if (!isWaiting) return ResponseDto.noWatingState();
-
-            reservationEntity.update(dto);
-
-            reservationRepository.save(reservationEntity);
-
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        return ResponseDto.success();
-    }
-
-    // 전체 예약 목록 리스트 불러오기
+    // 전체 예약 목록 리스트 불러오기(관리자)
     @Override
     public ResponseEntity<? super GetReservationUserListResponseDto> getReservationUserList(String userId) {
 
@@ -306,22 +272,6 @@ public class ReservationServiceImplementation implements ReservationService {
         
         return ResponseDto.success();
     }
-
-    // // 인기 차량 리스트 불러오기
-    // @Override
-    // public ResponseEntity<? super GetReservationPopularListResponseDto> getReservationPopularList() {
-        
-    //     try {
-
-    //         List<CarEntity> carEntity = carRepository.findTop4ByOrderByReservationCountDesc();
-
-    //         return GetReservationPopularListResponseDto.success(carEntity);
-
-    //     } catch (Exception exception) {
-    //         exception.printStackTrace();
-    //         return ResponseDto.databaseError();
-    //     }
-    // }
 
     // 인기 차량 리스트 불러오기
     @Override

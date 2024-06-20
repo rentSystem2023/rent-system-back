@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/rentcar/company")
+@RequestMapping("/api/rentcar/admin/company")
 @RequiredArgsConstructor
 public class CompanyController {
 

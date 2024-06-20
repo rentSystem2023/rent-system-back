@@ -20,6 +20,7 @@ import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Integer> {
     ReservationEntity findByUserIdOrderByReservationDateDesc(String userId);
 
+    // 내 예약내역 보기
     @Query(value=
         "SELECT " +
         "CA.car_image_url as carImageUrl, " +
@@ -43,6 +44,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     , nativeQuery=true)
     List<GetUserReservationResultSet> getUserReservationList(@Param("userId") String userId);
 
+    // 내 예약내역 상세 보기
     @Query(value = 
         "SELECT " +
         "CA.car_image_url as carImageUrl, " +
@@ -78,6 +80,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     List<ReservationEntity> findByReservationState(String reservationState);
 
+    // 전체 예약 목록 리스트 불러오기(관리자)
     @Query(value = 
         "SELECT " +
         "R.reservation_code as reservationCode, " +
@@ -146,6 +149,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     , nativeQuery = true)
     List<GetAllUserReservationResultSet> findByReservationCodeOrderByReservationCode(@Param("reservationCode") Integer ReservationCode);
 
+    // 차량 검색 결과 불러오기
     @Query(value = 
         "SELECT " +
         "C.car_name AS carName, " +
@@ -172,42 +176,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
     List<GetSearchReservationResultSet> getSearchReservationList
     (@Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
 
-    // 원본
-    // @Query(value =
-    //     "SELECT " +
-    //     "C.car_name AS carName, " +
-    //     "C.car_image_url AS carImageUrl, " +
-    //     "C.fuel_type AS fuelType, " +
-    //     "C.reservation_count AS reservationCount, " +
-    //     "CM.address, " +
-    //     "CC.normal_price AS normalPrice, " +
-    //     "CC.luxury_price AS luxuryPrice, " +
-    //     "CC.super_price AS superPrice, " +
-    //     "CM.rent_company AS rentCompany " +
-    //     "FROM company_car CC " +
-    //     "LEFT JOIN car C ON CC.car_code = C.car_code " +
-    //     "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
-    //     "WHERE company_car_code NOT IN ( " +
-    //     "SELECT company_car_code FROM reservation " +
-    //     "WHERE " +
-    //     "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
-    //     "OR " +
-    //     "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
-    //     "OR " +
-    //     "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
-    //     ") " +
-    //     "AND CC.company_code IN ( " +
-    //     "SELECT company_code " +
-    //     "FROM company " +
-    //     "WHERE address = :address " +
-    //     ") " +
-    //     "AND C.car_name = :carName"
-    // , nativeQuery=true)
-    // List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
-    //     @Param("address") String address, @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
-    // );
-
-    // 수정 그룹바이 함(프론트 확인필요) 검색2번페이지
+    // 보험별(업체) 가격 검색 결과 불러오기
     @Query(value =
     "SELECT " +
     "C.car_name AS carName, " +
@@ -241,7 +210,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
     @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
 );
-
+    // 차량 예약 상세 검색 결과 불러오기
     @Query(value = 
         "SELECT " +
         "C.car_name AS carName, " +
