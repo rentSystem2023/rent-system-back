@@ -78,6 +78,9 @@ public class CompanyServiceImplementation implements CompanyService {
             
             boolean isExistUser = userRepository.existsById(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            boolean isExistsCompanyCode = companyRepository.existsByCompanyCode(dto.getCompanyCode());
+            if (isExistsCompanyCode) return ResponseDto.registedCompany();
             
             CompanyEntity companyEntity = new CompanyEntity(dto, userId);
             companyRepository.save(companyEntity);
