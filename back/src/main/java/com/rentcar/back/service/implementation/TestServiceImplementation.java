@@ -53,7 +53,6 @@ public class TestServiceImplementation implements TestService {
         return url;
     }
 
-
     // 파일 가져오기
     @Override
     public Resource getFile(String fileName) {

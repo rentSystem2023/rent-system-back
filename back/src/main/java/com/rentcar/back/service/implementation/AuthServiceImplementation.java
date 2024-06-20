@@ -236,7 +236,6 @@ public class AuthServiceImplementation implements AuthService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
 
     @Override

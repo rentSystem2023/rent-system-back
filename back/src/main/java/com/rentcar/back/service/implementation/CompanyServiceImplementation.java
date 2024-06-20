@@ -131,5 +131,4 @@ public class CompanyServiceImplementation implements CompanyService {
 
         return ResponseDto.success();
     }
-
 }

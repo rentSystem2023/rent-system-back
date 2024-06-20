@@ -31,7 +31,6 @@ public class UserServiceImplementation implements UserService{
     private final MailProvider mailProvider;
     private final EmailAuthNumberRepository emailAuthNumberRepository;
 
-
     @Override
     public ResponseEntity<? super GetSignInUserResponseDto> getSignInUser(String userId) {
 
@@ -48,7 +47,6 @@ public class UserServiceImplementation implements UserService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
 
     @Override
@@ -67,7 +65,6 @@ public class UserServiceImplementation implements UserService{
         }
 
         return GetMyInfoResponseDto.success(userEntity);
-
     }
 
     @Override
@@ -96,7 +93,6 @@ public class UserServiceImplementation implements UserService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
     
     @Override
@@ -130,7 +126,6 @@ public class UserServiceImplementation implements UserService{
         }
 
         return ResponseDto.success(); 
-
     }
 
     @Override
@@ -156,7 +151,6 @@ public class UserServiceImplementation implements UserService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
 
     @Override

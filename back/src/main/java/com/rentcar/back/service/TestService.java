@@ -10,5 +10,4 @@ public interface TestService {
 
     // 파일 가져오기
     Resource getFile (String fileName);
-
 }

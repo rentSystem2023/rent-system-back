@@ -28,23 +28,23 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
     private final QnaBoardRepository qnaBoardRepository;
     private final UserRepository userRepository;
 
-@Override
-public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId) {
-    try {
+    @Override
+    public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId) {
+        try {
 
-        boolean isExistUser = userRepository.existsById(userId);
-        if (!isExistUser) return ResponseDto.authenticationFailed();
+            boolean isExistUser = userRepository.existsById(userId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
 
-        QnaBoardEntity qnaBoardEntity = new QnaBoardEntity(dto, userId);
-        qnaBoardRepository.save(qnaBoardEntity);
+            QnaBoardEntity qnaBoardEntity = new QnaBoardEntity(dto, userId);
+            qnaBoardRepository.save(qnaBoardEntity);
 
-    } catch (Exception exception) {
-        exception.printStackTrace();
-        return ResponseDto.databaseError();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
     }
-
-    return ResponseDto.success();
-}
 
     @Override
     public ResponseEntity<? super GetQnaBoardListResponseDto> getQnaBoardList() {
@@ -58,9 +58,7 @@ public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, Stri
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        
     }
-
 
     @Override
     public ResponseEntity<? super GetSearchQnaBoardListResponseDto> getSearchQnaBoardList(String searchWord) {

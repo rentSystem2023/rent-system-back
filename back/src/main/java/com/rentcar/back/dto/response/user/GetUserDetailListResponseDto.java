@@ -33,5 +33,4 @@ public class GetUserDetailListResponseDto extends ResponseDto {
         
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }
