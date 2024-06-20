@@ -19,14 +19,15 @@ public interface ResponseCode {
     String DUPLICATED_NICKNAME = "DN";
     String DUPLICATED_EMAIL = "DE";
     String NO_EXIST_EMAIL = "NE";
+    String NO_EXIST_USER_ID = "NUI";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_RESERVATION = "NR";
     String NO_CANCEL_STATE = "NCS";
-    String NO_WATING_STATE = "NW";
+    String NO_WAITING_STATE = "NW";
     String NO_EXIST_VEHICLE = "NV";
     String NO_EXIST_COMPANY = "NC";
     String NO_EXIST_ADDRESS = "NA";
-    String REGISTED_COMPANY = "RC";
+    String REGISTRATION_COMPANY = "RC";
     String NO_EXIST_INFORMATION = "NI";
     String NO_EXIST_USER = "NU";
     String WRITTEN_COMMENT = "WC";
