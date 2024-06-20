@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
-import com.rentcar.back.dto.request.reservation.PatchReservationApproveRequestDto;
-import com.rentcar.back.dto.request.reservation.PatchReservationCancelRequestDto;
-import com.rentcar.back.dto.request.reservation.PatchReservationRequestDto;
+import com.rentcar.back.dto.request.reservation.PatchReservationStateRequestDto;
 import com.rentcar.back.dto.request.reservation.PostReservationRequestDto;
 
 import jakarta.persistence.Entity;
@@ -39,6 +37,7 @@ public class ReservationEntity {
     private String reservationEnd;
     private Integer companyCarCode;
 
+
 public ReservationEntity(PostReservationRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -53,18 +52,10 @@ public ReservationEntity(PostReservationRequestDto dto, String userId) {
         this.companyCarCode = dto.getCompanyCarCode();
     }
 
-    // 예약 취소(예약상태 변경)
-    public void update(PatchReservationRequestDto dto) {         
+    // 예약상태 변경(예약취소, 취소승인)
+    public void update(PatchReservationStateRequestDto dto) {         
         this.reservationState = dto.getReservationState();
     }
 
-    // 예약 취소 승인(예약상태 변경)
-    public void update(PatchReservationCancelRequestDto dto) {         
-        this.reservationState = dto.getReservationState();
-    }
 
-    // 예약 승인(예약상태 변경)
-    public void update(PatchReservationApproveRequestDto dto) {         
-        this.reservationState = dto.getReservationState();
-    }
 }
