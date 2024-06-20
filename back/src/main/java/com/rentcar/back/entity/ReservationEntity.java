@@ -39,7 +39,6 @@ public class ReservationEntity {
     private String reservationEnd;
     private Integer companyCarCode;
 
-
 public ReservationEntity(PostReservationRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

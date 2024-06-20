@@ -28,5 +28,4 @@ public class GetSearchUserListResponseDto extends ResponseDto {
         GetSearchUserListResponseDto responseBody = new GetSearchUserListResponseDto(userEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

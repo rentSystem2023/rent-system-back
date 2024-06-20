@@ -31,5 +31,4 @@ public interface NoticeBoardService {
 
     // 공지사항 삭제하기
     ResponseEntity<ResponseDto> deleteNoticeBoard(int registNumber, String userId);
-
 }

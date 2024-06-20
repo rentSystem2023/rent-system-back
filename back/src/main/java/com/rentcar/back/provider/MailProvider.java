@@ -26,7 +26,6 @@ public class MailProvider {
         mimeMessage.setSubject("estate 인증번호");
         mimeMessage.setText(getText(authNumber), "utf-8", "html");
         javaMailSender.send(mimeMessage);
-
     }
 
     private String getText(String authNumber){
@@ -52,6 +51,5 @@ public class MailProvider {
         mimeMessage.setSubject("estate 인증번호");
         mimeMessage.setText(getUserId(userId), "utf-8", "html");
         javaMailSender.send(mimeMessage);
-
     }
 }

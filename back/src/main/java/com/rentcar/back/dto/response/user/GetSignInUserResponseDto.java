@@ -10,7 +10,6 @@ import com.rentcar.back.entity.UserEntity;
 
 import lombok.Getter;
 
-
 @Getter
 public class GetSignInUserResponseDto extends ResponseDto{
 
@@ -29,5 +28,4 @@ public class GetSignInUserResponseDto extends ResponseDto{
         GetSignInUserResponseDto responseBody = new GetSignInUserResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-    
 }

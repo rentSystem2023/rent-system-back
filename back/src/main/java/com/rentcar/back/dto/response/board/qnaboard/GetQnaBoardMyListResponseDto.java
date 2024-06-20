@@ -3,7 +3,6 @@ package com.rentcar.back.dto.response.board.qnaboard;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-
 import com.rentcar.back.common.object.QnaMyListItem;
 import com.rentcar.back.dto.response.ResponseCode;
 import com.rentcar.back.dto.response.ResponseDto;

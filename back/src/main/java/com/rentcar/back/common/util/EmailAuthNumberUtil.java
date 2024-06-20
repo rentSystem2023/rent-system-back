@@ -11,7 +11,6 @@ public class EmailAuthNumberUtil {
         for (int index = 0; index < 4; index++)
             authNumber += random.nextInt(10);
         return authNumber;
-
     }
 
     public static String createCode() {
@@ -35,7 +34,6 @@ public class EmailAuthNumberUtil {
             } else {
                 authChar[index] = (char) (random.nextInt(25) + 65);
             }
-
         }
 
         return new String(authChar);

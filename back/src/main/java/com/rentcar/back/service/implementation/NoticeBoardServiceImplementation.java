@@ -42,7 +42,6 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
         }
 
         return ResponseDto.success();
-
     }
 
     @Override
@@ -57,7 +56,6 @@ public class NoticeBoardServiceImplementation implements NoticeBoardService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
 
     @Override

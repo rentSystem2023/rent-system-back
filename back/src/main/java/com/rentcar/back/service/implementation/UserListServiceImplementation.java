@@ -33,7 +33,6 @@ public class UserListServiceImplementation implements UserListService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-    
     }
     
     @Override
@@ -51,7 +50,6 @@ public class UserListServiceImplementation implements UserListService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        
     }
 
     @Override
@@ -66,7 +64,6 @@ public class UserListServiceImplementation implements UserListService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-    
     }
 
     @Override
@@ -81,6 +78,5 @@ public class UserListServiceImplementation implements UserListService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
 }

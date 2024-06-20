@@ -1,6 +1,5 @@
 package com.rentcar.back.dto.request.auth;
 
-
 import com.rentcar.back.common.util.PatternUtil;
 
 import jakarta.validation.constraints.NotNull;
