@@ -21,7 +21,7 @@ import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResp
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
-import com.rentcar.back.dto.response.reservation.PostReservatioResponseDto;
+import com.rentcar.back.dto.response.reservation.PostReservationResponseDto;
 import com.rentcar.back.entity.CarEntity;
 import com.rentcar.back.entity.CompanyCarEntity;
 import com.rentcar.back.entity.ReservationEntity;
@@ -56,7 +56,7 @@ public class ReservationServiceImplementation implements ReservationService {
 
     // 예약하기
     @Override
-    public ResponseEntity<? super PostReservatioResponseDto> postReservation(PostReservationRequestDto dto, String userId) {
+    public ResponseEntity<? super PostReservationResponseDto> postReservation(PostReservationRequestDto dto, String userId) {
 
         try {
             boolean isExistUser = userRepository.existsById(userId);
@@ -82,7 +82,7 @@ public class ReservationServiceImplementation implements ReservationService {
             Integer reservationCode = reservationEntity.getReservationCode();
             KakaoReady kakaoReady =  kaKaopayUtil.prepareKakaoPayment(dto, reservationCode);
 
-            return PostReservatioResponseDto.success(kakaoReady);
+            return PostReservationResponseDto.success(kakaoReady);
 
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -15,7 +15,7 @@ import com.rentcar.back.dto.response.reservation.GetSearchReservationCarListResp
 import com.rentcar.back.dto.response.reservation.GetSearchReservationCarPriceListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationDetailListResponseDto;
 import com.rentcar.back.dto.response.reservation.GetSearchReservationListResponseDto;
-import com.rentcar.back.dto.response.reservation.PostReservatioResponseDto;
+import com.rentcar.back.dto.response.reservation.PostReservationResponseDto;
 
 public interface ReservationService {
 
@@ -23,7 +23,7 @@ public interface ReservationService {
         ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId);
         
         // 예약 하기
-        ResponseEntity<? super PostReservatioResponseDto> postReservation(PostReservationRequestDto dto, String userId);
+        ResponseEntity<? super PostReservationResponseDto> postReservation(PostReservationRequestDto dto, String userId);
 
         // 나의 예약 상세 보기
         ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservationDetailMyList(int reservationCode, String userId);
