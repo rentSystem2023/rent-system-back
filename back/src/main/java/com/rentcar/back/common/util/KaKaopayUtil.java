@@ -19,10 +19,10 @@ public class KaKaopayUtil {
     @Value("${kakao-pay.ready-url}") private String kakaoPayReadyUrl;
     @Value("${kakao-pay.key}") private String kakaoPayKey;
     @Value("${kakao-pay.approval-url}") private String kakaoPayApprovalUrl;
-    @Value("${kakao-pay.cancel-url}") private String kakaoPayCancleUrl;
+    @Value("${kakao-pay.cancel-url}") private String kakaoPayCancelUrl;
     
 
-    public KakaoReady prepareKakaoPayment(PostReservationRequestDto dto, int reservationCode) {
+     public KakaoReady prepareKakaoPayment(PostReservationRequestDto dto, int reservationCode) {
 
         String orderId = UUID.randomUUID().toString();
 
@@ -44,8 +44,8 @@ public class KaKaopayUtil {
         payParams.put("vat_amount", vatAmount.toString());
         payParams.put("tax_free_amount", "0");
         payParams.put("approval_url", kakaoPayApprovalUrl);
-        payParams.put("cancel_url", kakaoPayCancleUrl + reservationCode);
-        payParams.put("fail_url", kakaoPayCancleUrl + reservationCode);
+        payParams.put("cancel_url", kakaoPayCancelUrl);
+        payParams.put("fail_url", kakaoPayCancelUrl + reservationCode);
 
         HttpEntity<Map> request = new HttpEntity<>(payParams, headers);
 
