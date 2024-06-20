@@ -114,5 +114,4 @@ public class AuthController {
         ResponseEntity<ResponseDto> response = authService.findPasswordReset(requestBody, userId);
         return response;
     }
-
 }

@@ -3,8 +3,6 @@ package com.rentcar.back.common.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// 날짜 형식을 변경하는 유틸리티 클래스
-
 public class ChangeDateFormatUtil {
 
     public static String changeYYMMDD(String original) throws Exception {

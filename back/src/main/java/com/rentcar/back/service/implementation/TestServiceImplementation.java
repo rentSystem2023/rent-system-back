@@ -28,7 +28,7 @@ public class TestServiceImplementation implements TestService {
         if (file.isEmpty())
             return null;
 
-        // 원본 파일 명 (originalFileName = "돌하루방 찐.jpg")
+        // 원본 파일 명 (originalFileName = ".jpg")
         String originalFileName = file.getOriginalFilename();
         // 원본 파일의 확장자를 구함 (extension = ".jpg")
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));

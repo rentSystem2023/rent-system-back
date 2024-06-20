@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationCarListItem {
+
     private String carName;
     private String carImageUrl;
     private Integer normalPrice;
@@ -32,5 +33,4 @@ public class ReservationCarListItem {
         }
         return reservationCarList;
     }
-
 }

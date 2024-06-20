@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 @Getter
 public class QnaMyListItem {
+    
     private Integer receptionNumber;
     private Boolean status;
     private String title;

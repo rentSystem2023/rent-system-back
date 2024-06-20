@@ -12,8 +12,6 @@ import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardMyListResponseDto;
 
-
-
 public interface QnaBoardService {
 
     // 문의사항 리스트 보기

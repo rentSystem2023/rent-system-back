@@ -25,7 +25,6 @@ public class CompanyServiceImplementation implements CompanyService {
     private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
 
-
     @Override
     public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList() {
 
@@ -56,14 +55,16 @@ public class CompanyServiceImplementation implements CompanyService {
         }
     }
 
-
     @Override
     public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList(String searchWord) {
 
         try{
+
             List<CompanyEntity> companyEntities = companyRepository
                 .findByRentCompanyContainsOrderByRegistDateDesc(searchWord);
+
                 return GetSearchCompanyListResponseDto.success(companyEntities);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

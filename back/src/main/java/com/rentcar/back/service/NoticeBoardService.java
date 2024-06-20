@@ -9,8 +9,6 @@ import com.rentcar.back.dto.response.board.noticeboard.GetNoticeBoardListRespons
 import com.rentcar.back.dto.response.board.noticeboard.GetNoticeBoardResponseDto;
 import com.rentcar.back.dto.response.board.noticeboard.GetSearchNoticeBoardListResponseDto;
 
-
-
 public interface NoticeBoardService {
 
     // 공지사항 리스트 보기

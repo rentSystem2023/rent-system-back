@@ -34,8 +34,7 @@ public class UserListItem {
             UserListItem userListItem = new UserListItem(userEntity);
             userList.add(userListItem);
         }
+
         return userList;
-
     }
-
 }

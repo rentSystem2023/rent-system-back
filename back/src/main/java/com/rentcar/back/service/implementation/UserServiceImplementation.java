@@ -175,6 +175,5 @@ public class UserServiceImplementation implements UserService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
     }
 }

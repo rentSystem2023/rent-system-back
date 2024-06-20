@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationUserListItem {
+
     private Integer reservationCode;
     private String rentCompany;
     private String carName;
@@ -40,5 +41,4 @@ public class ReservationUserListItem {
 
         return reservationUserList;
     }
-
 }

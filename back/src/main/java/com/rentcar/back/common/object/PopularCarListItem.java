@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Getter
 public class PopularCarListItem {
+    
     private String carImageUrl;
     private String carName;
     private Integer totalReservationCount;

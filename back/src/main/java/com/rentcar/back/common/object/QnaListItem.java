@@ -10,6 +10,7 @@ import lombok.Getter;
 
 @Getter
 public class QnaListItem {
+    
     private Integer receptionNumber;
     private Boolean status;
     private String title;

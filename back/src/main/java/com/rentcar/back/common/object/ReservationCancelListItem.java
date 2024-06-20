@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Getter
 public class ReservationCancelListItem {
+    
     private String userId;
     private String reservationState;
 
