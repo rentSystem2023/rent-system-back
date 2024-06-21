@@ -34,6 +34,7 @@ public class ReservationUserListItem {
 
     public static List<ReservationUserListItem> getList(List<GetAllUserReservationResultSet> resultSets)throws Exception {
         List<ReservationUserListItem> reservationUserList = new ArrayList<>();
+        
         for (GetAllUserReservationResultSet resultSet : resultSets) {
             ReservationUserListItem item = new ReservationUserListItem(resultSet);
             reservationUserList.add(item);

@@ -21,8 +21,7 @@ public class KaKaopayUtil {
     @Value("${kakao-pay.approval-url}") private String kakaoPayApprovalUrl;
     @Value("${kakao-pay.cancel-url}") private String kakaoPayCancelUrl;
     
-
-     public KakaoReady prepareKakaoPayment(PostReservationRequestDto dto, int reservationCode) {
+    public KakaoReady prepareKakaoPayment(PostReservationRequestDto dto, int reservationCode) {
 
         String orderId = UUID.randomUUID().toString();
 

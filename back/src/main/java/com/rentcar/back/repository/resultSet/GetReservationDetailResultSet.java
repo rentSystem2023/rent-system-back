@@ -1,14 +1,15 @@
 package com.rentcar.back.repository.resultSet;
 
 public interface GetReservationDetailResultSet {
+
+    Integer getInsurancePrice();
     Integer getReservationCode();
-    String getRentCompany();
+    String getUserId();
     String getCarName();
     String getCarNumber();
-    String getReservationStart();
-    String getReservationEnd();
-    String getUserId();
-    String getReservationState();
+    String getRentCompany();
     String getInsuranceType();
-    Integer getInsurancePrice();
+    String getReservationEnd();
+    String getReservationStart();
+    String getReservationState();
 }

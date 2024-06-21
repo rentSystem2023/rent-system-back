@@ -13,7 +13,7 @@ import com.rentcar.back.repository.resultSet.GetReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationPriceResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
-import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetUserDetailReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 
 @Repository
@@ -65,7 +65,7 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "WHEN R.insurance_type = 'luxury' THEN CC.luxury_price * DATEDIFF(R.reservation_end, R.reservation_start) " +
         "WHEN R.insurance_type = 'super' THEN CC.super_price * DATEDIFF(R.reservation_end, R.reservation_start) " +
         "ELSE NULL " +
-    "END AS insurancePrice " +
+        "END AS insurancePrice " +
         "FROM reservation R " +
         "INNER JOIN user U ON R.user_id = U.user_id " +
         "INNER JOIN company_car CC ON R.company_car_code = CC.company_car_code " +
@@ -74,7 +74,10 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "WHERE R.user_Id = :userId " +
         "AND R.reservation_code = :reservationCode"
     , nativeQuery = true)
-    GetUserDetatilReservationResultSet getUserDetailReservationList(@Param("userId") String userId, @Param("reservationCode") Integer reservationCode);
+    GetUserDetailReservationResultSet getUserDetailReservationList(
+        @Param("userId") String userId, 
+        @Param("reservationCode") Integer reservationCode
+    );
 
     ReservationEntity findByReservationCode (Integer reservationCode);
 
@@ -174,43 +177,48 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
         "FROM company " +
         ") "
     , nativeQuery = true)
-    List<GetSearchReservationResultSet> getSearchReservationList
-    (@Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd);
+    List<GetSearchReservationResultSet> getSearchReservationList (
+        @Param("reservationStart") String reservationStart, 
+        @Param("reservationEnd") String reservationEnd
+    );
 
     // 보험별(업체) 가격 검색 결과 불러오기
     @Query(value =
-    "SELECT " +
-    "C.car_name AS carName, " +
-    "MAX(C.car_image_url) AS carImageUrl, " +
-    "MAX(C.fuel_type) AS fuelType, " +
-    "MAX(C.car_year) AS carYear, " +
-    "CM.address, " +
-    "MAX(CC.normal_price) AS normalPrice, " +
-    "MAX(CC.luxury_price) AS luxuryPrice, " +
-    "MAX(CC.super_price) AS superPrice, " +
-    "CM.rent_company AS rentCompany " +
-    "FROM company_car CC " +
-    "LEFT JOIN car C ON CC.car_code = C.car_code " +
-    "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
-    "WHERE company_car_code NOT IN ( " +
-    "SELECT company_car_code FROM reservation " +
-    "WHERE " +
-    "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
-    "OR " +
-    "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
-    "OR " +
-    "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
-    ") " +
-    "AND CC.company_code IN ( " +
-    "SELECT company_code " +
-    "FROM company " +
-    ") " +
-    "AND C.car_name = :carName " +
-    "GROUP BY C.car_name, CM.address, CM.rent_company"
-, nativeQuery=true)
-List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
-    @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, @Param("carName") String carName
-);
+        "SELECT " +
+        "C.car_name AS carName, " +
+        "MAX(C.car_image_url) AS carImageUrl, " +
+        "MAX(C.fuel_type) AS fuelType, " +
+        "MAX(C.car_year) AS carYear, " +
+        "CM.address, " +
+        "MAX(CC.normal_price) AS normalPrice, " +
+        "MAX(CC.luxury_price) AS luxuryPrice, " +
+        "MAX(CC.super_price) AS superPrice, " +
+        "CM.rent_company AS rentCompany " +
+        "FROM company_car CC " +
+        "LEFT JOIN car C ON CC.car_code = C.car_code " +
+        "LEFT JOIN company CM ON CC.company_code = CM.company_code " +
+        "WHERE company_car_code NOT IN ( " +
+        "SELECT company_car_code FROM reservation " +
+        "WHERE " +
+        "(reservation_start <= :reservationStart AND reservation_end >= :reservationStart) " +
+        "OR " +
+        "(reservation_start <= :reservationEnd AND reservation_end >= :reservationEnd) " +
+        "OR " +
+        "(reservation_start >= :reservationStart AND reservation_end <= :reservationEnd) " +
+        ") " +
+        "AND CC.company_code IN ( " +
+        "SELECT company_code " +
+        "FROM company " +
+        ") " +
+        "AND C.car_name = :carName " +
+        "GROUP BY C.car_name, CM.address, CM.rent_company"
+    , nativeQuery=true)
+    List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
+        @Param("reservationStart") String reservationStart, 
+        @Param("reservationEnd") String reservationEnd, 
+        @Param("carName") String carName
+    );
+
     // 차량 예약 상세 검색 결과 불러오기
     @Query(value = 
         "SELECT " +
@@ -257,8 +265,10 @@ List<GetSearchReservationPriceResultSet> getSearchReservationPriceList (
         "LIMIT 1"
     , nativeQuery=true)
     GetSearchReservationDetailResultSet getSearchReservationDetailList (
-        @Param("reservationStart") String reservationStart, @Param("reservationEnd") String reservationEnd, 
-        @Param("carName") String carName, @Param("rentCompany") String rentCompany
+        @Param("reservationStart") String reservationStart, 
+        @Param("reservationEnd") String reservationEnd, 
+        @Param("carName") String carName, 
+        @Param("rentCompany") String rentCompany
     );
 
 

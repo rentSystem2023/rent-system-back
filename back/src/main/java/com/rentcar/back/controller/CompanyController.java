@@ -30,6 +30,16 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
+    // 업체 등록하기
+    @PostMapping("/regist")
+    ResponseEntity<ResponseDto> postCompany(
+            @RequestBody @Valid PostCompanyRequestDto requestBody,
+            @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = companyService.postCompany(requestBody, userId);
+        return response;
+    }
+
     // 업체리스트 불러오기
     @GetMapping("/list")
     public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList(
@@ -54,16 +64,6 @@ public class CompanyController {
     ){
         ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService
                 .getSearchCompanyList(searchWord);
-        return response;
-    }
-
-    // 업체 등록하기
-    @PostMapping("/regist")
-    ResponseEntity<ResponseDto> postCompany(
-            @RequestBody @Valid PostCompanyRequestDto requestBody,
-            @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<ResponseDto> response = companyService.postCompany(requestBody, userId);
         return response;
     }
 

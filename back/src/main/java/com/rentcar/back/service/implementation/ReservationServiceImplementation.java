@@ -36,7 +36,7 @@ import com.rentcar.back.repository.resultSet.GetReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationDetailResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationPriceResultSet;
 import com.rentcar.back.repository.resultSet.GetSearchReservationResultSet;
-import com.rentcar.back.repository.resultSet.GetUserDetatilReservationResultSet;
+import com.rentcar.back.repository.resultSet.GetUserDetailReservationResultSet;
 import com.rentcar.back.repository.resultSet.GetUserReservationResultSet;
 import com.rentcar.back.service.ReservationService;
 
@@ -59,6 +59,7 @@ public class ReservationServiceImplementation implements ReservationService {
     public ResponseEntity<? super PostReservationResponseDto> postReservation(PostReservationRequestDto dto, String userId) {
 
         try {
+
             boolean isExistUser = userRepository.existsById(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
@@ -92,7 +93,9 @@ public class ReservationServiceImplementation implements ReservationService {
     // 내 예약 내역 보기
     @Override
     public ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId) {
+
         try {
+
             boolean isExistUser = userRepository.existsById(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
@@ -122,7 +125,7 @@ public class ReservationServiceImplementation implements ReservationService {
             boolean isUser = userId.equals(reservationId);
             if (!isUser) return ResponseDto.authorizationFailed();
 
-            GetUserDetatilReservationResultSet reservationDetail = reservationRepository.getUserDetailReservationList(userId, reservationCode);
+            GetUserDetailReservationResultSet reservationDetail = reservationRepository.getUserDetailReservationList(userId, reservationCode);
             return GetReservationDetailMyListResponseDto.success(reservationDetail);
 
         } catch (Exception exception) {
@@ -257,6 +260,7 @@ public class ReservationServiceImplementation implements ReservationService {
     // 예약 목록 리스트 삭제하기
     @Override
     public ResponseEntity<ResponseDto> deleteReservationList(int reservationCode, String userId) {
+        
         try {
             
             // 존재하는 예약인지 확인

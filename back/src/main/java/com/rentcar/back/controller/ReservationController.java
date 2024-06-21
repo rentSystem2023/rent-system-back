@@ -67,17 +67,6 @@ public class ReservationController {
         return response;
     }
 
-    // 예약 취소하기
-    @PatchMapping("/mylist/{reservationCode}/cancel")
-    public ResponseEntity<ResponseDto> PatchReservationCancel (
-        @AuthenticationPrincipal String userId,
-        @PathVariable ("reservationCode") int reservationCode,
-        @RequestBody @Valid PatchReservationStateRequestDto requestBody 
-    ){
-        ResponseEntity<ResponseDto> response = reservationService.patchReservation(requestBody, reservationCode, userId);
-        return response;
-    }
-
     // 취소 신청 예약 리스트 불러오기
     @GetMapping("/cancel/{reservationState}")
     public ResponseEntity<? super GetReservationCancelListResponseDto> GetReservationCancelList (
@@ -85,16 +74,6 @@ public class ReservationController {
         @PathVariable ("reservationState") String reservationState
     ){
         ResponseEntity<? super GetReservationCancelListResponseDto> response = reservationService.getReservationCancelList(userId, reservationState);
-        return response;
-    }
-
-    // 예약 취소 신청 승인하기
-    @PatchMapping("/cancel/{reservationCode}")
-    public ResponseEntity<ResponseDto> patchReservationCancelApprove (
-        @PathVariable ("reservationCode") int reservationCode,
-        @RequestBody @Valid PatchReservationStateRequestDto requestBody
-    ){
-        ResponseEntity<ResponseDto> response = reservationService.patchReservationCancel(requestBody, reservationCode);
         return response;
     }
 
@@ -125,21 +104,9 @@ public class ReservationController {
         return response;
     }
 
-    // 예약 목록 리스트 삭제하기
-    @DeleteMapping("/{reservationCode}")
-    public ResponseEntity<ResponseDto> DeleteReservtionList (
-        @AuthenticationPrincipal String userId,
-        @PathVariable ("reservationCode") int reservationCode
-    ){
-        ResponseEntity<ResponseDto> response = reservationService.deleteReservationList(reservationCode, userId);
-        return response;
-    }
-
     // 인기 차량 리스트 불러오기
     @GetMapping("/popular")
-    public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList (
-
-    ){
+    public ResponseEntity<? super GetReservationPopularListResponseDto> GetReservationPopularList (){
         ResponseEntity<? super GetReservationPopularListResponseDto> response = reservationService.getReservationPopularList();
         return response;
     }
@@ -174,6 +141,37 @@ public class ReservationController {
         @PathVariable ("rentCompany") String rentCompany
     ){
         ResponseEntity<? super GetSearchReservationDetailListResponseDto> response = reservationService.getSearchReservationDetailList(reservationStart, reservationEnd, carName, rentCompany);
+        return response;
+    }
+
+    // 예약 취소하기
+    @PatchMapping("/mylist/{reservationCode}/cancel")
+    public ResponseEntity<ResponseDto> PatchReservationCancel (
+        @AuthenticationPrincipal String userId,
+        @PathVariable ("reservationCode") int reservationCode,
+        @RequestBody @Valid PatchReservationStateRequestDto requestBody 
+    ){
+        ResponseEntity<ResponseDto> response = reservationService.patchReservation(requestBody, reservationCode, userId);
+        return response;
+    }
+
+    // 예약 취소 신청 승인하기
+    @PatchMapping("/cancel/{reservationCode}")
+    public ResponseEntity<ResponseDto> patchReservationCancelApprove (
+        @PathVariable ("reservationCode") int reservationCode,
+        @RequestBody @Valid PatchReservationStateRequestDto requestBody
+    ){
+        ResponseEntity<ResponseDto> response = reservationService.patchReservationCancel(requestBody, reservationCode);
+        return response;
+    }
+
+    // 예약 목록 리스트 삭제하기
+    @DeleteMapping("/{reservationCode}")
+    public ResponseEntity<ResponseDto> DeleteReservtionList (
+        @AuthenticationPrincipal String userId,
+        @PathVariable ("reservationCode") int reservationCode
+    ){
+        ResponseEntity<ResponseDto> response = reservationService.deleteReservationList(reservationCode, userId);
         return response;
     }
 }

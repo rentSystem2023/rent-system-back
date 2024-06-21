@@ -88,23 +88,19 @@ public class ResponseDto {
 
     // 존재하지 않는 업체
     public static ResponseEntity<ResponseDto> noExistCompany() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_COMPANY,
-                ResponseMessage.NO_EXIST_COMPANY);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_COMPANY, ResponseMessage.NO_EXIST_COMPANY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
     // 존재하지 않는 주소
     public static ResponseEntity<ResponseDto> noExistAddress() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_ADDRESS,
-                ResponseMessage.NO_EXIST_ADDRESS);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_ADDRESS, ResponseMessage.NO_EXIST_ADDRESS);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
-
     
     // 이미 등록된 업체
     public static ResponseEntity<ResponseDto> registrationCompany() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.REGISTRATION_COMPANY,
-                ResponseMessage.REGISTRATION_COMPANY);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.REGISTRATION_COMPANY, ResponseMessage.REGISTRATION_COMPANY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
     
@@ -134,29 +130,25 @@ public class ResponseDto {
 
     // 인증 실패
     public static ResponseEntity<ResponseDto> authenticationFailed() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHENTICATION_FAILED,
-                ResponseMessage.AUTHENTICATION_FAILED);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHENTICATION_FAILED, ResponseMessage.AUTHENTICATION_FAILED);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 
     // 인가 실패
     public static ResponseEntity<ResponseDto> authorizationFailed() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHORIZATION_FAILED,
-                ResponseMessage.AUTHORIZATION_FAILED);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHORIZATION_FAILED, ResponseMessage.AUTHORIZATION_FAILED);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseBody);
     }
 
     // 404 Not Found 처리
     public static ResponseEntity<ResponseDto> notFound() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND,
-                ResponseMessage.NOT_FOUND);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     }
 
     // 토큰 생성 실패
     public static ResponseEntity<ResponseDto> tokenCreationFailed() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.TOKEN_CREATION_FAILED,
-                ResponseMessage.TOKEN_CREATION_FAILED);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.TOKEN_CREATION_FAILED, ResponseMessage.TOKEN_CREATION_FAILED);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
     }
 

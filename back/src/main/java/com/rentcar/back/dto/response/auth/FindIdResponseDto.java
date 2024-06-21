@@ -24,8 +24,4 @@ public class FindIdResponseDto extends ResponseDto {
         FindIdResponseDto responseBody = new FindIdResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
-    public String getUserId () {
-        return userId;
-    }
 }

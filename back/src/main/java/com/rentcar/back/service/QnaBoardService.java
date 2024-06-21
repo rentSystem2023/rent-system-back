@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
-import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
+import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardMyListResponseDto;
@@ -30,7 +30,7 @@ public interface QnaBoardService {
     ResponseEntity<? super GetQnaBoardResponseDto> getQnaBoard(int receptionNumber);
 
     // 문의사항 수정하기
-    ResponseEntity<ResponseDto> putQnaBoard(PutQnaBoardRequsetDto dto, int receptionNumber, String userId);
+    ResponseEntity<ResponseDto> putQnaBoard(PutQnaBoardRequestDto dto, int receptionNumber, String userId);
 
     // 문의사항 조회수 증가
     ResponseEntity<ResponseDto> increaseViewCount(int receptionNumber);

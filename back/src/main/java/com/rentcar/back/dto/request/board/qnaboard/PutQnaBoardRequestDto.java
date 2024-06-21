@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PutQnaBoardRequsetDto {
+public class PutQnaBoardRequestDto {
     
     @NotBlank
     private String title;

@@ -22,6 +22,7 @@ public class PopularCarListItem {
 
     public static List<PopularCarListItem> getList(List<GetPopularCarResultSet> resultSets) throws Exception {
         List<PopularCarListItem> popularList = new ArrayList<>();
+        
         for (GetPopularCarResultSet resultSet : resultSets) {
             PopularCarListItem item = new PopularCarListItem(resultSet);
             popularList.add(item);
