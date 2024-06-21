@@ -70,7 +70,6 @@ public class ReservationServiceImplementation implements ReservationService {
             ReservationEntity reservationEntity = new ReservationEntity(dto, userId);
             reservationRepository.save(reservationEntity);
 
-            // 예약 횟수 증가
             CompanyCarEntity companyCarEntity = companyCarRepository.findByCompanyCarCode(companyCarCode);
             if (companyCarEntity != null) {
                 CarEntity carEntity = carRepository.findByCarCode(companyCarEntity.getCarCode());
@@ -116,11 +115,9 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
 
-            // reservationCode 로 존재하는 예약내역인지 확인
             ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
-            // 해당 예약이 사용자의 예약인지 확인
             String reservationId = reservationEntity.getUserId();
             boolean isUser = userId.equals(reservationId);
             if (!isUser) return ResponseDto.authorizationFailed();
@@ -140,11 +137,9 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
 
-            // reservationCode 로 존재하는 예약내역인지 확인
             ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
-            // 해당 예약이 사용자의 예약인지 확인
             String reservationId = reservationEntity.getUserId();
             boolean isUser = userId.equals(reservationId);
             if (!isUser) return ResponseDto.authorizationFailed();
@@ -181,13 +176,11 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
             
-            // 존재하는 예약인지 확인
             ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
-            // 예약상태가 cancel 상태인지 확인
             String reservationState = reservationEntity.getReservationState();
-            boolean isCancel = "watingCancel".equals(reservationState);
+            boolean isCancel = "waitingCancel".equals(reservationState);
             if (!isCancel) return ResponseDto.noCancelState();
 
             reservationEntity.update(dto);
@@ -228,7 +221,6 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
 
-            // 존재하는 예약인지 확인
             ReservationEntity reservationEntity = reservationRepository.findByReservationCode(ReservationCode);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
@@ -263,7 +255,6 @@ public class ReservationServiceImplementation implements ReservationService {
         
         try {
             
-            // 존재하는 예약인지 확인
             ReservationEntity reservationEntity = reservationRepository.findByReservationCode(reservationCode);
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
@@ -317,7 +308,6 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
 
-            // 존재하는 차량(명)인지 확인
             boolean existedCarName = carRepository.existsByCarName(carName);
             if (!existedCarName) return ResponseDto.noExistVehicle();
 
@@ -338,11 +328,9 @@ public class ReservationServiceImplementation implements ReservationService {
 
         try {
 
-            // 존재하는 차량(명)인지 확인
             boolean existedCarName = carRepository.existsByCarName(carName);
             if (!existedCarName) return ResponseDto.noExistVehicle();
 
-            // 존재하는 업체인지 확인
             boolean existedRentCompany = companyRepository.existsByRentCompany(rentCompany);
             if (!existedRentCompany) return ResponseDto.noExistCompany();
 

@@ -52,7 +52,6 @@ public ReservationEntity(PostReservationRequestDto dto, String userId) {
         this.companyCarCode = dto.getCompanyCarCode();
     }
 
-    // 예약상태 변경(예약취소, 취소승인)
     public void update(PatchReservationStateRequestDto dto) {         
         this.reservationState = dto.getReservationState();
     }
