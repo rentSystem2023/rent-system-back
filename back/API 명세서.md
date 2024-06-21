@@ -4674,7 +4674,7 @@ contentType: application/json;charset=UTF-8
 
 ***
 
-#### - 업체 전체 정보 리스트 불러오기  
+#### - 업체 전체 리스트 불러오기  
   
 ##### 설명
 
@@ -4723,6 +4723,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/company/list" \
 | owner | String | 담당자 | O |
 | companyTelnumber | String | 연락처 | O |
 | registDate | String | 등록일</br>(yy.mm.dd 형태) | O |
+| companyRule | String | 업체 방침 | X |
 
 ###### Example
 
@@ -4733,14 +4734,15 @@ contentType: application/json;charset=UTF-8
 {
   "code": "SU",
   "message": "Success.",
-  "boardList": [
+  "companyList": [
     {
-      "companyCode": 1,
-      "rentCompany": "민머리철수",
-      "address": "제주시 제주도",
+      "companyCode": 101,
+      "rentCompany": "A 제주공항점",
+      "address": "제주시",
       "owner": "김민철",
       "companyTelnumber": "010-1234-5678",
-      "registDate": "24.02.04"
+      "registDate": "24.02.04",
+      "companyRule": "영업시간 : 08:00 ~ 18:00"
     }, ...
   ]
 }
@@ -4773,6 +4775,123 @@ contentType: application/json;charset=UTF-8
 {
   "code": "AF",
   "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (데이터베이스 오류)**
+```bash
+HTTP/1.1 500 Internal Server Error
+contentType: application/json;charset=UTF-8
+{
+  "code": "DBE",
+  "message": "Database Error."
+}
+```
+
+***
+
+#### - 업체 상세 정보 불러오기  
+  
+##### 설명
+
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 요청을 보내면 업체 상세 정보를 반환합니다. 만약 불러오기에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러가 발생할 수 있습니다.
+
+- method : **GET**  
+- URL : **/list/{companyCode}**  
+
+##### Request
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| Authorization | 인증에 사용될 Bearer 토큰 | O |
+
+###### Example
+
+```bash
+curl -v -X GET "http://localhost:4000/api/rentcar/company/list/${companyCode}" \
+ -H "Authorization: Bearer {JWT}"
+```
+
+##### Response
+
+###### Header
+
+| name | description | required |
+|---|:---:|:---:|
+| contentType | 반환하는 Response Body의 Content Type (application/json) | O |
+
+###### Response Body
+
+| name | type | description | required |
+|---|:---:|:---:|:---:|
+| code | String | 결과 코드 | O |
+| message | String | 결과 메세지 | O |
+| companyCode | int | 업체 번호 | O |
+| rentCompany | String | 업체명 | O |
+| address | String | 주소 | O |
+| owner | String | 담당자 | O |
+| companyTelnumber | String | 연락처 | O |
+| registDate | String | 등록일</br>(yy.mm.dd 형태) | O |
+| companyRule | String | 업체 방침 | X |
+
+###### Example
+
+**응답 성공**
+```bash
+HTTP/1.1 200 OK
+contentType: application/json;charset=UTF-8
+{
+  "code": "SU",
+  "message": "Success.",
+  "companyCode": 101,
+  "rentCompany": "A 제주공항점",
+  "address": "제주시",
+  "owner": "김민철",
+  "companyTelnumber": "010-1234-5678",
+  "registDate": "24.02.04",
+  "companyRule": "영업시간 : 08:00 ~ 18:00"
+}
+```
+
+**응답 : 실패 (인증 실패)**
+```bash
+HTTP/1.1 401 Unauthorized
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authentication Failed."
+}
+```
+
+**응답 : 실패 (인가 실패)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (권한 없음)**
+```bash
+HTTP/1.1 403 Forbidden
+contentType: application/json;charset=UTF-8
+{
+  "code": "AF",
+  "message": "Authorization Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 업체)**
+```bash
+HTTP/1.1 400 Bad Request
+contentType: application/json;charset=UTF-8
+{
+  "code": "NC",
+  "message": "No Exist Company."
 }
 ```
 
@@ -4837,7 +4956,7 @@ curl -v -X GET "http://localhost:4000/api/rentcar/company/list/search?word=${sea
 | owner | String | 담당자 | O |
 | companyTelnumber | String | 연락처 | O |
 | registDate | String | 등록일</br>(yy.mm.dd 형태) | O |
-| companyRule | String | 업체 방침 | O |
+| companyRule | String | 업체 방침 | X |
 
 ###### Example
 
@@ -4850,13 +4969,13 @@ contentType: application/json;charset=UTF-8
   "message": "Success.",
   "companyList": [
     {
-      "companyCode": 1,
-      "rentCompany": "민머리철수",
-      "address": "제주시 제주도",
+      "companyCode": 101,
+      "rentCompany": "A 제주공항점",
+      "address": "제주시",
       "owner": "김민철",
       "companyTelnumber": "010-1234-5678",
       "registDate": "24.02.04",
-      "companyRule" : ""
+      "companyRule": "영업시간 : 08:00 ~ 18:00"
     }, ...
   ]
 }
@@ -4908,7 +5027,7 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체명, 사진, 담당자 이름, 연락처, 주소를 입력받고 등록에 성공하면 성공처리 합니다. 만약 등록에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체번호, 업체명, 주소, 담당자 이름, 연락처, 업체방침을 입력받고 등록에 성공하면 성공처리 합니다. 만약 등록에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
 - method : **POST**  
 - URL : **/regist**  
@@ -4925,6 +5044,7 @@ contentType: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
+| companyCode | Integer | 업체번호 | O |
 | rentCompany | String | 업체명 | O |
 | address | String | 주소 | O |
 | owner | String | 담당자 | O |
@@ -5036,9 +5156,9 @@ contentType: application/json;charset=UTF-8
   
 ##### 설명
 
-클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체명, 사진, 담당자 이름, 연락처, 주소를 입력받고 수정에 성공하면 성공처리 합니다. 만약 수정에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
+클라이언트로부터 Request Header의 Authorization 필드로 Bearer 토큰을 포함하여 업체코드, 업체명, 주소, 담당자 이름, 연락처, 업체방침을 입력받고 수정에 성공하면 성공처리 합니다. 만약 수정에 실패하면 실패처리를 합니다. 인가 실패, 인증 실패, 데이터베이스 에러, 데이터 유효성 검사 실패가 발생할 수 있습니다.
 
-- method : **PATCH**  
+- method : **PUT**  
 - URL : **/{companyCode}**  
 
 ##### Request
@@ -5059,6 +5179,7 @@ contentType: application/json;charset=UTF-8
 
 | name | type | description | required |
 |---|:---:|:---:|:---:|
+| companyCode | Integer | 업체번호 | O |
 | rentCompany | String | 업체명 | O |
 | address | String | 주소 | O |
 | owner | String | 담당자 | O |
@@ -5068,9 +5189,10 @@ contentType: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X PATCH "http://localhost:4000/api/rentcar/company/${companyCode}" \
+curl -v -X PUT "http://localhost:4000/api/rentcar/company/${companyCode}" \
  -H "Authorization: Bearer {JWT}"
- -d "rentCompany={rentCompany}" \
+ -d "companyCode={companyCode}" \
+ -d "rentCompany={rentCompany}" 
  -d "address={address}
  -d "owner={owner}
  -d "companyTelnumber={companyTelnumber}
