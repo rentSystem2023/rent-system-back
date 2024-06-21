@@ -18,7 +18,7 @@ import com.rentcar.back.dto.response.auth.SignInResponseDto;
 public interface AuthService {
     
     // 로그인
-    ResponseEntity<? super SignInResponseDto>signIn (SignInRequestDto dto);
+    ResponseEntity<? super SignInResponseDto> signIn (SignInRequestDto dto);
 
     // 아이디 체크
     ResponseEntity<ResponseDto> idCheck (IdCheckRequestDto dto);
@@ -33,10 +33,10 @@ public interface AuthService {
     ResponseEntity<ResponseDto> emailAuthCheck (EmailAuthCheckRequestDto dto);
 
     // 회원가입
-    ResponseEntity<ResponseDto> SignUp (SignUpRequestDto dto);
+    ResponseEntity<ResponseDto> signUp (SignUpRequestDto dto);
 
     // 아이디 찾기
-    ResponseEntity<? super FindIdResponseDto> FindId (FindIdRequestDto dto);
+    ResponseEntity<? super FindIdResponseDto> findId (FindIdRequestDto dto);
 
     // 비밀번호 찾기
     ResponseEntity<ResponseDto> findPassword (FindPasswordRequestDto dto);

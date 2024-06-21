@@ -121,7 +121,7 @@ public class AuthServiceImplementation implements AuthService {
 
         } catch (MessagingException exception) {
             exception.printStackTrace();
-            return ResponseDto.mailSendFailed(); 
+            return ResponseDto.mailSendFailed();
         }
 
         catch (Exception exception) {
@@ -152,7 +152,7 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> SignUp(SignUpRequestDto dto) {
+    public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
 
         try {
 
@@ -190,7 +190,7 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public ResponseEntity<? super FindIdResponseDto> FindId(FindIdRequestDto dto) {
+    public ResponseEntity<? super FindIdResponseDto> findId(FindIdRequestDto dto) {
 
         try {
 
@@ -221,13 +221,13 @@ public class AuthServiceImplementation implements AuthService {
 
             boolean isMatched = userRepository.existsByUserIdAndUserEmail(userId, userEmail);
             if (!isMatched) return ResponseDto.authenticationFailed();
-            
-            return ResponseDto.success();
 
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        
+        return ResponseDto.success();
     }
 
     @Override
@@ -252,12 +252,12 @@ public class AuthServiceImplementation implements AuthService {
 
             userRepository.save(userEntity);
 
-            return ResponseDto.success();
-
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return ResponseDto.success();
     }
 
 }

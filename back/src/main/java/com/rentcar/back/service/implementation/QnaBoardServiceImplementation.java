@@ -53,6 +53,7 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
         try {
 
             List<QnaBoardEntity> qnaBoardEntities = qnaBoardRepository.findByOrderByReceptionNumberDesc();
+            
             return GetQnaBoardListResponseDto.success(qnaBoardEntities);
 
         } catch (Exception exception) {
@@ -67,6 +68,7 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
         try {
 
             List<QnaBoardEntity> qnaboardEntities = qnaBoardRepository.findByTitleContainsOrderByReceptionNumberDesc(searchWord);
+
             return GetSearchQnaBoardListResponseDto.success(qnaboardEntities);
 
         } catch (Exception exception) {
@@ -207,6 +209,7 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
         try {
 
             List<QnaBoardEntity> qnaboardEntities = qnaBoardRepository.findByTitleContainsOrderByReceptionNumberDesc(searchWord);
+
             return GetSearchQnaBoardMyListResponseDto.success(qnaboardEntities);
 
         } catch (Exception exception) {
