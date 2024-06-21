@@ -31,6 +31,7 @@ public class CompanyServiceImplementation implements CompanyService {
         try {
 
             List<CompanyEntity> companyEntities = companyRepository.findByOrderByRegistDateDesc();
+            
             return GetCompanyListResponseDto.success(companyEntities);
 
         } catch (Exception exception) {

@@ -21,7 +21,7 @@ public interface ReservationService {
 
         // 나의 예약 리스트 보기
         ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId);
-        
+
         // 예약 하기
         ResponseEntity<? super PostReservationResponseDto> postReservation(PostReservationRequestDto dto, String userId);
 

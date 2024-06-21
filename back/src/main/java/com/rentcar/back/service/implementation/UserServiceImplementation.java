@@ -64,12 +64,12 @@ public class UserServiceImplementation implements UserService{
             userEntity = userRepository.findByUserId(userId);
             if(userEntity == null) return ResponseDto.authenticationFailed();
 
+            return GetMyInfoResponseDto.success(userEntity);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
-        return GetMyInfoResponseDto.success(userEntity);
     }
 
     @Override
@@ -92,12 +92,12 @@ public class UserServiceImplementation implements UserService{
             userEntity.findModify(dto);
             userRepository.save(userEntity);
 
-            return ResponseDto.success();
-
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return ResponseDto.success();
     }
     
     @Override
@@ -148,12 +148,12 @@ public class UserServiceImplementation implements UserService{
             userEntity.emailModify(dto);
             userRepository.save(userEntity);
 
-            return ResponseDto.success();
-
         } catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return ResponseDto.success();
     }
 
     @Override
@@ -166,12 +166,12 @@ public class UserServiceImplementation implements UserService{
 
             userRepository.delete(userEntity);
 
-            return ResponseDto.success();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return ResponseDto.success();
     }
 
      @Override
@@ -180,6 +180,7 @@ public class UserServiceImplementation implements UserService{
         try {
 
             List<UserEntity> userEntities = userRepository.findByOrderByJoinDateDesc();
+
             return GetUserListResponseDto.success(userEntities);
 
         } catch (Exception exception) {
@@ -197,12 +198,13 @@ public class UserServiceImplementation implements UserService{
             if (userEntity == null) return ResponseDto.noExistUser();
 
             userRepository.delete(userEntity);
-            return ResponseDto.success();
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return ResponseDto.success();
     }
 
     @Override
@@ -211,6 +213,7 @@ public class UserServiceImplementation implements UserService{
         try {
 
             List<UserEntity> userEntities = userRepository.findByUserIdContainsOrderByJoinDateDesc(searchWord);
+
             return GetSearchUserListResponseDto.success(userEntities);
 
         } catch (Exception exception) {
@@ -226,7 +229,8 @@ public class UserServiceImplementation implements UserService{
             UserEntity userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.noExistUser();
 
-            return GetUserDetailListResponseDto.success(userEntity); 
+            return GetUserDetailListResponseDto.success(userEntity);
+
         }catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.databaseError();

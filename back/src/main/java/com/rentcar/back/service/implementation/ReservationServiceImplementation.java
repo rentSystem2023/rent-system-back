@@ -89,6 +89,7 @@ public class ReservationServiceImplementation implements ReservationService {
             return ResponseDto.databaseError();
         }
     }
+
     // 내 예약 내역 보기
     @Override
     public ResponseEntity<? super GetReservationMyListResponseDto> getReservationMyList(String userId) {
@@ -108,10 +109,10 @@ public class ReservationServiceImplementation implements ReservationService {
         }
     }
 
-
     // 내 예약 내역 상세보기
     @Override
-    public ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservationDetailMyList(int reservationCode, String userId) {
+    public ResponseEntity<? super GetReservationDetailMyListResponseDto> getReservationDetailMyList(
+        int reservationCode, String userId) {
 
         try {
 
@@ -123,6 +124,7 @@ public class ReservationServiceImplementation implements ReservationService {
             if (!isUser) return ResponseDto.authorizationFailed();
 
             GetUserDetailReservationResultSet reservationDetail = reservationRepository.getUserDetailReservationList(userId, reservationCode);
+            
             return GetReservationDetailMyListResponseDto.success(reservationDetail);
 
         } catch (Exception exception) {
@@ -152,16 +154,19 @@ public class ReservationServiceImplementation implements ReservationService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return ResponseDto.success();
     }
 
     // 취소 신청 예약 리스트 불러오기
     @Override
-    public ResponseEntity<? super GetReservationCancelListResponseDto> getReservationCancelList(String userId, String reservationState) {
+    public ResponseEntity<? super GetReservationCancelListResponseDto> getReservationCancelList(
+        String userId, String reservationState) {
 
         try {
 
             List<ReservationEntity> reservationEntities = reservationRepository.findByReservationState("cancel");
+
             return GetReservationCancelListResponseDto.success(reservationEntities);
 
         } catch (Exception exception) {
@@ -225,6 +230,7 @@ public class ReservationServiceImplementation implements ReservationService {
             if (reservationEntity == null) return ResponseDto.noExistReservation();
 
             GetReservationDetailResultSet reservationDetail = reservationRepository.getReservationDetail(ReservationCode);
+
             return GetReservationDetailResponseDto.success(reservationDetail);
 
         } catch (Exception exception) {
@@ -241,6 +247,7 @@ public class ReservationServiceImplementation implements ReservationService {
             List<GetAllUserReservationResultSet> reservationEntity = new ArrayList<>();
             if (searchWord == null) reservationEntity = reservationRepository.getAllUserReservationList();
             else reservationEntity = reservationRepository.findByReservationCodeOrderByReservationCode(searchWord);
+
             return GetSearchReservationListResponseDto.success(reservationEntity);
 
         } catch (Exception exception) {
@@ -251,7 +258,8 @@ public class ReservationServiceImplementation implements ReservationService {
 
     // 예약 목록 리스트 삭제하기
     @Override
-    public ResponseEntity<ResponseDto> deleteReservationList(int reservationCode, String userId) {
+    public ResponseEntity<ResponseDto> deleteReservationList(
+        int reservationCode, String userId) {
         
         try {
             
@@ -287,7 +295,8 @@ public class ReservationServiceImplementation implements ReservationService {
 
     // 차량 검색 결과 불러오기
     @Override
-    public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(String reservationStart, String reservationEnd) {
+    public ResponseEntity<? super GetSearchReservationCarListResponseDto> getSearchReservationCarList(
+        String reservationStart, String reservationEnd) {
 
         try {
 
@@ -304,7 +313,7 @@ public class ReservationServiceImplementation implements ReservationService {
     // 보험별(업체) 가격 검색 결과 불러오기
     @Override
     public ResponseEntity<? super GetSearchReservationCarPriceListResponseDto> getSearchReservationCarPriceList(
-            String reservationStart, String reservationEnd, String carName) {
+        String reservationStart, String reservationEnd, String carName) {
 
         try {
 
@@ -324,7 +333,7 @@ public class ReservationServiceImplementation implements ReservationService {
     // 차량 예약 상세 검색 결과 불러오기
     @Override
     public ResponseEntity<? super GetSearchReservationDetailListResponseDto> getSearchReservationDetailList(
-            String reservationStart, String reservationEnd, String carName, String rentCompany) {
+        String reservationStart, String reservationEnd, String carName, String rentCompany) {
 
         try {
 
@@ -343,5 +352,4 @@ public class ReservationServiceImplementation implements ReservationService {
             return ResponseDto.databaseError();
         }
     }
-
 }
