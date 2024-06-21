@@ -9,10 +9,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rentcar.back.service.TestService;
+import com.rentcar.back.service.FileService;
 
 @Service
-public class TestServiceImplementation implements TestService {
+public class FileServiceImplementation implements FileService {
 
     @Value("${file.url}")
     private String fileUrl;

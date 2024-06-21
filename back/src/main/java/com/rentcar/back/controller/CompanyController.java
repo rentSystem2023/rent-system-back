@@ -35,7 +35,7 @@ public class CompanyController {
     ResponseEntity<ResponseDto> postCompany(
             @RequestBody @Valid PostCompanyRequestDto requestBody,
             @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = companyService.postCompany(requestBody, userId);
         return response;
     }
@@ -43,7 +43,7 @@ public class CompanyController {
     // 업체리스트 불러오기
     @GetMapping("/list")
     public ResponseEntity<? super GetCompanyListResponseDto> getCompanyList(
-    ){
+    ) {
         ResponseEntity<? super GetCompanyListResponseDto> response = companyService.getCompanyList();
         return response;
     }
@@ -52,7 +52,7 @@ public class CompanyController {
     @GetMapping("/list/{companyCode}")
     public ResponseEntity<? super GetCompanyDetailResponseDto> getCompanyDetail(
             @PathVariable("companyCode") int companyCode
-    ){
+    ) {
         ResponseEntity<? super GetCompanyDetailResponseDto> response = companyService.getCompanyDetail(companyCode);
         return response;
     }
@@ -61,7 +61,7 @@ public class CompanyController {
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchCompanyListResponseDto> getSearchCompanyList(
             @RequestParam("word") String searchWord
-    ){
+    ) {
         ResponseEntity<? super GetSearchCompanyListResponseDto> response = companyService
                 .getSearchCompanyList(searchWord);
         return response;
@@ -73,7 +73,7 @@ public class CompanyController {
             @RequestBody @Valid PutCompanyRequestDto requestBody,
             @PathVariable("companyCode") int companyCode,
             @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = companyService.putCompany(requestBody, companyCode, userId);
         return response;
     }
@@ -83,7 +83,7 @@ public class CompanyController {
     public ResponseEntity<ResponseDto> deleteCompany(
             @PathVariable("companyCode") int companyCode,
             @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = companyService.deleteCompany(companyCode, userId);
         return response;
     }

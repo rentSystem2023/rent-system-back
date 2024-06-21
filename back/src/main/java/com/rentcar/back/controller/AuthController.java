@@ -36,7 +36,7 @@ public class AuthController {
     @PostMapping("/sign-in")
     public ResponseEntity<? super SignInResponseDto> signIn (
         @RequestBody @Valid SignInRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
         return response;
     }
@@ -45,7 +45,7 @@ public class AuthController {
     @PostMapping("/id-check")
     public ResponseEntity<ResponseDto> idCheck (
         @RequestBody @Valid IdCheckRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.idCheck(requestBody);
         return response;
     }
@@ -54,7 +54,7 @@ public class AuthController {
     @PostMapping("/nickname-check")
     public ResponseEntity<ResponseDto> nickNameCheck (
         @RequestBody @Valid NickNameCheckRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.nickNameCheck(requestBody);
         return response;
     }
@@ -63,7 +63,7 @@ public class AuthController {
     @PostMapping("/email-auth")
     public ResponseEntity<ResponseDto> emailAuth (
         @RequestBody @Valid EmailAuthRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.emailAuth(requestBody);
         return response;
     }
@@ -72,7 +72,7 @@ public class AuthController {
     @PostMapping("/email-auth-check")
     public ResponseEntity<ResponseDto> emailAuthCheck (
         @RequestBody @Valid EmailAuthCheckRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.emailAuthCheck(requestBody);
         return response;
     }
@@ -81,7 +81,7 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<ResponseDto> signUp (
         @RequestBody @Valid SignUpRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.signUp(requestBody);
         return response;
     }
@@ -90,7 +90,7 @@ public class AuthController {
     @PostMapping("/find-id")
     public ResponseEntity<? super FindIdResponseDto> findId (
         @RequestBody @Valid FindIdRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<? super FindIdResponseDto> response = authService.findId(requestBody);
         return response;
     }
@@ -99,7 +99,7 @@ public class AuthController {
     @PostMapping("/find-password")
     public ResponseEntity<ResponseDto> findPassword (
         @RequestBody @Valid FindPasswordRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.findPassword(requestBody);
         return response;
     }
@@ -109,7 +109,7 @@ public class AuthController {
     public ResponseEntity<ResponseDto> findPasswordReset (
         @RequestBody @Valid FindPasswordResetRequestDto requestBody,
         @PathVariable("userId") String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = authService.findPasswordReset(requestBody, userId);
         return response;
     }
