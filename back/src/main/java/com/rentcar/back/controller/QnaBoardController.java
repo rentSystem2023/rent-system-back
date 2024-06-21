@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
-import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
+import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardMyListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardListResponseDto;
-import com.rentcar.back.dto.response.board.qnaboard.GetSearchQnaBoardMyListResponseDto;
 import com.rentcar.back.service.QnaBoardService;
 
 import jakarta.validation.Valid;
@@ -80,10 +79,19 @@ public class QnaBoardController {
         return response;
     }
 
+    // 나의 문의사항 리스트 불러오기
+    @GetMapping("/mylist")
+    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList (
+        @AuthenticationPrincipal String writerId
+    ) {
+        ResponseEntity<? super GetQnaBoardMyListResponseDto> response = qnaBoardService.getQnaBoardMyList(writerId);
+        return response;
+    }
+    
     // 문의사항 수정하기
     @PutMapping("/{receptionNumber}/modify")
     public ResponseEntity<ResponseDto> putQnaBoard (
-        @RequestBody @Valid PutQnaBoardRequsetDto requestBody,
+        @RequestBody @Valid PutQnaBoardRequestDto requestBody,
         @PathVariable("receptionNumber") int receptionNumber,
         @AuthenticationPrincipal String userId
     ){
@@ -107,15 +115,6 @@ public class QnaBoardController {
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<ResponseDto> response = qnaBoardService.deleteQnaBoard(receptionNumber, userId);
-        return response;
-    }
-
-    // 나의 문의사항 리스트 불러오기
-    @GetMapping("/mylist")
-    public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList (
-        @AuthenticationPrincipal String writerId
-    ) {
-        ResponseEntity<? super GetQnaBoardMyListResponseDto> response = qnaBoardService.getQnaBoardMyList(writerId);
         return response;
     }
 }

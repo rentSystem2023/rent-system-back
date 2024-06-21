@@ -29,5 +29,4 @@ public class GetReservationCancelListResponseDto extends ResponseDto {
         GetReservationCancelListResponseDto responseBody = new GetReservationCancelListResponseDto(reservationEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

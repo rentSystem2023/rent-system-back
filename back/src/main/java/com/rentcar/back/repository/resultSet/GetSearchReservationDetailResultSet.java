@@ -1,24 +1,25 @@
 package com.rentcar.back.repository.resultSet;
 
 public interface GetSearchReservationDetailResultSet {
-    String getCarName();
-    String getCarImageUrl();
-    String getCarYear();
-    String getBrand();
-    String getGrade();
-    Integer getCarOil();
-    String getFuelType();
-    Integer getCapacity();
-    Integer getNormalPrice();
-    Integer getLuxuryPrice();
-    Integer getSuperPrice();
-    Integer getCompanyCarCode();
-    String getRentCompany();
-    String getAddress();
-    String getCompanyTelnumber();
-    String getCompanyRule();
-    String getReservationStart();
-    String getReservationEnd();
+
     Double getCompanyLat();
     Double getCompanyLng();
+    Integer getCarOil();
+    Integer getCapacity();
+    Integer getSuperPrice();
+    Integer getNormalPrice();
+    Integer getLuxuryPrice();
+    Integer getCompanyCarCode();
+    String getBrand();
+    String getGrade();
+    String getCarName();
+    String getCarYear();
+    String getAddress();
+    String getFuelType();
+    String getRentCompany();
+    String getCompanyRule();
+    String getCarImageUrl();
+    String getReservationEnd();
+    String getCompanyTelnumber();
+    String getReservationStart();
 }

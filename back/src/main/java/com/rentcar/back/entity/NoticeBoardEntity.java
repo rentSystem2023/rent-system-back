@@ -36,6 +36,7 @@ public class NoticeBoardEntity {
     private String imageUrl;
     
     public NoticeBoardEntity(PostNoticeBoardRequestDto dto, String userId) {
+        
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String writeDatetime = simpleDateFormat.format(now);

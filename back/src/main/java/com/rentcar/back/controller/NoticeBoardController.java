@@ -95,5 +95,4 @@ public class NoticeBoardController {
         ResponseEntity<ResponseDto> response = noticeBoardService.deleteNoticeBoard(registNumber, userId);
         return response;  
     }
-
 }

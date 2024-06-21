@@ -60,10 +60,9 @@ public class CompanyServiceImplementation implements CompanyService {
 
         try{
 
-            List<CompanyEntity> companyEntities = companyRepository
-                .findByRentCompanyContainsOrderByRegistDateDesc(searchWord);
+            List<CompanyEntity> companyEntities = companyRepository.findByRentCompanyContainsOrderByRegistDateDesc(searchWord);
 
-                return GetSearchCompanyListResponseDto.success(companyEntities);
+            return GetSearchCompanyListResponseDto.success(companyEntities);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -100,9 +99,7 @@ public class CompanyServiceImplementation implements CompanyService {
             
             CompanyEntity companyEntity = companyRepository.findByCompanyCode(companyCode);
 
-            if(companyEntity == null) {
-                return ResponseDto.noExistCompany();
-            }
+            if(companyEntity == null) return ResponseDto.noExistCompany();
 
             companyEntity.update(dto);
             companyRepository.save(companyEntity);           
@@ -121,9 +118,7 @@ public class CompanyServiceImplementation implements CompanyService {
             
             CompanyEntity companyEntity = companyRepository.findByCompanyCode(companyCode);
 
-            if(companyEntity == null) {
-                return ResponseDto.noExistCompany();
-            }
+            if(companyEntity == null) return ResponseDto.noExistCompany();
 
             companyRepository.delete(companyEntity);        
 

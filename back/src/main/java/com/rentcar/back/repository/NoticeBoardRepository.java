@@ -9,10 +9,10 @@ import com.rentcar.back.entity.NoticeBoardEntity;
 
 @Repository
 public interface NoticeBoardRepository extends JpaRepository <NoticeBoardEntity, Integer> {
+
+    NoticeBoardEntity findByRegistNumber(Integer registNumber);
     
     List<NoticeBoardEntity> findByOrderByRegistNumberDesc();
 
     List<NoticeBoardEntity> findByTitleContainsOrderByRegistNumberDesc(String title);
-
-    NoticeBoardEntity findByRegistNumber(Integer registNumber);
 } 

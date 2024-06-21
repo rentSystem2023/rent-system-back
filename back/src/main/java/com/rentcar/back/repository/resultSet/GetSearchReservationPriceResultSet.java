@@ -1,13 +1,14 @@
 package com.rentcar.back.repository.resultSet;
 
 public interface GetSearchReservationPriceResultSet {
+
+    Integer getSuperPrice();
+    Integer getLuxuryPrice();
+    Integer getNormalPrice();
     String getCarName();
-    String getCarImageUrl();
-    String getFuelType();
-    String getRentCompany();
     String getCarYear();
     String getAddress();
-    Integer getNormalPrice();
-    Integer getLuxuryPrice();
-    Integer getSuperPrice();
+    String getFuelType();
+    String getCarImageUrl();
+    String getRentCompany();
 }

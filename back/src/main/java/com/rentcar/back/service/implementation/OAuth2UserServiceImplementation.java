@@ -69,6 +69,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             Map<String, String> response = (Map<String, String>) oAuth2User.getAttributes().get("response");
             id = response.get("id");
         }
+
         return id;
     }
 
@@ -84,6 +85,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             Map<String, String> response = (Map<String, String>) oAuth2User.getAttributes().get("response");
             nickName = response.get("nickname");
         }
+        
         return nickName;
     }
 }

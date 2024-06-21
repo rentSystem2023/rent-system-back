@@ -35,10 +35,12 @@ public class ReservationCarPriceListItem {
 
     public static List<ReservationCarPriceListItem> getList(List<GetSearchReservationPriceResultSet> resultSets)throws Exception {
         List<ReservationCarPriceListItem> reservationCarPriceList = new ArrayList<>();
+        
         for (GetSearchReservationPriceResultSet resultSet : resultSets) {
             ReservationCarPriceListItem item = new ReservationCarPriceListItem(resultSet);
             reservationCarPriceList.add(item);
         }
+
         return reservationCarPriceList;
     }
 }

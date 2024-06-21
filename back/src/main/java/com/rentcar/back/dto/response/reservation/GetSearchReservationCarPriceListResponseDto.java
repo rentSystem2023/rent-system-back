@@ -27,5 +27,4 @@ public class GetSearchReservationCarPriceListResponseDto extends ResponseDto {
         GetSearchReservationCarPriceListResponseDto responseBody = new GetSearchReservationCarPriceListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-    
 }

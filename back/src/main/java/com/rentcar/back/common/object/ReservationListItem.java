@@ -34,10 +34,12 @@ public class ReservationListItem {
 
     public static List<ReservationListItem> getList(List<GetUserReservationResultSet> resultSets) throws Exception {
         List<ReservationListItem> reservationList = new ArrayList<>();
+        
         for (GetUserReservationResultSet resultSet : resultSets) {
             ReservationListItem item = new ReservationListItem(resultSet);
             reservationList.add(item);
         }
+
         return reservationList;
     }
 }

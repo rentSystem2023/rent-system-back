@@ -32,6 +32,15 @@ public class UserController {
 
     private final UserService userService;
 
+    // 이메일 인증 확인
+    @PostMapping("/information/email-auth")
+    public ResponseEntity<ResponseDto> emailAuth(
+        @RequestBody @Valid EmailAuthRequestDto requestBody
+    ){
+        ResponseEntity<ResponseDto> response = userService.emailAuth(requestBody);
+        return response;
+    }
+
     // 사용자 정보 가져오기
     @GetMapping("/")
     public ResponseEntity<? super GetSignInUserResponseDto> getSignInUser(
@@ -47,45 +56,6 @@ public class UserController {
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<? super GetMyInfoResponseDto> response = userService.getMyInfo(userId);
-        return response;
-    }
-
-    // 비밀번호 수정하기
-    @PutMapping("/information/password-modify")
-    public ResponseEntity<ResponseDto> putPasswordModify(
-        @RequestBody @Valid PutPwModifyRequestDto requestBody,
-        @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<ResponseDto> response = userService.putPasswordModify(requestBody, userId);
-        return response;
-    }
-
-    // 이메일 인증 확인
-    @PostMapping("/information/email-auth")
-    public ResponseEntity<ResponseDto> emailAuth(
-        @RequestBody @Valid EmailAuthRequestDto requestBody
-    ){
-        ResponseEntity<ResponseDto> response = userService.emailAuth(requestBody);
-        return response;
-    }
-
-    // 이메일 수정하기
-    @PutMapping("/information/email-modify")
-    public ResponseEntity<ResponseDto> putEmailModify(
-        @RequestBody @Valid PutEmailModifyRequestDto requestBody,
-        @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<ResponseDto> response = userService.putEmailModify(requestBody, userId);
-        return response;
-    }
-
-    // 회원 탈퇴하기
-    @DeleteMapping("/information/{userId}")
-    public ResponseEntity<ResponseDto> deleteMyInfo(
-        // @PathVariable("userId") String userId
-        @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<ResponseDto> response = userService.deleteMyInfo(userId);
         return response;
     }
 
@@ -107,15 +77,6 @@ public class UserController {
         return response;
     }
 
-    // 회원 삭제하기
-    @DeleteMapping("/list/{userId}")
-    public ResponseEntity<ResponseDto> deleteUserList (
-        @PathVariable("userId") String userId
-    ) {
-        ResponseEntity<ResponseDto> response = userService.deleteUserList(userId);
-        return response;
-    }
-
     // 회원 검색하기
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (
@@ -125,4 +86,42 @@ public class UserController {
         return response;
     }
 
+    // 비밀번호 수정하기
+    @PutMapping("/information/password-modify")
+    public ResponseEntity<ResponseDto> putPasswordModify(
+        @RequestBody @Valid PutPwModifyRequestDto requestBody,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = userService.putPasswordModify(requestBody, userId);
+        return response;
+    }
+
+    // 이메일 수정하기
+    @PutMapping("/information/email-modify")
+    public ResponseEntity<ResponseDto> putEmailModify(
+        @RequestBody @Valid PutEmailModifyRequestDto requestBody,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = userService.putEmailModify(requestBody, userId);
+        return response;
+    }
+
+    // 회원 삭제하기
+    @DeleteMapping("/list/{userId}")
+    public ResponseEntity<ResponseDto> deleteUserList (
+        @PathVariable("userId") String userId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.deleteUserList(userId);
+        return response;
+    }
+
+    // 회원 탈퇴하기
+    @DeleteMapping("/information/{userId}")
+    public ResponseEntity<ResponseDto> deleteMyInfo(
+        // @PathVariable("userId") String userId
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = userService.deleteMyInfo(userId);
+        return response;
+    }
 }

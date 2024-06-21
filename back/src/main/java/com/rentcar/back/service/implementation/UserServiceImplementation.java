@@ -108,8 +108,7 @@ public class UserServiceImplementation implements UserService{
             String userEmail = dto.getUserEmail();
             boolean existedEmail = userRepository.existsByUserEmail(userEmail);
 
-            if (existedEmail)
-                return ResponseDto.duplicatedEmail();
+            if (existedEmail) return ResponseDto.duplicatedEmail();
 
             String authNumber = EmailAuthNumberUtil.createCodeNumber();
 
@@ -122,7 +121,6 @@ public class UserServiceImplementation implements UserService{
         } catch (MessagingException exception) {
             exception.printStackTrace();
             return ResponseDto.mailSendFailed(); 
-
         }
 
         catch (Exception exception) {
@@ -135,6 +133,7 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public ResponseEntity<ResponseDto> putEmailModify(PutEmailModifyRequestDto dto, String userId) {
+
         try {
 
             String userEmail = dto.getUserEmail();
@@ -142,8 +141,7 @@ public class UserServiceImplementation implements UserService{
 
             boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, userNumber);
             
-            if (!isMatched)
-                return ResponseDto.authenticationFailed();
+            if (!isMatched) return ResponseDto.authenticationFailed();
 
             UserEntity userEntity = userRepository.findByUserId(userId);
 

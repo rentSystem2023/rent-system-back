@@ -35,6 +35,7 @@ public class CompanyEntity {
     private String companyLng;
 
     public CompanyEntity(PostCompanyRequestDto dto, String userId) {
+        
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String companyDatetime = simpleDateFormat.format(now);

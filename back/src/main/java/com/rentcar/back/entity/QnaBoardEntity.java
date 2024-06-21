@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
-
-import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
+import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -62,7 +61,7 @@ public class QnaBoardEntity {
     }
 
     // 게시물 수정
-    public void update(PutQnaBoardRequsetDto dto) {
+    public void update(PutQnaBoardRequestDto dto) {
         this.title = dto.getTitle();
         this.contents = dto.getContents();
         this.category = dto.getCategory();

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaBoardRequestDto;
 import com.rentcar.back.dto.request.board.qnaboard.PostQnaCommentRequestDto;
-import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequsetDto;
+import com.rentcar.back.dto.request.board.qnaboard.PutQnaBoardRequestDto;
 import com.rentcar.back.dto.response.ResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardListResponseDto;
 import com.rentcar.back.dto.response.board.qnaboard.GetQnaBoardMyListResponseDto;
@@ -30,6 +30,7 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
 
     @Override
     public ResponseEntity<ResponseDto> postQnaBoard(PostQnaBoardRequestDto dto, String userId) {
+
         try {
 
             boolean isExistUser = userRepository.existsById(userId);
@@ -157,7 +158,7 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> putQnaBoard(PutQnaBoardRequsetDto dto, int receptionNumber, String userId) {
+    public ResponseEntity<ResponseDto> putQnaBoard(PutQnaBoardRequestDto dto, int receptionNumber, String userId) {
 
         try {
 
@@ -187,6 +188,7 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
 
     @Override
     public ResponseEntity<? super GetQnaBoardMyListResponseDto> getQnaBoardMyList(String writerId) {
+        
         try {
 
             List<QnaBoardEntity> qnaBoardEntities = qnaBoardRepository.findByWriterIdOrderByReceptionNumberDesc(writerId);
@@ -197,7 +199,6 @@ public class QnaBoardServiceImplementation implements QnaBoardService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        
     }
 
     @Override

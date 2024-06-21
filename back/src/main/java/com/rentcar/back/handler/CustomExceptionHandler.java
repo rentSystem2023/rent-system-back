@@ -13,11 +13,11 @@ import com.rentcar.back.dto.response.ResponseDto;
 public class CustomExceptionHandler {
 
     @ExceptionHandler({
-            MethodArgumentNotValidException.class,
-            HttpMessageNotReadableException.class
+        MethodArgumentNotValidException.class,
+        HttpMessageNotReadableException.class
     }) 
     public ResponseEntity<ResponseDto> validationExceptionHandler(
-            Exception exception) {
+        Exception exception) {
         exception.printStackTrace();
         return ResponseDto.validationFailed();
     }

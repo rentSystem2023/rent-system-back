@@ -25,6 +25,5 @@ public class GetUserListResponseDto extends ResponseDto {
     public static ResponseEntity<GetUserListResponseDto> success (List<UserEntity> userEntities) throws Exception {
         GetUserListResponseDto responseBody = new GetUserListResponseDto(userEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
-
     }
 }

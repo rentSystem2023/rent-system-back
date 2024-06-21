@@ -25,5 +25,4 @@ public class PostReservationResponseDto extends ResponseDto {
         PostReservationResponseDto responseBody = new PostReservationResponseDto(kakaoReady);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

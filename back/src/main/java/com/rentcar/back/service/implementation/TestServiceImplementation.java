@@ -20,40 +20,27 @@ public class TestServiceImplementation implements TestService {
     private String filePath;
 
     @Override
-
-    //파일 업로드
     public String upload(MultipartFile file) {
 
-        // 빈 파일인지 검증
-        if (file.isEmpty())
-            return null;
+        if (file.isEmpty()) return null;
 
-        // 원본 파일 명 (originalFileName = ".jpg")
         String originalFileName = file.getOriginalFilename();
-        // 원본 파일의 확장자를 구함 (extension = ".jpg")
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        // UUID 형식으로 임의의 문자열 생성 (uuid="98c8c2a5-c50d-4e96-a276-60aedf8daa86")
         String uuid = UUID.randomUUID().toString();
-        // 저장시 사용할 파일명 생성 ("98c8c2a5-c50d-4e96-a276-60aedf8daa86.jpg")
         String saveFileName = uuid + extension;
-        // 저장할 경로 생성 (프로퍼티즈에 지정되어 있음 (savePath =
-        // "D:/fileupload/98c8c2a5-c50d-4e96-a276-60aedf8daa86.jpg"))
         String savePath = filePath + saveFileName;
 
         try {
-            // 파일 저장
             file.transferTo(new File(savePath));
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
-        // 파일을 불러 올 수 있는 경로 생성 (url= "http://localhost:4000/file/98c8c2a5-c50d-4e96-a276-60aedf8daa86.jpg")
+
         String url = fileUrl + saveFileName;
         return url;
     }
 
-    // 파일 가져오기
     @Override
     public Resource getFile(String fileName) {
 
@@ -65,7 +52,7 @@ public class TestServiceImplementation implements TestService {
             exception.printStackTrace();
             return null;
         }
+
         return resource;
     }
-
 }
