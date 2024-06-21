@@ -38,7 +38,7 @@ public class QnaBoardController {
     ResponseEntity<ResponseDto> postQnaBoard (
         @RequestBody @Valid PostQnaBoardRequestDto requestBody, 
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = qnaBoardService.postQnaBoard(requestBody, userId);
         return response;
     }
@@ -48,7 +48,7 @@ public class QnaBoardController {
     public ResponseEntity<ResponseDto> postQnaComment (
         @RequestBody @Valid PostQnaCommentRequestDto requestBody,
         @PathVariable("receptionNumber") int receptionNumber
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = qnaBoardService.postQnaComment(requestBody, receptionNumber);
         return response;
     }
@@ -56,7 +56,7 @@ public class QnaBoardController {
     // 문의사항 전체 게시물 리스트 불러오기
     @GetMapping("/list")
     public ResponseEntity<? super GetQnaBoardListResponseDto> getQnaBoardList (
-    ){
+    ) {
         ResponseEntity<? super GetQnaBoardListResponseDto> response = qnaBoardService.getQnaBoardList();
         return response;
     }
@@ -65,7 +65,7 @@ public class QnaBoardController {
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchQnaBoardListResponseDto> getSearchBoardList (
         @RequestParam("word") String word
-    ){
+    ) {
         ResponseEntity<? super GetSearchQnaBoardListResponseDto> response = qnaBoardService.getSearchQnaBoardList(word);
         return response;
     }
@@ -74,7 +74,7 @@ public class QnaBoardController {
     @GetMapping("/list/{receptionNumber}")
     public ResponseEntity<? super GetQnaBoardResponseDto> getQnaBoard (
         @PathVariable("receptionNumber") int receptionNumber
-    ){
+    ) {
         ResponseEntity<? super GetQnaBoardResponseDto> response = qnaBoardService.getQnaBoard(receptionNumber);
         return response;
     }
@@ -94,7 +94,7 @@ public class QnaBoardController {
         @RequestBody @Valid PutQnaBoardRequestDto requestBody,
         @PathVariable("receptionNumber") int receptionNumber,
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = qnaBoardService.putQnaBoard(requestBody, receptionNumber, userId);
         return response;
     }
@@ -103,7 +103,7 @@ public class QnaBoardController {
     @PatchMapping("/{receptionNumber}/increase-view-count")
     public ResponseEntity<ResponseDto> increaseViewCount (
         @PathVariable("receptionNumber") int receptionNumber
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = qnaBoardService.increaseViewCount(receptionNumber);
         return response;
     }
@@ -113,7 +113,7 @@ public class QnaBoardController {
     public ResponseEntity<ResponseDto> deleteQnaBoard (
         @PathVariable("receptionNumber") int receptionNumber,
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = qnaBoardService.deleteQnaBoard(receptionNumber, userId);
         return response;
     }

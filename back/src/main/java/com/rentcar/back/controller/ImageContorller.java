@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rentcar.back.service.TestService;
+import com.rentcar.back.service.FileService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 public class ImageContorller {
 
-    private final TestService testService;
+    private final FileService testService;
 
     // 파일 업로드
     @PostMapping("/upload")

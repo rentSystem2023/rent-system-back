@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/information/email-auth")
     public ResponseEntity<ResponseDto> emailAuth(
         @RequestBody @Valid EmailAuthRequestDto requestBody
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = userService.emailAuth(requestBody);
         return response;
     }
@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/")
     public ResponseEntity<? super GetSignInUserResponseDto> getSignInUser(
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<? super GetSignInUserResponseDto> response = userService.getSignInUser(userId);
         return response;
     }
@@ -54,7 +54,7 @@ public class UserController {
     @GetMapping("/information")
     public ResponseEntity<? super GetMyInfoResponseDto> getMyInfo(
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<? super GetMyInfoResponseDto> response = userService.getMyInfo(userId);
         return response;
     }
@@ -63,7 +63,7 @@ public class UserController {
     @GetMapping("/list")
     public ResponseEntity<? super GetUserListResponseDto> getUserList (
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<? super GetUserListResponseDto> response = userService.getUserList(userId);
         return response;
     }
@@ -91,7 +91,7 @@ public class UserController {
     public ResponseEntity<ResponseDto> putPasswordModify(
         @RequestBody @Valid PutPwModifyRequestDto requestBody,
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = userService.putPasswordModify(requestBody, userId);
         return response;
     }
@@ -101,7 +101,7 @@ public class UserController {
     public ResponseEntity<ResponseDto> putEmailModify(
         @RequestBody @Valid PutEmailModifyRequestDto requestBody,
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = userService.putEmailModify(requestBody, userId);
         return response;
     }
@@ -120,7 +120,7 @@ public class UserController {
     public ResponseEntity<ResponseDto> deleteMyInfo(
         // @PathVariable("userId") String userId
         @AuthenticationPrincipal String userId
-    ){
+    ) {
         ResponseEntity<ResponseDto> response = userService.deleteMyInfo(userId);
         return response;
     }
