@@ -23,13 +23,13 @@ public class MailProvider {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         mimeMessage.setFrom(from);
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress(to));
-        mimeMessage.setSubject("estate 인증번호");
+        mimeMessage.setSubject("rentcar 인증번호");
         mimeMessage.setText(getText(authNumber), "utf-8", "html");
         javaMailSender.send(mimeMessage);
     }
 
     private String getText(String authNumber){
-        String text = "<h2 style='text-align : center'>estate 인증 번호</h2>" + "<p>요청하신 이메일 인증번호는 <strong style='color:red;'>"+
+        String text = "<h2 style='text-align : center'>rentcar 인증 번호</h2>" + "<p>요청하신 이메일 인증번호는 <strong style='color:red;'>"+
         authNumber +
         "</strong>입니다.</p>";
         return text;
@@ -48,7 +48,7 @@ public class MailProvider {
 
         mimeMessage.setFrom(from);
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress(to));
-        mimeMessage.setSubject("estate 인증번호");
+        mimeMessage.setSubject("rentcar 인증번호");
         mimeMessage.setText(getUserId(userId), "utf-8", "html");
         javaMailSender.send(mimeMessage);
     }
