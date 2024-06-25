@@ -2,6 +2,7 @@ package com.rentcar.back.handler;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
+    @Value("${front.url}")
+    private String front;
     private final JwtProvider jwtProvider;
     
     @Override
@@ -29,6 +32,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
         String token = jwtProvider.create(userId);
         
-        response.sendRedirect("http://localhost:3000/rentcar/auth/sns/" + token + "/4320000");
+        response.sendRedirect(front + "/rentcar/auth/sns/" + token + "/4320000");
 	}
 }
